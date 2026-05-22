@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Creu | Admin</title>
+  <link rel="icon" type="image/png" href="../assets/logo/crue-logo.png">
+  <link rel="apple-touch-icon" href="../assets/logo/crue-logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { primary: '#C84B16', background: '#FAF6F0', surface: '#F0E6DF', 'on-surface': '#1E293B' },
+          spacing: { 'margin-mobile': '20px', md: '24px', lg: '40px', gutter: '16px' }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="../css/admin_dashboard.css"/>
+  <link rel="stylesheet" href="../css/admin-theme.css"/>
+</head>
+<body class="admin-app-body font-body-md text-[#1E293B] antialiased">
+
+  <header class="admin-header fixed top-0 left-0 w-full z-50 flex justify-between items-center px-5 md:px-8 h-16 bg-[#1E293B]/95 backdrop-blur-md">
+    <div class="flex items-center gap-3">
+      <button type="button" id="admin-menu-toggle" class="md:hidden text-slate-300 hover:text-white p-1" aria-label="Menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+      <img alt="Creu" class="h-9 w-auto rounded-lg" src="../assets/logo/crue-logo.png"/>
+      <h1 class="text-lg font-bold text-[#C84B16] tracking-tight">Creu Admin</h1>
+    </div>
+    <div class="flex items-center gap-3">
+      <button type="button" id="logoutButton" class="inline-flex items-center gap-2 rounded-full border border-slate-500 px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/10 transition-all">
+        <span class="material-symbols-outlined text-sm">logout</span>
+        Logout
+      </button>
+    </div>
+  </header>
+
+  <div class="flex pt-16 min-h-screen">
+    <div id="admin-sidebar"></div>
+    <main id="admin-content" class="flex-1 md:ml-[260px] p-5 md:p-8 lg:p-10 max-w-[1400px]"></main>
+  </div>
+
+  <nav id="admin-mobile-nav" class="admin-mobile-nav md:hidden fixed z-50 flex justify-around items-center px-2 bg-[#1E293B]/95 backdrop-blur-md"></nav>
+
+  <div id="logoutModal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-slate-900/70 p-4">
+    <div class="w-full max-w-md bg-[#FAF6F0] p-6 shadow-2xl border border-slate-200/50">
+      <h2 class="text-xl font-semibold text-[#1E293B] mb-2">Confirm Logout</h2>
+      <p class="text-sm text-slate-600 mb-6">Leave the admin panel?</p>
+      <div class="flex justify-end gap-3">
+        <button type="button" id="logoutCancel" class="admin-btn-secondary text-sm">Cancel</button>
+        <button type="button" id="logoutConfirm" class="admin-btn-primary text-sm">Log Out</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/store.js"></script>
+  <script src="../js/admin-app.js"></script>
+</body>
+</html>

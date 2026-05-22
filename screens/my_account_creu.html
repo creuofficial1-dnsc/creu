@@ -1,0 +1,186 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>My Account | Creu</title>
+<link rel="icon" type="image/png" href="../assets/logo/crue-logo.png">
+<link rel="apple-touch-icon" href="../assets/logo/crue-logo.png">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="../css/material-symbols-outlined.css" rel="stylesheet">
+<link href="../css/font-face-noto-serif-plus-jakarta-sans.css" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary":               "#C84B16",
+                    "on-primary":            "#ffffff",
+                    "background":            "#FAF6F0",
+                    "surface":               "#F0E6DF",
+                    "on-surface":            "#1E293B",
+                    "on-surface-variant":    "#5c4037",
+                    "secondary":             "#515f74",
+                    "outline-variant":       "#e6beb2",
+                    "surface-container":     "#e7eeff",
+                    "surface-container-low": "#FAF6F0",
+                    "secondary-container":   "#d5e3fd",
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "16px",
+                    "md": "24px",
+                    "xs": "8px",
+                    "margin-mobile": "20px",
+                    "margin-desktop": "80px",
+                    "xl": "64px",
+                    "lg": "40px",
+                    "gutter": "16px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Noto Serif"],
+                    "headline-lg": ["Noto Serif"],
+                    "label-sm":    ["Plus Jakarta Sans"],
+                    "display-lg":  ["Noto Serif"],
+                    "body-md":     ["Plus Jakarta Sans"],
+                    "body-lg":     ["Plus Jakarta Sans"],
+                    "label-lg":    ["Plus Jakarta Sans"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                    "label-sm":    ["12px", {"lineHeight": "16px", "fontWeight": "500"}],
+                    "display-lg":  ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md":     ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg":     ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "label-lg":    ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+</script>
+
+  <link rel="stylesheet" href="../css/my_account_creu.css">
+  <link rel="stylesheet" href="../css/customer-theme.css">
+</head>
+<body class="font-body-md text-body-md text-on-surface antialiased bg-[#FAF6F0]">
+<div id="site-header"></div>
+<main class="pt-[100px] pb-[100px] lg:pb-xl px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto">
+
+<div id="auth-panel" class="max-w-lg mx-auto mb-xl">
+  <span class="font-label-lg text-label-lg uppercase tracking-widest text-primary mb-xs block text-center">My Account</span>
+  <h2 class="font-headline-lg text-headline-lg text-center text-on-surface mb-md">Sign in or create an account</h2>
+  <p class="text-center text-secondary text-sm mb-md">Optional for ordering — checkout works as guest too.</p>
+  <div class="flex gap-2 mb-md">
+    <button type="button" id="tab-login" data-auth-tab="login" class="flex-1 py-2 rounded-full font-label-lg text-label-lg bg-primary text-white">Log In</button>
+    <button type="button" id="tab-signup" data-auth-tab="signup" class="flex-1 py-2 rounded-full font-label-lg text-label-lg bg-[#F0E6DF] text-slate-700">Sign Up</button>
+  </div>
+  <div id="login-form-wrap" class="premium-card p-md">
+    <form id="login-form" class="space-y-md">
+      <div><label class="font-label-sm text-label-sm text-secondary uppercase">Email</label>
+        <input id="login-email" type="email" required class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2"/></div>
+      <div><label class="font-label-sm text-label-sm text-secondary uppercase">Password</label>
+        <input id="login-password" type="password" required class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2"/></div>
+      <button type="submit" class="w-full py-3 rounded-full bg-primary text-white font-label-lg uppercase tracking-widest">Log In</button>
+      <p id="login-msg"></p>
+    </form>
+  </div>
+  <div id="signup-form-wrap" class="premium-card p-md hidden">
+    <form id="signup-form" class="space-y-md">
+      <div><label class="font-label-sm text-label-sm text-secondary uppercase">Full Name</label>
+        <input id="signup-name" type="text" required class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2"/></div>
+      <div><label class="font-label-sm text-label-sm text-secondary uppercase">Email</label>
+        <input id="signup-email" type="email" required class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2"/></div>
+      <div><label class="font-label-sm text-label-sm text-secondary uppercase">Password</label>
+        <input id="signup-password" type="password" required minlength="4" class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2"/></div>
+      <div><label class="font-label-sm text-label-sm text-secondary uppercase">Confirm Password</label>
+        <input id="signup-confirm" type="password" required class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2"/></div>
+      <button type="submit" class="w-full py-3 rounded-full bg-primary text-white font-label-lg uppercase tracking-widest">Create Account</button>
+      <p id="signup-msg"></p>
+    </form>
+  </div>
+</div>
+
+<div id="profile-panel" class="hidden">
+<section class="flex flex-col md:flex-row justify-between items-end mb-xl gap-md">
+<div>
+<span class="font-label-lg text-label-lg uppercase tracking-widest text-primary mb-xs block">Welcome Back</span>
+<h2 class="font-display-lg text-display-lg text-on-surface" id="profile-name-display">Member</h2>
+<p class="font-body-lg text-body-lg text-secondary opacity-80 mt-xs" id="profile-email-display"></p>
+</div>
+<button id="logout-btn" type="button" class="h-[52px] px-xl border border-slate-300 text-slate-700 font-label-lg text-label-lg rounded-full hover:bg-[#F0E6DF] transition-all">Log Out</button>
+</section>
+<div class="grid grid-cols-12 gap-gutter mb-xl">
+<div class="col-span-12 md:col-span-6 premium-card p-md">
+  <h3 class="font-headline-md text-headline-md mb-md">Edit Profile</h3>
+  <form id="profile-form" class="space-y-md">
+    <div><label class="font-label-sm text-label-sm text-secondary uppercase">Name</label>
+      <input id="edit-name" type="text" required class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2"/></div>
+    <div><label class="font-label-sm text-label-sm text-secondary uppercase">Email</label>
+      <input id="edit-email" type="email" required class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2"/></div>
+    <button type="submit" class="py-2 px-6 rounded-full bg-primary text-white font-label-lg">Save Changes</button>
+    <p id="profile-msg"></p>
+  </form>
+</div>
+<div class="col-span-12 md:col-span-6 premium-card p-md">
+  <h3 class="font-headline-md text-headline-md mb-md">Change Password</h3>
+  <form id="password-form" class="space-y-md">
+    <div><label class="font-label-sm text-label-sm text-secondary uppercase">Current Password</label>
+      <input id="current-password" type="password" required class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2"/></div>
+    <div><label class="font-label-sm text-label-sm text-secondary uppercase">New Password</label>
+      <input id="new-password" type="password" required minlength="4" class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2"/></div>
+    <button type="submit" class="py-2 px-6 rounded-full border border-primary text-primary font-label-lg">Update Password</button>
+    <p id="password-msg"></p>
+  </form>
+</div>
+</div>
+</div>
+
+<div class="grid grid-cols-12 gap-gutter">
+<div class="col-span-12 lg:col-span-4 premium-card p-md bg-secondary-container/10">
+<h3 class="font-label-lg text-label-lg uppercase tracking-wider text-secondary mb-md">Account Stats</h3>
+<div class="space-y-md">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-xl bg-[#FAF6F0] flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary" data-icon="restaurant">restaurant</span>
+</div>
+<span class="font-body-md text-body-md">Dishes Saved</span>
+</div>
+<span class="font-headline-md text-headline-md">24</span>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-xl bg-[#FAF6F0] flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary" data-icon="receipt_long">receipt_long</span>
+</div>
+<span class="font-body-md text-body-md">Orders Placed</span>
+</div>
+<span class="font-headline-md text-headline-md" id="orders-count">0</span>
+</div>
+</div>
+<button class="w-full mt-md py-sm border border-secondary text-secondary font-label-lg text-label-lg rounded-full hover:bg-[#FAF6F0] transition-colors">
+                    Download Summary
+                </button>
+</div>
+<!-- Order History -->
+<div class="col-span-12 premium-card overflow-hidden mt-gutter">
+<div class="p-md border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="font-headline-md text-headline-md">My Orders</h3>
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">History</span>
+</div>
+<div id="order-history-list" class="divide-y divide-outline-variant/10"></div>
+</div>
+</div>
+</main>
+<div id="site-bottom-nav"></div>
+
+  <script src="../js/store.js"></script>
+  <script src="../js/layout.js?v=1.0.2"></script>
+  <script src="../js/my_account_creu.js"></script>
+</body></html>

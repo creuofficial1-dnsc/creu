@@ -1,0 +1,20 @@
+
+        body {
+            background-color: #FAF6F0; /* Warm Alabaster base */
+            color: #1E293B; /* Deep Slate-Navy */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .premium-card {
+            background-color: #F0E6DF;
+            border: 1px solid rgba(30, 41, 59, 0.08);
+            box-shadow: 0 22px 50px -24px rgba(30, 41, 59, 0.12);
+            border-radius: 1.75rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .premium-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 28px 56px -20px rgba(30, 41, 59, 0.16);
+        }
+    

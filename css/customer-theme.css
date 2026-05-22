@@ -1,0 +1,195 @@
+/* Creu customer UI — shared aesthetic (radius, depth, polish) */
+:root {
+  --creu-radius-sm: 0.75rem;
+  --creu-radius-md: 1rem;
+  --creu-radius-lg: 1.25rem;
+  --creu-radius-xl: 1.5rem;
+  --creu-radius-2xl: 1.75rem;
+  --creu-radius-pill: 9999px;
+  --creu-shadow-soft: 0 14px 40px -16px rgba(30, 41, 59, 0.14);
+  --creu-shadow-card: 0 22px 50px -24px rgba(30, 41, 59, 0.18);
+  --creu-shadow-header: 0 12px 32px -8px rgba(15, 23, 42, 0.35);
+  --creu-border: rgba(30, 41, 59, 0.08);
+}
+
+body {
+  background: linear-gradient(165deg, #faf6f0 0%, #f3ebe2 45%, #faf6f0 100%);
+  min-height: 100vh;
+}
+
+/* Header */
+.creu-header {
+  border-radius: 0 0 var(--creu-radius-2xl) var(--creu-radius-2xl);
+  box-shadow: var(--creu-shadow-header) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.creu-header img {
+  border-radius: var(--creu-radius-sm);
+}
+
+/* Mobile bottom nav — floating pill bar */
+.creu-bottom-nav {
+  left: 12px !important;
+  right: 12px !important;
+  width: auto !important;
+  bottom: 12px !important;
+  height: 72px !important;
+  border-radius: var(--creu-radius-2xl) !important;
+  box-shadow: 0 20px 50px -12px rgba(15, 23, 42, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.creu-bottom-nav a {
+  border-radius: var(--creu-radius-lg) !important;
+}
+
+/* Cards & surfaces */
+.creu-card,
+.product-card-hover,
+.premium-card,
+.creu-cart-item,
+.creu-surface-panel {
+  border-radius: var(--creu-radius-2xl) !important;
+  border: 1px solid var(--creu-border) !important;
+  box-shadow: var(--creu-shadow-card) !important;
+}
+
+.product-card-hover:hover,
+.premium-card:hover {
+  box-shadow: 0 28px 56px -20px rgba(30, 41, 59, 0.22) !important;
+}
+
+/* Home page product tiles */
+main .group.cursor-pointer.overflow-hidden.rounded-xl {
+  border-radius: var(--creu-radius-2xl) !important;
+  border: 1px solid var(--creu-border);
+  box-shadow: var(--creu-shadow-soft);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+main .group.cursor-pointer.overflow-hidden.rounded-xl:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--creu-shadow-card);
+}
+
+/* Hero — homepage full viewport; rounded bottom only when not full-bleed */
+body > main > .creu-hero:first-child {
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+/* Forms & inputs */
+input:not([type="radio"]):not([type="checkbox"]),
+select,
+textarea {
+  border-radius: var(--creu-radius-lg) !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(200, 75, 22, 0.15);
+}
+
+/* Buttons (filled & outline) */
+button,
+a.inline-flex[class*="rounded-full"],
+main a button,
+.creu-btn {
+  border-radius: var(--creu-radius-pill) !important;
+}
+
+/* Filter chips on menu */
+main button.rounded-full,
+main .rounded-full.bg-\[\#C84B16\] {
+  border-radius: var(--creu-radius-pill) !important;
+}
+
+/* Checkout / cart panels */
+aside .rounded-xl,
+#cart-panel .rounded-2xl,
+#cart-panel .rounded-xl,
+.bg-\[\#F0E6DF\].rounded-2xl,
+.bg-\[\#F0E6DF\].rounded-xl,
+section.bg-\[\#F0E6DF\].rounded-xl,
+section .rounded-xl.bg-\[\#F0E6DF\] {
+  border-radius: var(--creu-radius-2xl) !important;
+}
+
+/* Delivery / payment option cards */
+label .rounded-xl {
+  border-radius: var(--creu-radius-xl) !important;
+}
+
+/* Images inside cards */
+.creu-card .h-\[240px\],
+.creu-card .h-\[200px\],
+.product-card-hover .h-\[240px\],
+.product-card-hover .h-\[200px\] {
+  border-radius: var(--creu-radius-xl) var(--creu-radius-xl) 0 0;
+}
+
+.creu-cart-item img,
+.creu-cart-item > div:first-child {
+  border-radius: var(--creu-radius-lg) !important;
+}
+
+/* Toast */
+#toast > div {
+  border-radius: var(--creu-radius-pill) !important;
+  box-shadow: var(--creu-shadow-card);
+}
+
+/* Newsletter / CTA dark sections */
+section.rounded-2xl,
+section.bg-\[\#1E293B\].rounded-2xl {
+  border-radius: var(--creu-radius-2xl) !important;
+}
+
+/* Footer */
+footer {
+  border-radius: var(--creu-radius-2xl) var(--creu-radius-2xl) 0 0;
+  margin-top: 1rem;
+  border-top: 1px solid var(--creu-border);
+}
+
+/* Success modal */
+#order-success-modal > div {
+  border-radius: var(--creu-radius-2xl) !important;
+}
+
+/* Status badges */
+span.rounded-full,
+.absolute .rounded-full {
+  border-radius: var(--creu-radius-pill) !important;
+}
+
+/* Auth panel */
+#auth-panel .premium-card,
+#profile-panel .premium-card {
+  border-radius: var(--creu-radius-2xl) !important;
+}
+
+/* Qty controls */
+.bg-\[\#FAF6F0\].rounded-full {
+  border-radius: var(--creu-radius-pill) !important;
+}
+
+/* Main content breathing room */
+main {
+  animation: creuFadeIn 0.5s ease-out;
+}
+
+@keyframes creuFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (min-width: 1024px) {
+  .creu-bottom-nav {
+    display: none !important;
+  }
+}

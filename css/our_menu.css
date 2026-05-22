@@ -1,0 +1,26 @@
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .product-card-hover {
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border-radius: 1.75rem;
+        }
+        .product-card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 24px 48px rgba(30, 41, 59, 0.14);
+        }
+        .product-card-hover img {
+            transition: transform 0.6s ease;
+        }
+        body {
+            background-color: #FAF6F0; /* Warm Alabaster brand background */
+            color: #1E293B; /* Deep Slate-Navy text */
+        }
+    

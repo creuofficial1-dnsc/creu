@@ -1,0 +1,170 @@
+/* Creu Admin SPA theme */
+:root {
+  --admin-radius: 1rem;
+  --admin-radius-lg: 1.25rem;
+  --admin-radius-xl: 1.5rem;
+  --admin-shadow: 0 18px 45px -20px rgba(30, 41, 59, 0.15);
+}
+
+body.admin-app-body {
+  background: linear-gradient(160deg, #faf6f0 0%, #f0e6df 50%, #faf6f0 100%);
+  min-height: 100vh;
+}
+
+.admin-header {
+  border-radius: 0 0 var(--admin-radius-xl) var(--admin-radius-xl);
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.4);
+}
+
+.admin-sidebar {
+  border-radius: 0 var(--admin-radius-lg) var(--admin-radius-lg) 0;
+}
+
+.admin-sidebar .admin-nav-btn {
+  border-radius: var(--admin-radius-lg);
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.admin-mobile-nav {
+  left: 12px !important;
+  right: 12px !important;
+  width: auto !important;
+  bottom: 12px !important;
+  height: 72px !important;
+  border-radius: var(--admin-radius-xl) !important;
+  box-shadow: 0 16px 40px -8px rgba(15, 23, 42, 0.5) !important;
+}
+
+.admin-panel {
+  background: #f0e6df;
+  border: 1px solid rgba(30, 41, 59, 0.08);
+  border-radius: var(--admin-radius-xl);
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-stat-card {
+  background: #f0e6df;
+  border: 1px solid rgba(30, 41, 59, 0.08);
+  border-radius: var(--admin-radius-xl);
+  box-shadow: var(--admin-shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 50px -18px rgba(30, 41, 59, 0.2);
+}
+
+.admin-table-wrap {
+  border-radius: var(--admin-radius-xl);
+  overflow: hidden;
+}
+
+.admin-table-wrap table {
+  width: 100%;
+}
+
+.admin-table-wrap th {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  padding: 0.75rem 1rem;
+  background: rgba(250, 246, 240, 0.8);
+}
+
+.admin-table-wrap td {
+  padding: 0.85rem 1rem;
+  vertical-align: top;
+}
+
+.admin-table-wrap tbody tr {
+  border-top: 1px solid rgba(30, 41, 59, 0.08);
+}
+
+.admin-input,
+.admin-table-wrap input,
+.admin-table-wrap select {
+  border-radius: var(--admin-radius) !important;
+  border: 1px solid rgba(30, 41, 59, 0.15) !important;
+  background: #faf6f0 !important;
+}
+
+.admin-btn-primary {
+  border-radius: 9999px;
+  background: #c84b16;
+  color: white;
+  font-weight: 600;
+  padding: 0.65rem 1.5rem;
+  transition: filter 0.2s, transform 0.15s;
+}
+
+.admin-btn-primary:hover {
+  filter: brightness(1.05);
+}
+
+.admin-btn-secondary {
+  border-radius: 9999px;
+  border: 1px solid rgba(30, 41, 59, 0.2);
+  padding: 0.65rem 1.5rem;
+  background: transparent;
+  transition: background 0.2s;
+}
+
+.admin-btn-secondary:hover {
+  background: rgba(240, 230, 223, 0.8);
+}
+
+.admin-view {
+  animation: adminFadeIn 0.25s ease-out;
+}
+
+@keyframes adminFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+#admin-content {
+  min-height: calc(100vh - 64px);
+}
+
+.admin-notif-card {
+  border-radius: var(--admin-radius-lg);
+  border: 1px solid rgba(30, 41, 59, 0.08);
+}
+
+.admin-notif-card.unread {
+  border-left: 4px solid #c84b16;
+  background: rgba(200, 75, 22, 0.06);
+}
+
+#logoutModal > div {
+  border-radius: var(--admin-radius-xl);
+}
+
+@media (max-width: 767px) {
+  #admin-sidebar-el {
+    display: none !important;
+  }
+  #admin-sidebar-el.open {
+    display: flex !important;
+    left: 0;
+    top: 64px;
+    z-index: 45;
+    height: calc(100vh - 64px);
+    box-shadow: 8px 0 30px rgba(0, 0, 0, 0.2);
+  }
+  #admin-content {
+    padding-bottom: 5.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  #admin-sidebar-el {
+    display: flex !important;
+  }
+}
