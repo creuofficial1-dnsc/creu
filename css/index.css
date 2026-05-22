@@ -67,8 +67,8 @@ body {
 
 .hero-main-title {
     font-family: 'Noto Serif', serif;
-    font-size: clamp(4.5rem, 10vw, 8rem);
-    line-height: 0.85;
+    font-size: clamp(4rem, 9vw, 6.5rem);
+    line-height: 0.9;
     font-weight: 700;
     color: #F3C7B0;
     letter-spacing: -0.04em;
