@@ -17,44 +17,34 @@
 <body class="font-body-md text-on-surface antialiased bg-[#FAF6F0]">
 <div id="site-header"></div>
 <main class="pb-[100px] lg:pb-0">
-<!-- Immersive Hero Section — full viewport, extends behind fixed nav -->
+<!-- Immersive Hero Section -->
 <section class="creu-hero relative min-h-screen h-screen w-full overflow-hidden flex items-center justify-center bg-[#1E293B]">
-<div class="absolute inset-0 bg-cover bg-center transition-transform duration-1000 scale-105 hover:scale-100" style="background-image: url('assets/pictures/hero-section-background.jpg');">
-</div>
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/pictures/hero-section-background.jpg');"></div>
 <div class="absolute inset-0 hero-gradient"></div>
-<!-- Dark overlay for better text contrast -->
-<div class="absolute inset-0 bg-black/60"></div>
-<div class="relative z-10 max-w-[1280px] mx-auto px-margin-mobile pt-[64px]">
-  <div class="grid grid-cols-1 lg:grid-cols-[minmax(320px,_1fr)_minmax(360px,_420px)] gap-8 items-center">
-    <div class="hero-left text-left lg:text-left">
-      <span class="font-label-lg text-label-lg text-on-primary-container uppercase tracking-widest mb-4 block animate-fade-in">Creu Cordon Bleu</span>
-      <h2 class="font-headline-lg text-headline-lg text-on-primary-container mb-4 max-w-xl">The Bites That Hits Different</h2>
-      <p class="font-body-lg text-body-lg text-surface-container-low max-w-xl mb-8 opacity-90">
-        Discover Fish, Beef and Chicken Cordon Bleu meals with crisp coating, signature rice pairings, and meal combos made for sharing or quick pickup.
-      </p>
-      <div class="flex flex-wrap gap-4 items-center">
-        <a href="screens/our_menu.html" class="inline-flex items-center justify-center h-[52px] px-xl bg-[#C84B16] text-white font-label-lg rounded-full hover:shadow-lg active:scale-95 transition-all">
-          Menu
-        </a>
-        <a href="screens/our_menu.html" class="inline-flex items-center justify-center h-[52px] px-xl border border-white/20 bg-white/10 text-white font-label-lg rounded-full hover:bg-white/20 transition-all">
-          Search Menu
+<div class="absolute inset-0 bg-black/55"></div>
+<div class="relative z-10 max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop w-full">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center min-h-[80vh]">
+    <div class="hero-left text-center lg:text-left">
+      <div class="hero-main-title">Creu</div>
+      <h2 class="font-headline-lg text-headline-lg text-white mb-6 max-w-xl mx-auto lg:mx-0">The Bites That <span class="hero-tagline-em">Hits Different</span></h2>
+      <div class="flex flex-wrap gap-4 items-center justify-center lg:justify-start">
+        <a href="screens/our_menu.html" class="hero-cta-btn">
+          <span>Explore Menu</span>
+          <span class="material-symbols-outlined text-lg">arrow_forward</span>
         </a>
       </div>
     </div>
-    <div class="hero-carousel-container rounded-[2rem] border border-white/20 bg-white/10 backdrop-blur-xl p-4 shadow-[0_30px_80px_-35px_rgba(0,0,0,0.35)]">
-      <div class="hero-carousel-header flex items-center justify-between gap-4 mb-4">
-        <div>
-          <p class="text-sm uppercase tracking-[0.3em] text-white/70 mb-2">Featured meals</p>
-          <h3 class="font-headline-md text-headline-md text-white">What’s cooking today</h3>
-        </div>
-        <div class="flex gap-2">
-          <button type="button" id="hero-carousel-prev" class="h-11 w-11 rounded-full border border-white/20 text-white hover:bg-white/10 transition"><span class="material-symbols-outlined">chevron_left</span></button>
-          <button type="button" id="hero-carousel-next" class="h-11 w-11 rounded-full border border-white/20 text-white hover:bg-white/10 transition"><span class="material-symbols-outlined">chevron_right</span></button>
-        </div>
+    <div class="hero-carousel-wrapper">
+      <button type="button" id="hero-carousel-prev" class="hero-arrow hero-arrow-left" aria-label="Previous slide">
+        <span class="material-symbols-outlined">chevron_left</span>
+      </button>
+      <div class="hero-carousel-stage" id="hero-carousel">
+        <!-- Slide injected by JS -->
       </div>
-      <div id="hero-carousel" class="space-y-4">
-        <!-- Carousel slides injected here -->
-      </div>
+      <button type="button" id="hero-carousel-next" class="hero-arrow hero-arrow-right" aria-label="Next slide">
+        <span class="material-symbols-outlined">chevron_right</span>
+      </button>
+      <div class="hero-dots" id="hero-carousel-dots"></div>
     </div>
   </div>
 </div>

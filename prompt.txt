@@ -4,5 +4,3 @@ Analyze all of the codes to know the stucture of the codes, designs of the websi
 
 don't explain too much
 
-
-

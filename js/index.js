@@ -129,7 +129,8 @@ document.addEventListener('DOMContentLoaded', function () {
             title: 'Chicken Cordon Bleu Meal',
             subtitle: 'Crispy chicken with cheese and rice',
             price: '₱139.00',
-            image: 'assets/pictures/chicken poppers.jfif',
+            image: 'assets/pictures/chicken.png',
+            badge: 'BESTSELLER',
           },
           {
             title: 'Beef Cordon Bleu Shots',
@@ -141,20 +142,27 @@ document.addEventListener('DOMContentLoaded', function () {
             title: 'Fish Cordon Bleu Meal',
             subtitle: 'Golden fish with mozzarella and rice',
             price: '₱129.00',
-            image: 'assets/pictures/fish poppers.jfif',
+            image: 'assets/pictures/fish.png',
           },
         ];
 
         let heroIndex = 0;
+        let heroAutoplay = null;
 
-        function renderHeroSlide(index) {
+        function renderHeroSlide(index, direction = 1) {
           const container = document.getElementById('hero-carousel');
           if (!container) return;
           const slide = heroSlides[index];
+          
+          const animClass = direction > 0 ? 'hero-slide-in-right' : 'hero-slide-in-left';
+          
           container.innerHTML = `
-            <div class="hero-carousel-card">
-              <img src="${slide.image}" alt="${slide.title}" />
-              <div class="hero-carousel-card-content">
+            <div class="hero-carousel-card ${animClass}">
+              <div class="hero-carousel-card-img-wrap">
+                <img src="${slide.image}" alt="${slide.title}" />
+                ${slide.badge ? `<div class="hero-carousel-badge" style="position:absolute;top:16px;right:16px">${slide.badge}</div>` : ''}
+              </div>
+              <div class="hero-carousel-card-info">
                 <div class="hero-carousel-card-title">${slide.title}</div>
                 <div class="hero-carousel-card-subtitle">${slide.subtitle}</div>
                 <div class="hero-carousel-card-price">${slide.price}</div>
@@ -163,16 +171,74 @@ document.addEventListener('DOMContentLoaded', function () {
           `;
         }
 
+        function renderHeroDots() {
+          const dotsContainer = document.getElementById('hero-carousel-dots');
+          if (!dotsContainer) return;
+          
+          dotsContainer.innerHTML = heroSlides.map((_, i) => `
+            <button type="button" class="hero-dot ${i === heroIndex ? 'active' : ''}" data-index="${i}" aria-label="Go to slide ${i + 1}"></button>
+          `).join('');
+          
+          dotsContainer.querySelectorAll('.hero-dot').forEach(dot => {
+            dot.addEventListener('click', (e) => {
+              const targetIndex = parseInt(e.currentTarget.getAttribute('data-index'), 10);
+              if (targetIndex === heroIndex) return;
+              const direction = targetIndex > heroIndex ? 1 : -1;
+              goToHeroSlide(targetIndex, direction);
+              startAutoplay(); // Reset autoplay timer
+            });
+          });
+        }
+
+        function goToHeroSlide(index, direction = 1) {
+          heroIndex = index;
+          renderHeroSlide(heroIndex, direction);
+          renderHeroDots();
+        }
+
         function cycleHeroSlide(direction) {
-          heroIndex = (heroIndex + direction + heroSlides.length) % heroSlides.length;
-          renderHeroSlide(heroIndex);
+          const newIndex = (heroIndex + direction + heroSlides.length) % heroSlides.length;
+          goToHeroSlide(newIndex, direction);
+        }
+
+        function startAutoplay() {
+          stopAutoplay();
+          heroAutoplay = setInterval(() => cycleHeroSlide(1), 7000);
+        }
+
+        function stopAutoplay() {
+          if (heroAutoplay) {
+            clearInterval(heroAutoplay);
+            heroAutoplay = null;
+          }
         }
 
         document.addEventListener('DOMContentLoaded', () => {
           const prevButton = document.getElementById('hero-carousel-prev');
           const nextButton = document.getElementById('hero-carousel-next');
-          if (prevButton) prevButton.addEventListener('click', () => cycleHeroSlide(-1));
-          if (nextButton) nextButton.addEventListener('click', () => cycleHeroSlide(1));
-          renderHeroSlide(heroIndex);
+          
+          if (prevButton) {
+            prevButton.addEventListener('click', () => {
+              cycleHeroSlide(-1);
+              startAutoplay();
+            });
+          }
+          if (nextButton) {
+            nextButton.addEventListener('click', () => {
+              cycleHeroSlide(1);
+              startAutoplay();
+            });
+          }
+          
+          // Initial load
+          goToHeroSlide(heroIndex, 1);
+          startAutoplay();
+          
+          // Pause on hover
+          const wrapper = document.querySelector('.hero-carousel-wrapper');
+          if (wrapper) {
+            wrapper.addEventListener('mouseenter', stopAutoplay);
+            wrapper.addEventListener('mouseleave', startAutoplay);
+          }
         });
     
