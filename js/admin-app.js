@@ -497,4 +497,4 @@
 
   global.AdminApp = { navigate, render, getRoute };
   document.addEventListener('DOMContentLoaded', init);
-})();
+})(window);
