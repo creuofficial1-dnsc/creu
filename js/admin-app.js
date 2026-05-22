@@ -81,10 +81,6 @@
 
   function buildSidebar(activeId) {
     const unread = CreuStore.getUnreadNotificationCount();
-    const stats = CreuStore.dashboardStats();
-    const inv = CreuStore.getAllInventory();
-    const totalStock = inv.reduce((s, i) => s + (i.stock || 0), 0);
-    const pct = inv.length ? Math.min(100, Math.round((totalStock / (inv.length * 100)) * 100)) : 0;
 
     const nav = ROUTES.map((p) => {
       const active = p.id === activeId;
@@ -103,26 +99,19 @@
 
     return `
       <aside id="admin-sidebar-el" class="admin-sidebar flex flex-col w-[260px] fixed h-screen top-0 bg-[#1E293B] border-r border-slate-700/50 p-4 gap-3 z-40">
-        <div class="flex items-center gap-3 mb-3">
+        <div class="sidebar-brand flex flex-col items-center gap-3 mb-3 text-center">
           <img alt="Creu" class="h-9 w-auto rounded-lg" src="../assets/logo/crue-logo.png"/>
-          <div>
+          <div class="sidebar-brand-text">
             <h1 class="text-lg font-bold text-[#C84B16] tracking-tight">Creu Admin</h1>
             <p class="text-xs text-slate-300">Management</p>
           </div>
         </div>
         ${nav}
         <div class="mt-auto pt-4">
-          <div>
-            <p class="text-[10px] text-[#C84B16] mb-2 font-bold uppercase tracking-wider">Inventory Status</p>
-            <div class="flex justify-between items-end">
-              <span class="text-xl font-bold text-slate-200">${pct}%</span>
-              <span class="text-[10px] font-bold text-slate-400">${stats.lowStockCount} low</span>
-            </div>
-            <div class="w-full bg-slate-700 h-1.5 rounded-full mt-2">
-              <div class="bg-[#C84B16] h-full rounded-full" style="width:${pct}%"></div>
-            </div>
-          </div>
-          <button id="admin-logout-btn" class="w-full py-2 rounded-full border border-white/10 text-slate-200 hover:bg-white/5">Logout</button>
+          <button id="admin-logout-btn" class="admin-nav-btn flex items-center gap-3 px-4 py-3 text-slate-300 hover:text-white hover:bg-white/5">
+            <span class="material-symbols-outlined">logout</span>
+            <span class="text-sm uppercase tracking-wider font-semibold">Logout</span>
+          </button>
         </div>
       </aside>`;
   }

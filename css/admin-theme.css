@@ -146,18 +146,32 @@ body.admin-app-body {
   border-radius: var(--admin-radius-xl);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   #admin-sidebar-el {
-    display: none !important;
+    width: 80px !important;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
-  #admin-sidebar-el.open {
-    display: flex !important;
-    left: 0;
-    top: 64px;
-    z-index: 45;
-    height: calc(100vh - 64px);
-    box-shadow: 8px 0 30px rgba(0, 0, 0, 0.2);
+  #admin-sidebar-el .sidebar-brand-text {
+    display: none;
   }
+  #admin-sidebar-el .admin-nav-btn {
+    justify-content: center;
+    gap: 0;
+    padding: 0.85rem 0;
+  }
+  #admin-sidebar-el .admin-nav-btn span:last-child {
+    display: none;
+  }
+  #admin-sidebar-el .admin-nav-btn .material-symbols-outlined {
+    margin: 0;
+  }
+  #admin-sidebar-el .mt-auto {
+    padding-top: 0.75rem;
+  }
+}
+
+@media (max-width: 767px) {
   #admin-content {
     padding-bottom: 5.5rem;
   }

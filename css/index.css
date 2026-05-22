@@ -34,11 +34,11 @@ body {
 }
 
 .creu-hero .hero-gradient {
-    background: linear-gradient(0deg, rgba(17, 28, 45, 0.75) 0%, rgba(17, 28, 45, 0.15) 100%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0) 100%);
 }
 
 .hero-gradient {
-    background: linear-gradient(0deg, rgba(17, 28, 45, 0.7) 0%, rgba(17, 28, 45, 0.2) 100%);
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.5) 40%, rgba(0, 0, 0, 0) 100%);
 }
 
 .staggered-grid-item:nth-child(even) {
@@ -128,228 +128,12 @@ body {
 }
 
 /* ═══════════════════════════════════════
-   HERO — Carousel
+   Hero Animations
    ═══════════════════════════════════════ */
-
-.hero-carousel-wrapper {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem 2rem;
-    opacity: 0;
-    animation: heroFadeUp 1s 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-/* Arrow buttons — glassmorphic */
-.hero-arrow {
-    position: absolute;
-    z-index: 30;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(255, 255, 255, 0.15);
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-    outline: none;
-}
-
-.hero-arrow:hover {
-    background: rgba(200, 75, 22, 0.5);
-    border-color: rgba(200, 75, 22, 0.7);
-    color: #fff;
-    transform: scale(1.12);
-    box-shadow: 0 0 24px rgba(200, 75, 22, 0.25);
-}
-
-.hero-arrow:active {
-    transform: scale(0.92);
-}
-
-.hero-arrow-left {
-    left: -8px;
-}
-
-.hero-arrow-right {
-    right: -8px;
-}
-
-/* Carousel stage */
-.hero-carousel-stage {
-    width: 100%;
-    max-width: 380px;
-    position: relative;
-    overflow: visible;
-}
-
-/* Carousel card */
-.hero-carousel-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 0;
-}
-
-.hero-carousel-card-img-wrap {
-    position: relative;
-    display: inline-block;
-}
-
-.hero-carousel-card img {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 1.5rem;
-    box-shadow:
-        0 30px 60px -12px rgba(0, 0, 0, 0.45),
-        0 0 0 1px rgba(255, 255, 255, 0.05);
-    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.6s ease;
-}
-
-.hero-carousel-card:hover img {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow:
-        0 40px 80px -16px rgba(0, 0, 0, 0.5),
-        0 0 60px rgba(200, 75, 22, 0.08),
-        0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-
-.hero-carousel-card-info {
-    margin-top: 1.5rem;
-}
-
-.hero-carousel-card-title {
-    font-family: 'Noto Serif', serif;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 0.25rem;
-    letter-spacing: -0.01em;
-}
-
-.hero-carousel-card-subtitle {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.55);
-    margin-bottom: 0.75rem;
-}
-
-.hero-carousel-card-price {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: #F3C7B0;
-    letter-spacing: 0.02em;
-}
-
-.hero-carousel-badge {
-    display: inline-block;
-    background: rgba(200, 75, 22, 0.85);
-    backdrop-filter: blur(6px);
-    color: #fff;
-    padding: 5px 14px;
-    border-radius: 999px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-}
-
-/* Dot indicators */
-.hero-dots {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 1.75rem;
-}
-
-.hero-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.2);
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.hero-dot:hover {
-    background: rgba(255, 255, 255, 0.4);
-}
-
-.hero-dot.active {
-    width: 32px;
-    background: #C84B16;
-    box-shadow: 0 0 12px rgba(200, 75, 22, 0.4);
-}
-
-/* ═══════════════════════════════════════
-   Slide Animations
-   ═══════════════════════════════════════ */
-
-@keyframes heroSlideInRight {
-    from { opacity: 0; transform: translateX(50px) scale(0.95); }
-    to   { opacity: 1; transform: translateX(0) scale(1); }
-}
-
-@keyframes heroSlideInLeft {
-    from { opacity: 0; transform: translateX(-50px) scale(0.95); }
-    to   { opacity: 1; transform: translateX(0) scale(1); }
-}
-
-.hero-slide-in-right {
-    animation: heroSlideInRight 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.hero-slide-in-left {
-    animation: heroSlideInLeft 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
 
 @keyframes heroFadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ═══════════════════════════════════════
-   Responsive
-   ═══════════════════════════════════════ */
-
-@media (max-width: 1024px) {
-    .hero-carousel-card img {
-        width: 260px;
-        height: 260px;
-    }
-}
-
-@media (max-width: 640px) {
-    .hero-arrow {
-        width: 38px;
-        height: 38px;
-    }
-    .hero-arrow-left { left: -2px; }
-    .hero-arrow-right { right: -2px; }
-    .hero-carousel-card img {
-        width: 220px;
-        height: 220px;
-    }
-    .hero-main-title {
-        font-size: clamp(3.5rem, 14vw, 5rem);
-    }
-    .hero-carousel-stage {
-        max-width: 280px;
-    }
 }
 
 /* ═══════════════════════════════════════
