@@ -1,8 +1,10 @@
 function updateDeliveryUI() {
-  const method = document.querySelector('input[name="delivery_method"]:checked')?.value || 'shipping';
+  const method = document.querySelector('input[name="delivery_method"]:checked')?.value || 'delivery';
   const addressGroup = document.getElementById('checkout-address-group');
   const branchGroup = document.getElementById('checkout-branch-group');
   const addressLabel = document.getElementById('checkout-address-label');
+  const methodLabel = document.getElementById('checkout-method-label');
+  const methodDisplay = method === 'pickup' ? 'Pick up' : 'Delivery';
 
   if (method === 'pickup') {
     addressGroup?.classList.add('hidden');
@@ -13,6 +15,8 @@ function updateDeliveryUI() {
     branchGroup?.classList.add('hidden');
     if (addressLabel) addressLabel.textContent = 'Delivery Address';
   }
+
+  if (methodLabel) methodLabel.textContent = methodDisplay;
 }
 
 function renderCheckout() {
@@ -83,7 +87,7 @@ async function completeOrder() {
     return;
   }
 
-  const method = document.querySelector('input[name="delivery_method"]:checked')?.value || 'shipping';
+  const method = document.querySelector('input[name="delivery_method"]:checked')?.value || 'delivery';
   const payment = document.querySelector('input[name="payment_method"]:checked')?.value || 'gcash';
   const name = document.getElementById('checkout-name')?.value?.trim() || 'Guest';
   const phone = document.getElementById('checkout-phone')?.value?.trim() || '';
@@ -91,7 +95,7 @@ async function completeOrder() {
   const branch = document.getElementById('checkout-branch')?.value || 'Creu Central Branch';
   let address = document.getElementById('checkout-address')?.value?.trim() || '';
 
-  if (method === 'shipping' && !address) {
+  if (method === 'delivery' && !address) {
     await window.CreuModal?.showAlert({
       title: 'Address required',
       message: 'Please enter a delivery address before completing your order.',
