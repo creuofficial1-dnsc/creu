@@ -111,21 +111,29 @@
 </head>
 <body class="font-body-md text-on-surface selection:bg-[#F0E6DF] selection:text-[#C84B16] bg-[#FAF6F0] overflow-x-hidden">
 <div id="site-header"></div>
-<main class="pt-[100px] pb-[100px] lg:pb-xl px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto">
+<main class="pt-[100px] pb-[100px] lg:pb-xl px-margin-mobile md:px-margin-desktop max-w-[1280px] mx-auto relative">
+  <!-- Ambient Background Glows -->
+  <div class="absolute top-[10%] right-[5%] w-96 h-96 bg-[#C84B16]/5 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <div class="absolute top-[40%] left-[2%] w-80 h-80 bg-[#C84B16]/4 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <div class="absolute bottom-[20%] right-[10%] w-[450px] h-[450px] bg-[#C84B16]/6 rounded-full blur-3xl pointer-events-none -z-10"></div>
+
 <div class="grid grid-cols-1 md:grid-cols-12 gap-lg items-start">
 <!-- Left Column: Shipping & Payment Details -->
 <div class="md:col-span-7 space-y-lg">
 <!-- Delivery Options -->
 <section>
-<h2 class="font-headline-md text-headline-md text-on-surface mb-md">How do you want your order?</h2>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-md flex items-center gap-3">
+  <span class="w-1.5 h-6 bg-primary rounded-full inline-block"></span>
+  How do you want your order?
+</h2>
 <div class="grid grid-cols-2 gap-md">
 <label class="relative group cursor-pointer">
-<input checked="" class="peer sr-only" name="delivery_method" type="radio" value="delivery"/>
-<div class="p-md bg-[#F0E6DF] creu-surface-panel border-2 border-transparent peer-checked:border-primary peer-checked:bg-white transition-all duration-200">
+<input checked="" class="peer sr-only absolute inset-0 w-full h-full" name="delivery_method" type="radio" value="delivery"/>
+<div class="delivery-option-card p-md bg-white/80 creu-surface-panel border-2 border-transparent peer-checked:border-primary peer-checked:bg-[#FFF8F5] transition-all duration-200 shadow-sm hover:shadow-md">
 <div class="flex items-center justify-between mb-sm">
 <span class="material-symbols-outlined text-primary text-3xl">local_shipping</span>
-<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:bg-primary flex items-center justify-center">
-<div class="w-2 h-2 rounded-full bg-[#FAF6F0] opacity-0 peer-checked:opacity-100"></div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center bg-white transition-colors duration-200">
+<div class="w-2.5 h-2.5 rounded-full bg-[#FAF6F0]"></div>
 </div>
 </div>
 <p class="font-label-lg text-label-lg text-on-surface uppercase">Delivery</p>
@@ -133,11 +141,13 @@
 </div>
 </label>
 <label class="relative group cursor-pointer">
-<input class="peer sr-only" name="delivery_method" type="radio" value="pickup"/>
-<div class="p-md bg-[#F0E6DF] creu-surface-panel border-2 border-transparent peer-checked:border-primary transition-all duration-200">
+<input class="peer sr-only absolute inset-0 w-full h-full" name="delivery_method" type="radio" value="pickup"/>
+<div class="delivery-option-card p-md bg-white/80 creu-surface-panel border-2 border-transparent peer-checked:border-primary peer-checked:bg-[#FFF8F5] transition-all duration-200 shadow-sm hover:shadow-md">
 <div class="flex items-center justify-between mb-sm">
 <span class="material-symbols-outlined text-primary text-3xl">store</span>
-<div class="w-5 h-5 rounded-full border-2 border-outline-variant peer-checked:bg-primary"></div>
+<div class="w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center bg-white transition-colors duration-200">
+<div class="w-2.5 h-2.5 rounded-full bg-[#FAF6F0]"></div>
+</div>
 </div>
 <p class="font-label-lg text-label-lg text-on-surface uppercase">Pick up</p>
 <p class="font-body-md text-on-surface-variant text-sm mt-1">Available at select branches</p>
@@ -146,10 +156,13 @@
 </div>
 </section>
 <!-- Customer Information -->
-<section class="creu-surface-panel bg-[#F0E6DF] p-lg">
-<div class="mb-md">
-<h2 class="font-headline-md text-headline-md text-on-surface">Customer Information</h2>
-<p class="font-body-md text-slate-500">Provide your contact details and preferred delivery method.</p>
+<section class="creu-surface-panel bg-white/85 backdrop-blur-md p-lg shadow-md border border-slate-200/50">
+<div class="mb-md flex items-center gap-3">
+  <span class="w-1.5 h-6 bg-primary rounded-full inline-block"></span>
+  <div>
+    <h2 class="font-headline-md text-headline-md text-on-surface leading-none mb-1">Customer Information</h2>
+    <p class="font-body-md text-slate-500 text-sm">Provide your contact details and preferred delivery method.</p>
+  </div>
 </div>
 <div class="space-y-sm">
 <p id="guest-checkout-note" class="font-body-md text-sm text-slate-500 mb-md">Account is optional — order as a guest or <a href="my_account_creu.html" class="text-primary underline">sign in</a> to save history.</p>
@@ -181,16 +194,19 @@
 </section>
 <!-- Payment Methods -->
 <section>
-<h2 class="font-headline-md text-headline-md text-on-surface mb-md">Payment Method</h2>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-md flex items-center gap-3">
+  <span class="w-1.5 h-6 bg-primary rounded-full inline-block"></span>
+  Payment Method
+</h2>
 <div class="space-y-md">
-<label class="relative flex items-center bg-[#F0E6DF] creu-surface-panel p-md border-2 border-transparent has-[:checked]:border-primary transition-all cursor-pointer group">
+<label class="relative flex items-center bg-white/80 creu-surface-panel p-md border-2 border-transparent has-[:checked]:border-primary has-[:checked]:bg-[#FFF8F5] transition-all cursor-pointer group shadow-sm hover:shadow-md">
 <input checked="" class="peer sr-only" name="payment_method" type="radio" value="gcash"/>
 <div class="flex-1 flex items-center gap-md">
-<div class="w-12 h-12 bg-[#FAF6F0] rounded-2xl flex items-center justify-center text-primary">
+<div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary transition-colors duration-200">
 <span class="material-symbols-outlined text-3xl">account_balance_wallet</span>
 </div>
 <div>
-<p class="font-label-lg text-label-lg text-on-surface uppercase">GCash</p>
+<p class="font-label-lg text-label-lg text-on-surface uppercase group-has-[:checked]:text-primary transition-colors">GCash</p>
 <p class="font-body-md text-on-surface-variant text-sm">Pay instantly via your mobile wallet</p>
 </div>
 </div>
@@ -198,14 +214,14 @@
 <span class="material-symbols-outlined text-white text-[16px] hidden peer-checked:block" style="font-variation-settings: 'FILL' 1;">check</span>
 </div>
 </label>
-<label class="relative flex items-center bg-[#F0E6DF] creu-surface-panel p-md border-2 border-transparent has-[:checked]:border-primary transition-all cursor-pointer group">
+<label class="relative flex items-center bg-white/80 creu-surface-panel p-md border-2 border-transparent has-[:checked]:border-primary has-[:checked]:bg-[#FFF8F5] transition-all cursor-pointer group shadow-sm hover:shadow-md">
 <input class="peer sr-only" name="payment_method" type="radio" value="cod"/>
 <div class="flex-1 flex items-center gap-md">
-<div class="w-12 h-12 bg-[#FAF6F0] rounded-2xl flex items-center justify-center text-primary">
+<div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary transition-colors duration-200">
 <span class="material-symbols-outlined text-3xl">payments</span>
 </div>
 <div>
-<p class="font-label-lg text-label-lg text-on-surface uppercase">Cash on Delivery</p>
+<p class="font-label-lg text-label-lg text-on-surface uppercase group-has-[:checked]:text-primary transition-colors">Cash on Delivery</p>
 <p class="font-body-md text-on-surface-variant text-sm">Pay only when you receive your items</p>
 </div>
 </div>
@@ -217,23 +233,24 @@
 </section>
 </div>
 <!-- Right Column: Order Summary -->
-<div class="md:col-span-5 sticky top-[88px]">
-<aside class="creu-surface-panel bg-[#F0E6DF] overflow-hidden">
-<div class="p-lg bg-[#FAF6F0] border-b border-slate-200/50">
-<h2 class="font-headline-md text-headline-md text-on-surface">Order Summary</h2>
+<div class="md:col-span-5 sticky top-[88px] space-y-md">
+<aside class="creu-surface-panel bg-white/85 backdrop-blur-md overflow-hidden shadow-lg border border-slate-200/50">
+<div class="p-lg bg-gradient-to-r from-[#C84B16] to-[#E0602B] text-white border-b border-slate-200/50 flex items-center gap-3">
+  <span class="material-symbols-outlined text-white text-3xl">receipt_long</span>
+  <h2 class="font-headline-md text-headline-md text-white font-bold">Order Summary</h2>
 </div>
 <div class="p-lg space-y-md max-h-[400px] overflow-y-auto custom-scrollbar" id="checkout-items">
 <!-- Items rendered by checkout.js -->
 </div>
 <!-- Total Breakdown -->
-<div class="p-lg bg-[#FAF6F0] space-y-sm border-t border-slate-200/50">
+<div class="p-lg bg-white/95 space-y-sm border-t border-slate-200/50">
 <div class="flex justify-between font-body-md text-body-md text-on-surface-variant">
 <span>Subtotal</span>
 <span id="checkout-subtotal">₱0.00</span>
 </div>
 <div class="flex justify-between font-body-md text-body-md text-on-surface-variant">
 <span id="checkout-method-label">Delivery</span>
-<span class="text-primary font-bold">FREE</span>
+<span class="text-[#C84B16] font-bold">FREE</span>
 </div>
 <div class="h-px bg-outline-variant/30 my-sm"></div>
 <div class="flex justify-between items-center">
@@ -242,7 +259,7 @@
 </div>
 </div>
 <!-- CTA Button -->
-<div class="p-lg">
+<div class="p-lg bg-white/95">
 <button id="complete-order-btn" onclick="completeOrder()" class="w-full h-[52px] bg-primary text-white rounded-full font-label-lg text-label-lg uppercase tracking-widest shadow-lg hover:brightness-110 active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-sm">
   Complete Order
   <span class="material-symbols-outlined">arrow_forward</span>
@@ -253,13 +270,14 @@
 </div>
 </aside>
 <!-- Loyalty / Promo -->
-<div class="mt-md p-md bg-[#F0E6DF] creu-surface-panel flex items-center gap-md">
-<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">loyalty</span>
-<div class="flex-1">
-<p class="font-label-lg text-label-lg text-on-surface uppercase">Redeem Points</p>
-<p class="font-body-md text-on-surface-variant text-xs">You have 1,200 Creu points available.</p>
+<div class="p-md bg-gradient-to-br from-[#1E293B] to-[#2E3B4E] rounded-2xl text-white flex items-center gap-md border border-slate-700/35 shadow-xl">
+  <span class="material-symbols-outlined text-[#F3C7B0] text-3xl" style="font-variation-settings: 'FILL' 1;">loyalty</span>
+  <div class="flex-1">
+    <p class="font-label-lg text-label-lg text-[#F3C7B0] uppercase tracking-wider">Redeem Points</p>
+    <p class="font-body-md text-slate-300 text-xs mt-0.5">You have <span class="text-[#F3C7B0] font-bold">1,200</span> Creu points available.</p>
+  </div>
+  <button class="font-label-lg text-label-lg bg-[#C84B16] hover:bg-[#E0602B] text-white px-4 py-2 rounded-full transition-colors shadow-md">APPLY</button>
 </div>
-<button class="font-label-lg text-label-lg text-primary">APPLY</button>
 </div>
 </div>
 </main>

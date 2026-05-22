@@ -23,6 +23,23 @@
         padding-left: 20px !important;
         padding-right: 20px !important;
     }
+    .hero-left {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+    }
+    .hero-left h2 {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        text-align: center !important;
+    }
+    .hero-left div[class*="flex"],
+    .hero-left .flex {
+        justify-content: center !important;
+    }
 }
 
 .material-symbols-outlined {

@@ -3,13 +3,67 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
         body {
-            background-color: #FAF6F0; /* Warm Alabaster brand background */
+            background: linear-gradient(165deg, #FAF6F0 0%, #F5EDE4 50%, #FAF6F0 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
         }
         .custom-scrollbar::-webkit-scrollbar {
             width: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #e6beb2;
+            background: #C84B16;
             border-radius: 10px;
+        }
+
+        .delivery-option-card {
+            position: relative;
+        }
+
+        label.relative input.peer {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            opacity: 0;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        /* Active radio circle dot filling & transition */
+        input[name="delivery_method"]:checked + .delivery-option-card .rounded-full {
+            border-color: #C84B16 !important;
+            background-color: #C84B16 !important;
+        }
+
+        input[name="delivery_method"]:checked + .delivery-option-card .rounded-full > div {
+            opacity: 1 !important;
+            transform: scale(1) !important;
+            background-color: #FAF6F0 !important;
+        }
+
+        /* Default state of the inner dot */
+        .delivery-option-card .rounded-full > div {
+            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease, background-color 0.2s;
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        /* Sibling checkmark forces show in payment options when checked */
+        input[name="payment_method"]:checked ~ div .material-symbols-outlined {
+            display: block !important;
+        }
+
+        /* Animated bottom border focus for inputs */
+        .border-b.border-outline-variant\/30 {
+            position: relative;
+            border-bottom-width: 1px;
+            border-color: rgba(145, 111, 101, 0.25);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .border-b.border-outline-variant\/30:focus-within {
+            border-color: #C84B16;
+            box-shadow: 0 1px 0 0 #C84B16;
         }
     

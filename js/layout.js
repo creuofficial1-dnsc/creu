@@ -49,7 +49,7 @@ function buildHeader({ rootPrefix, screenPrefix, currentPage }) {
       <h1 class="font-headline-md text-headline-md font-bold tracking-tight text-[#C84B16]">Creu</h1>
     </div>
   </div>
-  <div class="hidden lg:flex items-center gap-6">
+  <div class="hidden lg:flex items-center gap-10">
     ${buildNavItem('Home', lookbookHref, currentPage === 'index.html')}
     ${buildNavItem('Menu', menuHref, currentPage === 'our_menu.html')}
     ${buildNavItem('Order', ordersHref, currentPage === 'checkout.html')}
