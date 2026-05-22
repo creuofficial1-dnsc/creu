@@ -102,10 +102,17 @@
     }).join('');
 
     return `
-      <aside id="admin-sidebar-el" class="admin-sidebar flex flex-col w-[260px] fixed h-[calc(100vh-64px)] top-[64px] bg-[#1E293B] border-r border-slate-700/50 p-4 gap-1 z-40">
+      <aside id="admin-sidebar-el" class="admin-sidebar flex flex-col w-[260px] fixed h-screen top-0 bg-[#1E293B] border-r border-slate-700/50 p-4 gap-3 z-40">
+        <div class="flex items-center gap-3 mb-3">
+          <img alt="Creu" class="h-9 w-auto rounded-lg" src="../assets/logo/crue-logo.png"/>
+          <div>
+            <h1 class="text-lg font-bold text-[#C84B16] tracking-tight">Creu Admin</h1>
+            <p class="text-xs text-slate-300">Management</p>
+          </div>
+        </div>
         ${nav}
-        <div class="mt-auto pt-6">
-          <div class="p-3 bg-white/5 rounded-xl border border-white/10">
+        <div class="mt-auto pt-4">
+          <div>
             <p class="text-[10px] text-[#C84B16] mb-2 font-bold uppercase tracking-wider">Inventory Status</p>
             <div class="flex justify-between items-end">
               <span class="text-xl font-bold text-slate-200">${pct}%</span>
@@ -115,6 +122,7 @@
               <div class="bg-[#C84B16] h-full rounded-full" style="width:${pct}%"></div>
             </div>
           </div>
+          <button id="admin-logout-btn" class="w-full py-2 rounded-full border border-white/10 text-slate-200 hover:bg-white/5">Logout</button>
         </div>
       </aside>`;
   }
@@ -459,7 +467,7 @@
   }
 
   function initLogout() {
-    const logoutButton = document.getElementById('logoutButton');
+    const logoutButton = document.getElementById('logoutButton') || document.getElementById('admin-logout-btn');
     const logoutModal = document.getElementById('logoutModal');
     const logoutCancel = document.getElementById('logoutCancel');
     const logoutConfirm = document.getElementById('logoutConfirm');
