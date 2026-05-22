@@ -38,7 +38,7 @@ function buildHeader({ rootPrefix, screenPrefix, currentPage }) {
 
   const cartCount = getCartCount();
   const badgeHtml = cartCount > 0
-    ? `<span class="absolute -top-1 -right-1 bg-[#C84B16] text-white text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-bold shadow-sm">${cartCount}</span>`
+    ? `<span class="absolute -top-1 -right-1 bg-[#C84B16] text-white text-[10px] min-w-[18px] h-[18px] rounded-full px-1.5 flex items-center justify-center font-bold shadow-sm">${cartCount}</span>`
     : '';
 
   return `
