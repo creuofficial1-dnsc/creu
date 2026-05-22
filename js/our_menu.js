@@ -1,4 +1,4 @@
-const { RICE_OPTIONS, getInventory, getCart, saveCart, getProductByName, beveragePrice, formatItemDetail } = CreuStore;
+const { RICE_OPTIONS, getInventory, getCart, saveCart, getProductById, beveragePrice, formatItemDetail } = CreuStore;
 
 function showToast(messageText) {
   const toast = document.getElementById('toast');
@@ -170,33 +170,6 @@ function flashButton(btn) {
   if (!btn) return;
   btn.classList.add('opacity-70');
   setTimeout(() => btn.classList.remove('opacity-70'), 600);
-}
-
-function filterCategory(category, buttonElement) {
-  const buttons = buttonElement.parentElement.querySelectorAll('button');
-  buttons.forEach((btn) => {
-    btn.classList.remove('bg-[#C84B16]', 'text-white', 'shadow-md');
-    btn.classList.add('bg-[#F0E6DF]', 'text-slate-800');
-  });
-  buttonElement.classList.remove('bg-[#F0E6DF]', 'text-slate-800');
-  buttonElement.classList.add('bg-[#C84B16]', 'text-white', 'shadow-md');
-
-  document.querySelectorAll('.menu-item').forEach((item) => {
-    const cat = item.getAttribute('data-category');
-    if (category === 'all') item.style.display = '';
-    else if (category === 'beverages') item.style.display = cat === 'beverages' ? '' : 'none';
-    else item.style.display = cat === category ? '' : 'none';
-  });
-
-  document.querySelectorAll('[data-menu-section]').forEach((sec) => {
-    if (category === 'all' || category === 'beverages') {
-      sec.style.display = '';
-    } else if (sec.dataset.menuSection === 'beverages') {
-      sec.style.display = 'none';
-    } else {
-      sec.style.display = '';
-    }
-  });
 }
 
 document.addEventListener('DOMContentLoaded', renderMenu);

@@ -77,8 +77,14 @@ function removeItem(idx) {
   renderCart();
 }
 
-function clearCart() {
-  if (!confirm('Clear all items from your cart?')) return;
+async function clearCart() {
+  const confirmed = await window.CreuModal?.showConfirm({
+    title: 'Clear cart',
+    message: 'Are you sure you want to remove all items from your cart?',
+    confirmText: 'Yes, clear it',
+    cancelText: 'Cancel'
+  });
+  if (!confirmed) return;
   localStorage.removeItem('creu_cart');
   if (window.renderLayout) window.renderLayout();
   renderCart();

@@ -145,11 +145,11 @@
 </label>
 </div>
 </section>
-<!-- Shipping Address -->
+<!-- Customer Information -->
 <section class="creu-surface-panel bg-[#F0E6DF] p-lg">
-<div class="flex items-center justify-between mb-md">
-<h2 class="font-headline-md text-headline-md text-on-surface">Shipping Address</h2>
-<button class="text-primary font-label-lg text-label-lg hover:underline transition-all">CHANGE</button>
+<div class="mb-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">Customer Information</h2>
+<p class="font-body-md text-slate-500">Provide your contact details and preferred delivery method.</p>
 </div>
 <div class="space-y-sm">
 <p id="guest-checkout-note" class="font-body-md text-sm text-slate-500 mb-md">Account is optional — order as a guest or <a href="my_account_creu.html" class="text-primary underline">sign in</a> to save history.</p>
@@ -161,9 +161,17 @@
 <label class="font-label-lg text-label-lg text-on-surface-variant uppercase mb-1">Email (optional)</label>
 <input id="checkout-email" class="bg-transparent border-none p-0 font-body-lg text-body-lg text-on-surface focus:ring-0 w-full" type="email" placeholder="email@example.com"/>
 </div>
-<div class="flex flex-col border-b border-outline-variant/30 pb-sm">
-<label class="font-label-lg text-label-lg text-on-surface-variant uppercase mb-1">Street Address</label>
+<div id="checkout-address-group" class="flex flex-col border-b border-outline-variant/30 pb-sm">
+<label id="checkout-address-label" class="font-label-lg text-label-lg text-on-surface-variant uppercase mb-1">Delivery Address</label>
 <input id="checkout-address" class="bg-transparent border-none p-0 font-body-lg text-body-lg text-on-surface focus:ring-0 w-full" type="text" placeholder="Delivery address"/>
+</div>
+<div id="checkout-branch-group" class="hidden flex flex-col border-b border-outline-variant/30 pb-sm">
+<label class="font-label-lg text-label-lg text-on-surface-variant uppercase mb-1">Pick-up Branch</label>
+<select id="checkout-branch" class="bg-transparent border-none p-0 font-body-lg text-body-lg text-on-surface focus:ring-0 w-full">
+<option value="Creu Central Branch">Creu Central Branch</option>
+<option value="Creu Uptown Branch">Creu Uptown Branch</option>
+<option value="Creu Eastwood Branch">Creu Eastwood Branch</option>
+</select>
 </div>
 <div class="flex flex-col border-b border-outline-variant/30 pb-sm">
 <label class="font-label-lg text-label-lg text-on-surface-variant uppercase mb-1">Phone Number</label>

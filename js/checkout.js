@@ -1,3 +1,20 @@
+function updateDeliveryUI() {
+  const method = document.querySelector('input[name="delivery_method"]:checked')?.value || 'shipping';
+  const addressGroup = document.getElementById('checkout-address-group');
+  const branchGroup = document.getElementById('checkout-branch-group');
+  const addressLabel = document.getElementById('checkout-address-label');
+
+  if (method === 'pickup') {
+    addressGroup?.classList.add('hidden');
+    branchGroup?.classList.remove('hidden');
+    if (addressLabel) addressLabel.textContent = 'Pickup details';
+  } else {
+    addressGroup?.classList.remove('hidden');
+    branchGroup?.classList.add('hidden');
+    if (addressLabel) addressLabel.textContent = 'Delivery Address';
+  }
+}
+
 function renderCheckout() {
   const container = document.getElementById('checkout-items');
   const subtotalEl = document.getElementById('checkout-subtotal');
@@ -13,6 +30,7 @@ function renderCheckout() {
   if (user && nameInput) nameInput.value = user.name;
   if (user && emailInput) emailInput.value = user.email;
   if (guestNote) guestNote.classList.toggle('hidden', !!user);
+  updateDeliveryUI();
 
   if (cart.length === 0) {
     container.innerHTML = `
@@ -54,10 +72,14 @@ function renderCheckout() {
   if (totalEl) totalEl.textContent = `₱${subtotal.toFixed(2)}`;
 }
 
-function completeOrder() {
+async function completeOrder() {
   const cart = CreuStore.getCart();
   if (cart.length === 0) {
-    alert('Your cart is empty. Add some items before ordering!');
+    await window.CreuModal?.showAlert({
+      title: 'Cart empty',
+      message: 'Your cart is empty. Add some items before ordering!',
+      confirmText: 'Back to menu'
+    });
     return;
   }
 
@@ -65,8 +87,22 @@ function completeOrder() {
   const payment = document.querySelector('input[name="payment_method"]:checked')?.value || 'gcash';
   const name = document.getElementById('checkout-name')?.value?.trim() || 'Guest';
   const phone = document.getElementById('checkout-phone')?.value?.trim() || '';
-  const address = document.getElementById('checkout-address')?.value?.trim() || '';
   const user = CreuStore.getCurrentUser();
+  const branch = document.getElementById('checkout-branch')?.value || 'Creu Central Branch';
+  let address = document.getElementById('checkout-address')?.value?.trim() || '';
+
+  if (method === 'shipping' && !address) {
+    await window.CreuModal?.showAlert({
+      title: 'Address required',
+      message: 'Please enter a delivery address before completing your order.',
+      confirmText: 'OK'
+    });
+    return;
+  }
+
+  if (method === 'pickup') {
+    address = `Pick-up at ${branch}`;
+  }
 
   const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
 
@@ -104,4 +140,9 @@ function completeOrder() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', renderCheckout);
+document.addEventListener('DOMContentLoaded', () => {
+  renderCheckout();
+  document.querySelectorAll('input[name="delivery_method"]').forEach((input) => {
+    input.addEventListener('change', updateDeliveryUI);
+  });
+});
