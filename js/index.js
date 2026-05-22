@@ -123,4 +123,56 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         });
+
+        const heroSlides = [
+          {
+            title: 'Chicken Cordon Bleu Meal',
+            subtitle: 'Crispy chicken with cheese and rice',
+            price: '₱139.00',
+            image: 'assets/pictures/chicken poppers.jfif',
+          },
+          {
+            title: 'Beef Cordon Bleu Shots',
+            subtitle: 'Bite-sized beef rolls with savory sauce',
+            price: '₱99.00',
+            image: 'assets/pictures/beef poppers.jfif',
+          },
+          {
+            title: 'Fish Cordon Bleu Meal',
+            subtitle: 'Golden fish with mozzarella and rice',
+            price: '₱129.00',
+            image: 'assets/pictures/fish poppers.jfif',
+          },
+        ];
+
+        let heroIndex = 0;
+
+        function renderHeroSlide(index) {
+          const container = document.getElementById('hero-carousel');
+          if (!container) return;
+          const slide = heroSlides[index];
+          container.innerHTML = `
+            <div class="hero-carousel-card">
+              <img src="${slide.image}" alt="${slide.title}" />
+              <div class="hero-carousel-card-content">
+                <div class="hero-carousel-card-title">${slide.title}</div>
+                <div class="hero-carousel-card-subtitle">${slide.subtitle}</div>
+                <div class="hero-carousel-card-price">${slide.price}</div>
+              </div>
+            </div>
+          `;
+        }
+
+        function cycleHeroSlide(direction) {
+          heroIndex = (heroIndex + direction + heroSlides.length) % heroSlides.length;
+          renderHeroSlide(heroIndex);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+          const prevButton = document.getElementById('hero-carousel-prev');
+          const nextButton = document.getElementById('hero-carousel-next');
+          if (prevButton) prevButton.addEventListener('click', () => cycleHeroSlide(-1));
+          if (nextButton) nextButton.addEventListener('click', () => cycleHeroSlide(1));
+          renderHeroSlide(heroIndex);
+        });
     

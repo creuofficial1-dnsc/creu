@@ -47,7 +47,6 @@ function buildHeader({ rootPrefix, screenPrefix, currentPage }) {
     <img alt="Creu Brand Logo" class="h-10 w-auto animate-fade-in" src="${rootPrefix}assets/logo/crue-logo.png" />
     <div>
       <h1 class="font-headline-md text-headline-md font-bold tracking-tight text-[#C84B16]">Creu</h1>
-      <p class="text-[12px] uppercase tracking-[0.25em] text-slate-300">Cordon Bleu meals &amp; bites</p>
     </div>
   </div>
   <div class="hidden lg:flex items-center gap-4">
@@ -57,10 +56,6 @@ function buildHeader({ rootPrefix, screenPrefix, currentPage }) {
     ${buildNavItem('Account', accountHref, currentPage === 'my_account_creu.html')}
   </div>
   <div class="flex items-center gap-3">
-    <a href="${menuHref}" class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-semibold text-white hover:bg-white/20 transition">
-      <span class="material-symbols-outlined text-base">search</span>
-      Search
-    </a>
     <a href="${cartHref}" class="material-symbols-outlined text-slate-300 hover:text-white transition-colors relative flex items-center justify-center w-9 h-9">
       shopping_bag
       ${badgeHtml}
