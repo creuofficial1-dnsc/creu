@@ -23,10 +23,39 @@
 
   function requireAdmin() {
     if (localStorage.getItem('creuAdminLoggedIn') !== 'true') {
-      window.location.href = 'index.html';
+      // Instead of redirecting, show a simple admin login prompt inside the admin content area
+      renderAdminLogin();
       return false;
     }
     return true;
+  }
+
+  function renderAdminLogin() {
+    const el = document.getElementById('admin-content');
+    if (!el) return;
+    el.innerHTML = `
+      <div class="max-w-md mx-auto p-8 bg-white rounded-xl shadow-lg text-center">
+        <h2 class="text-2xl font-bold mb-4">Admin Login</h2>
+        <p class="text-sm text-slate-600 mb-4">Enter your admin password to access the dashboard.</p>
+        <input id="admin-pass" type="password" placeholder="Password" class="w-full px-3 py-2 border rounded mb-4" />
+        <div class="flex gap-3 justify-center">
+          <button id="admin-login-btn" class="px-4 py-2 bg-[#C84B16] text-white rounded">Login</button>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">This is a local admin prompt for development. Use a secure setup in production.</p>
+      </div>`;
+    const btn = document.getElementById('admin-login-btn');
+    if (btn) {
+      btn.onclick = () => {
+        const pass = document.getElementById('admin-pass')?.value || '';
+        // Simple default password check; change as needed.
+        if (pass === 'admin' || pass === 'CreuAdmin') {
+          localStorage.setItem('creuAdminLoggedIn', 'true');
+          render();
+        } else {
+          alert('Incorrect password');
+        }
+      };
+    }
   }
 
   function getRoute() {

@@ -18,10 +18,14 @@ function renderAccount() {
     document.getElementById('profile-email-display').textContent = user.email;
     document.getElementById('edit-name').value = user.name;
     document.getElementById('edit-email').value = user.email;
+    const statsEl = document.getElementById('account-stats');
+    if (statsEl) statsEl.style.display = '';
     renderOrderHistory(user);
   } else {
     authPanel.classList.remove('hidden');
     profilePanel.classList.add('hidden');
+    const statsEl = document.getElementById('account-stats');
+    if (statsEl) statsEl.style.display = 'none';
     const list = document.getElementById('order-history-list');
     if (list) {
       list.innerHTML = '<div class="p-md text-center text-secondary font-body-md">Sign in to see orders linked to your account, or check out as a guest.</div>';
