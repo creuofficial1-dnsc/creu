@@ -347,32 +347,98 @@ function showPriceModal(item, idx, onSave) {
 
   function renderOrders() {
     const orders = CreuStore.getOrders();
+    const statusStyles = {
+      Confirmed: { bg: 'rgba(200,75,22,.06)', text: '#C84B16', border: 'rgba(200,75,22,.2)' },
+      Preparing: { bg: 'rgba(200,75,22,.06)', text: '#C84B16', border: 'rgba(200,75,22,.2)' },
+      Ready:     { bg: 'rgba(200,75,22,.06)', text: '#C84B16', border: 'rgba(200,75,22,.2)' },
+      Completed: { bg: 'rgba(30,41,59,.06)', text: '#1E293B', border: 'rgba(30,41,59,.15)' },
+      Cancelled: { bg: '#F8FAFC', text: '#94a3b8', border: 'rgba(148,163,184,0.2)' }
+    };
+
     const rows = orders.length
       ? orders.map((o) => {
-          const items = o.items.map((i) => `${esc(i.name)} ×${i.quantity}`).join('<br>');
+          const items = o.items.map((i) => {
+            const detailStr = i.rice || i.size ? ` <span style="font-size:11px;color:#64748b;font-weight:normal">(${[i.rice, i.size].filter(Boolean).join(', ')})</span>` : '';
+            return `<div style="font-size:13px;font-weight:600;color:#1E293B;margin-bottom:2px">${esc(i.name)} <span style="color:#C84B16;font-weight:700">×${i.quantity}</span>${detailStr}</div>`;
+          }).join('');
+
           const opts = ORDER_STATUSES.map((st) =>
             `<option value="${st}" ${st === o.status ? 'selected' : ''}>${st}</option>`).join('');
+
+          const style = statusStyles[o.status] || { bg: '#F1F5F9', text: '#475569', border: 'rgba(71,85,105,0.2)' };
+
+          let dateStr = o.date;
+          try {
+            if (o.createdAt) {
+              dateStr = new Date(o.createdAt).toLocaleString('en-PH', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+            } else if (o.date) {
+              dateStr = new Date(o.date).toLocaleString('en-PH', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+            }
+          } catch (e) {}
+
           return `<tr>
-            <td class="font-medium">#${esc(o.id)}</td>
-            <td class="text-sm">${esc(o.date)}</td>
-            <td>${esc(o.customerName || 'Guest')}<br><span class="text-xs text-slate-500">${esc(o.customerPhone || '')}</span></td>
-            <td class="text-sm">${items}</td>
-            <td class="font-bold">₱${o.total.toFixed(2)}</td>
-            <td><select data-order-id="${esc(o.id)}" class="order-status-select admin-input text-sm px-2 py-1">${opts}</select></td>
+            <td style="font-weight:700;color:#1E293B">#${esc(o.id)}</td>
+            <td style="font-size:13px;color:#475569;font-weight:500">${esc(dateStr)}</td>
+            <td>
+              <div style="font-weight:600;color:#1E293B;font-size:14px">${esc(o.customerName || 'Guest')}</div>
+              ${o.customerPhone ? `<div style="font-size:12px;color:#64748b;display:flex;align-items:center;gap:3px;margin-top:2px">
+                <span class="material-symbols-outlined" style="font-size:12px">phone</span>${esc(o.customerPhone)}
+              </div>` : ''}
+            </td>
+            <td>${items}</td>
+            <td style="font-size:14px;font-weight:800;color:#C84B16">₱${o.total.toFixed(2)}</td>
+            <td>
+              <select data-order-id="${esc(o.id)}" class="order-status-select text-xs font-bold px-3 py-1.5 rounded-full border cursor-pointer outline-none transition-all" style="background:${style.bg};color:${style.text};border-color:${style.border}">
+                ${opts}
+              </select>
+            </td>
           </tr>`;
         }).join('')
       : '';
 
+    const activeOrders = orders.filter(o => o.status !== 'Completed' && o.status !== 'Cancelled').length;
+    const revenue = orders.filter(o => o.status !== 'Cancelled').reduce((sum, o) => sum + o.total, 0);
+
     return `
       <div class="admin-view space-y-6">
         ${pageHeader(ROUTES[1])}
-        <div class="admin-panel admin-table-wrap p-4">
+
+        <!-- Summary bar -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:140px;background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:16px;padding:16px 20px;box-shadow:0 4px 16px rgba(30,41,59,.06)">
+            <p style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:600">Total Orders</p>
+            <p style="font-size:26px;font-weight:800;color:#1E293B;margin-top:2px">${orders.length}</p>
+          </div>
+          <div style="flex:1;min-width:140px;background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:16px;padding:16px 20px;box-shadow:0 4px 16px rgba(30,41,59,.06)">
+            <p style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:600">Active Orders</p>
+            <p style="font-size:26px;font-weight:800;color:#C84B16;margin-top:2px">${activeOrders}</p>
+          </div>
+          <div style="flex:1;min-width:140px;background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:16px;padding:16px 20px;box-shadow:0 4px 16px rgba(30,41,59,.06)">
+            <p style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:600">Revenue</p>
+            <p style="font-size:26px;font-weight:800;color:#1E293B;margin-top:2px">₱${revenue.toFixed(2)}</p>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div style="background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:20px;box-shadow:0 8px 30px rgba(30,41,59,.06);overflow:hidden">
+          <div style="padding:18px 24px;border-bottom:1px solid rgba(30,41,59,.07);display:flex;align-items:center;gap:10px">
+            <span class="material-symbols-outlined" style="color:#C84B16;font-size:20px;font-variation-settings:'FILL' 1">shopping_bag</span>
+            <span style="font-size:15px;font-weight:700;color:#1E293B">Customer Orders</span>
+            <span style="font-size:12px;color:#94a3b8;margin-left:4px">${orders.length} orders</span>
+          </div>
           <p id="orders-empty" class="${orders.length ? 'hidden' : ''} py-16 text-center text-slate-500">No customer orders yet.</p>
           <div class="overflow-x-auto ${orders.length ? '' : 'hidden'}">
-            <table>
-              <thead><tr>
-                <th>ID</th><th>Date</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th>
-              </tr></thead>
+            <table style="width:100%;border-collapse:collapse">
+              <thead>
+                <tr style="background:#faf6f0">
+                  <th style="padding:12px 20px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;white-space:nowrap">ID</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;white-space:nowrap">Date</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;white-space:nowrap">Customer</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Items</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;white-space:nowrap">Total</th>
+                  <th style="padding:12px 20px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;white-space:nowrap">Status</th>
+                </tr>
+              </thead>
               <tbody id="orders-table-body">${rows}</tbody>
             </table>
           </div>
@@ -390,7 +456,8 @@ function showPriceModal(item, idx, onSave) {
           message: `Order #${sel.dataset.orderId} → ${sel.value}`,
           read: false,
         });
-        renderShell();
+        showAdminToast(`Order status updated to <strong>${sel.value}</strong>`, 'success');
+        render();
       };
     });
   }
@@ -415,7 +482,6 @@ function showPriceModal(item, idx, onSave) {
   function renderInventory() {
     const items = CreuStore.getAllInventory();
     const rows = items.map((item, idx) => {
-      const canEditPrice = item.category === 'meal' || item.category === 'beverage';
       return `
       <tr class="inv-row" data-idx="${idx}" style="transition:background .15s">
         <td>
@@ -435,22 +501,19 @@ function showPriceModal(item, idx, onSave) {
           </div>
         </td>
         <td>
-          <label class="inv-toggle-label" style="display:flex;align-items:center;gap:8px;cursor:pointer">
-            <div class="inv-toggle-wrap" style="position:relative;width:40px;height:22px">
+          <label class="inv-toggle-label" style="display:inline-flex;align-items:center;cursor:pointer">
+            <div class="inv-toggle-wrap" style="position:relative;width:40px;height:22px;flex-shrink:0">
               <input type="checkbox" class="inv-enabled" ${item.enabled !== false ? 'checked' : ''} style="opacity:0;width:0;height:0;position:absolute"/>
               <span class="inv-toggle-track" style="position:absolute;inset:0;border-radius:9999px;background:${item.enabled !== false ? '#C84B16' : '#CBD5E1'};transition:background .25s"></span>
               <span class="inv-toggle-thumb" style="position:absolute;top:3px;left:${item.enabled !== false ? '21px' : '3px'};width:16px;height:16px;border-radius:9999px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.2);transition:left .25s"></span>
             </div>
-            <span style="font-size:12px;font-weight:600;color:${item.enabled !== false ? '#C84B16' : '#94a3b8'};letter-spacing:.04em">${item.enabled !== false ? 'LIVE' : 'OFF'}</span>
           </label>
         </td>
         <td>
           <div style="display:flex;align-items:center;gap:8px">
-            ${canEditPrice
-              ? `<button type="button" class="edit-price-btn" data-idx="${idx}" style="display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:9999px;border:1.5px solid rgba(200,75,22,.35);color:#C84B16;font-size:12px;font-weight:700;background:rgba(200,75,22,.06);cursor:pointer;transition:all .2s;font-family:inherit">
-                  <span class="material-symbols-outlined" style="font-size:15px">sell</span>Edit Price
-                </button>`
-              : `<input type="number" class="inv-price" value="${item.price}" style="width:80px;padding:6px 10px;border:1.5px solid rgba(30,41,59,.15);border-radius:10px;font-size:13px;background:#faf6f0;color:#1E293B;outline:none;font-family:inherit"/>`}
+            <button type="button" class="edit-price-btn" data-idx="${idx}" style="display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:9999px;border:1.5px solid rgba(200,75,22,.35);color:#C84B16;font-size:12px;font-weight:700;background:rgba(200,75,22,.06);cursor:pointer;transition:all .2s;font-family:inherit">
+              <span class="material-symbols-outlined" style="font-size:15px">sell</span>Edit Price
+            </button>
           </div>
         </td>
       </tr>`;
@@ -497,8 +560,8 @@ function showPriceModal(item, idx, onSave) {
                   <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Type</th>
                   <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Current Price</th>
                   <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Stock</th>
-                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Visibility</th>
-                  <th style="padding:12px 20px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Price Edit</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">On Menu</th>
+                  <th style="padding:12px 20px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Actions</th>
                 </tr>
               </thead>
               <tbody id="inventory-table-body">${rows}</tbody>
@@ -519,12 +582,9 @@ function showPriceModal(item, idx, onSave) {
       const checkbox = label.querySelector('.inv-enabled');
       const track = label.querySelector('.inv-toggle-track');
       const thumb = label.querySelector('.inv-toggle-thumb');
-      const badge = label.querySelector('span:last-child');
       checkbox.addEventListener('change', () => {
         track.style.background = checkbox.checked ? '#C84B16' : '#CBD5E1';
         thumb.style.left = checkbox.checked ? '21px' : '3px';
-        badge.style.color = checkbox.checked ? '#C84B16' : '#94a3b8';
-        badge.textContent = checkbox.checked ? 'LIVE' : 'OFF';
       });
     });
 
@@ -593,27 +653,81 @@ function showPriceModal(item, idx, onSave) {
   function renderCustomers() {
     const users = CreuStore.getUsers();
     const orders = CreuStore.getOrders();
-    const rows = users.map((u) => {
+    
+    const totalSpent = users.reduce((sum, u) => {
       const userOrders = orders.filter((o) => o.userId === u.id || o.customerEmail === u.email);
-      const spent = userOrders.reduce((s, o) => s + o.total, 0);
-      const joined = new Date(u.createdAt).toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' });
-      return `<tr>
-        <td class="font-bold">${esc(u.name)}</td>
-        <td class="text-sm">${esc(u.email)}</td>
-        <td class="text-sm">${joined}</td>
-        <td>${userOrders.length}</td>
-        <td class="font-bold text-[#C84B16]">₱${spent.toFixed(2)}</td>
-      </tr>`;
-    }).join('');
+      return sum + userOrders.reduce((s, o) => s + o.total, 0);
+    }, 0);
+    
+    const avgSpent = users.length ? totalSpent / users.length : 0;
+
+    const rows = users.length
+      ? users.map((u) => {
+          const userOrders = orders.filter((o) => o.userId === u.id || o.customerEmail === u.email);
+          const spent = userOrders.reduce((s, o) => s + o.total, 0);
+          const joined = new Date(u.createdAt || Date.now()).toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' });
+          const initials = u.name ? u.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() : 'U';
+
+          return `<tr>
+            <td>
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:36px;height:36px;border-radius:50%;background:rgba(30,41,59,.06);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#1E293B;font-size:13px;font-weight:700;letter-spacing:.05em;border:1px solid rgba(30,41,59,.05)">
+                  ${esc(initials)}
+                </div>
+                <div style="font-weight:600;color:#1E293B;font-size:14px">${esc(u.name)}</div>
+              </div>
+            </td>
+            <td style="font-size:13px;color:#475569;font-weight:500">${esc(u.email)}</td>
+            <td style="font-size:13px;color:#475569;font-weight:500">${esc(joined)}</td>
+            <td>
+              <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:700;background:#F1F5F9;color:#475569">
+                <span class="material-symbols-outlined" style="font-size:13px">shopping_bag</span>${userOrders.length}
+              </span>
+            </td>
+            <td style="font-size:14px;font-weight:800;color:#1E293B">₱${spent.toFixed(2)}</td>
+          </tr>`;
+        }).join('')
+      : '';
 
     return `
       <div class="admin-view space-y-6">
         ${pageHeader(ROUTES[3])}
-        <div class="admin-panel admin-table-wrap p-4">
+
+        <!-- Summary bar -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:140px;background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:16px;padding:16px 20px;box-shadow:0 4px 16px rgba(30,41,59,.06)">
+            <p style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:600">Total Customers</p>
+            <p style="font-size:26px;font-weight:800;color:#1E293B;margin-top:2px">${users.length}</p>
+          </div>
+          <div style="flex:1;min-width:140px;background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:16px;padding:16px 20px;box-shadow:0 4px 16px rgba(30,41,59,.06)">
+            <p style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:600">Registered Spent</p>
+            <p style="font-size:26px;font-weight:800;color:#C84B16;margin-top:2px">₱${totalSpent.toFixed(2)}</p>
+          </div>
+          <div style="flex:1;min-width:140px;background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:16px;padding:16px 20px;box-shadow:0 4px 16px rgba(30,41,59,.06)">
+            <p style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:600">Avg Value / User</p>
+            <p style="font-size:26px;font-weight:800;color:#1E293B;margin-top:2px">₱${avgSpent.toFixed(2)}</p>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div style="background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:20px;box-shadow:0 8px 30px rgba(30,41,59,.06);overflow:hidden">
+          <div style="padding:18px 24px;border-bottom:1px solid rgba(30,41,59,.07);display:flex;align-items:center;gap:10px">
+            <span class="material-symbols-outlined" style="color:#C84B16;font-size:20px;font-variation-settings:'FILL' 1">group</span>
+            <span style="font-size:15px;font-weight:700;color:#1E293B">Customer Directory</span>
+            <span style="font-size:12px;color:#94a3b8;margin-left:4px">${users.length} users</span>
+          </div>
           <p id="customers-empty" class="${users.length ? 'hidden' : ''} py-16 text-center text-slate-500">No registered customers yet.</p>
           <div class="overflow-x-auto ${users.length ? '' : 'hidden'}">
-            <table>
-              <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Orders</th><th>Spent</th></tr></thead>
+            <table style="width:100%;border-collapse:collapse">
+              <thead>
+                <tr style="background:#faf6f0">
+                  <th style="padding:12px 20px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;white-space:nowrap">Name</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;white-space:nowrap">Email</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;white-space:nowrap">Joined</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;white-space:nowrap">Orders</th>
+                  <th style="padding:12px 20px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;white-space:nowrap">Spent</th>
+                </tr>
+              </thead>
               <tbody id="customers-table-body">${rows}</tbody>
             </table>
           </div>
@@ -623,27 +737,74 @@ function showPriceModal(item, idx, onSave) {
 
   function renderNotifications() {
     const notifications = CreuStore.getNotifications();
-    const cards = notifications.map((n) => {
-      const date = new Date(n.date).toLocaleString('en-PH');
-      const unread = !n.read ? ' unread' : '';
-      return `<div class="admin-notif-card p-4 flex justify-between gap-4 items-start bg-[#FAF6F0]${unread}">
-        <div>
-          <p class="font-bold text-[#1E293B]">${esc(n.title)}</p>
-          <p class="text-sm text-slate-600 mt-1">${esc(n.message)}</p>
-          <p class="text-xs text-slate-400 mt-2">${date}</p>
-        </div>
-        ${!n.read ? `<button type="button" data-notif-id="${esc(n.id)}" class="mark-read-btn text-[#C84B16] text-sm font-semibold whitespace-nowrap">Mark read</button>` : '<span class="text-xs text-slate-400">Read</span>'}
-      </div>`;
-    }).join('');
+    const cards = notifications.length
+      ? notifications.map((n) => {
+          let dateStr = n.date;
+          try {
+            dateStr = new Date(n.date).toLocaleString('en-PH', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+          } catch (e) {}
+          
+          const isUnread = !n.read;
+          
+          // Icon configuration based on type
+          const iconMap = {
+            order: { name: 'shopping_bag', color: '#C84B16', bg: 'rgba(200,75,22,.06)' },
+            status: { name: 'rule', color: '#1E293B', bg: 'rgba(30,41,59,.06)' },
+            inventory: { name: 'inventory_2', color: '#C84B16', bg: 'rgba(200,75,22,.06)' }
+          };
+          const icon = iconMap[n.type] || { name: 'notifications', color: '#1E293B', bg: 'rgba(30,41,59,.06)' };
+          
+          // Dynamic card styles - no heavy color clutter
+          const cardBg = isUnread ? 'rgba(200, 75, 22, 0.02)' : 'transparent';
+          const borderLeft = isUnread ? '4px solid #C84B16' : '4px solid transparent';
+          
+          return `
+            <div style="display:flex;justify-content:space-between;gap:16px;align-items:center;padding:16px 20px;border-bottom:1px solid rgba(30,41,59,.06);background:${cardBg};border-left:${borderLeft};transition:background .2s">
+              <div style="display:flex;gap:14px;align-items:start;flex:1">
+                <div style="width:38px;height:38px;border-radius:12px;background:${icon.bg};display:flex;align-items:center;justify-content:center;flex-shrink:0;color:${icon.color}">
+                  <span class="material-symbols-outlined" style="font-size:18px">${icon.name}</span>
+                </div>
+                <div>
+                  <p style="font-weight:700;color:#1E293B;font-size:14px;margin:0">${esc(n.title)}</p>
+                  <p style="font-size:13px;color:#475569;margin:3px 0 0 0;line-height:1.4">${esc(n.message)}</p>
+                  <p style="font-size:11px;color:#94a3b8;margin:6px 0 0 0;display:flex;align-items:center;gap:4px">
+                    <span class="material-symbols-outlined" style="font-size:13px">schedule</span>${esc(dateStr)}
+                  </p>
+                </div>
+              </div>
+              <div style="flex-shrink:0">
+                ${isUnread 
+                  ? `<button type="button" data-notif-id="${esc(n.id)}" class="mark-read-btn text-xs font-bold px-3 py-1.5 rounded-full border border-[rgba(200,75,22,0.2)] text-[#C84B16] bg-[rgba(200,75,22,0.04)] hover:bg-[rgba(200,75,22,0.1)] cursor-pointer transition-all" style="outline:none;font-family:inherit">Mark read</button>` 
+                  : '<span style="font-size:11px;color:#94a3b8;font-weight:600;padding-right:8px">Read</span>'
+                }
+              </div>
+            </div>`;
+        }).join('')
+      : '';
+
+    const unreadCount = notifications.filter(n => !n.read).length;
 
     return `
       <div class="admin-view space-y-6">
         ${pageHeader(ROUTES[4])}
-        <div class="flex justify-end">
-          <button type="button" id="mark-all-read" class="admin-btn-secondary text-sm">Mark all read</button>
+
+        <!-- Unified Feed Panel -->
+        <div style="background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:20px;box-shadow:0 8px 30px rgba(30,41,59,.06);overflow:hidden;max-width:800px">
+          <div style="padding:18px 24px;border-bottom:1px solid rgba(30,41,59,.07);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <span class="material-symbols-outlined" style="color:#C84B16;font-size:20px;font-variation-settings:'FILL' 1">notifications</span>
+              <span style="font-size:15px;font-weight:700;color:#1E293B">Activity Feed</span>
+              <span style="font-size:12px;color:#94a3b8;margin-left:4px">${unreadCount} unread</span>
+            </div>
+            <div>
+              <button type="button" id="mark-all-read" style="display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:9999px;border:1.5px solid rgba(30,41,59,.15);color:#475569;font-size:12px;font-weight:700;background:transparent;cursor:pointer;transition:all .2s;font-family:inherit">
+                Mark all read
+              </button>
+            </div>
+          </div>
+          <p id="notifications-empty" class="${notifications.length ? 'hidden' : ''} text-center text-slate-500 py-16">No notifications yet.</p>
+          <div id="notifications-list" class="${notifications.length ? '' : 'hidden'}">${cards}</div>
         </div>
-        <p id="notifications-empty" class="${notifications.length ? 'hidden' : ''} text-center text-slate-500 py-16">No notifications yet.</p>
-        <div id="notifications-list" class="space-y-3 max-w-3xl">${cards}</div>
       </div>`;
   }
 

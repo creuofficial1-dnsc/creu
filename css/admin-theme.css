@@ -40,14 +40,14 @@ body.admin-app-body {
 }
 
 .admin-panel {
-  background: #f0e6df;
+  background: #ffffff;
   border: 1px solid rgba(30, 41, 59, 0.08);
   border-radius: var(--admin-radius-xl);
   box-shadow: var(--admin-shadow);
 }
 
 .admin-stat-card {
-  background: #f0e6df;
+  background: #ffffff;
   border: 1px solid rgba(30, 41, 59, 0.08);
   border-radius: var(--admin-radius-xl);
   box-shadow: var(--admin-shadow);
@@ -184,24 +184,37 @@ body.admin-app-body {
 }
 
 /* ── Inventory Table Row Styles ─────────────────────────────── */
-#inventory-table-body tr.inv-row {
+#inventory-table-body tr.inv-row,
+#orders-table-body tr,
+#customers-table-body tr {
   border-bottom: 1px solid rgba(30, 41, 59, 0.06);
 }
 
-#inventory-table-body tr.inv-row:hover {
+#inventory-table-body tr.inv-row:hover,
+#orders-table-body tr:hover,
+#customers-table-body tr:hover {
   background: rgba(200, 75, 22, 0.025);
 }
 
-#inventory-table-body td {
+#inventory-table-body td,
+#orders-table-body td,
+#customers-table-body td {
   padding: 14px 16px;
   vertical-align: middle;
 }
 
-#inventory-table-body td:first-child {
+#inventory-table-body td:first-child,
+#orders-table-body td:first-child,
+#customers-table-body td:first-child {
   padding-left: 20px;
+}
+
+#inventory-table-body td:first-child {
   min-width: 200px;
 }
 
-#inventory-table-body td:last-child {
+#inventory-table-body td:last-child,
+#orders-table-body td:last-child,
+#customers-table-body td:last-child {
   padding-right: 20px;
 }

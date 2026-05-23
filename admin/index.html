@@ -1,15 +1,18 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Creu Admin Login</title>
-  <link rel="icon" type="image/png" href="../assets/logo/crue-logo.png">
-  <link rel="apple-touch-icon" href="../assets/logo/crue-logo.png">
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
-  <link rel="stylesheet" href="../css/admin-theme.css"/>
-  <script id="tailwind-config">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Creu Admin Login</title>
+    <link rel="icon" type="image/png" href="../assets/logo/crue-logo.png" />
+    <link rel="apple-touch-icon" href="../assets/logo/crue-logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link rel="stylesheet" href="../css/admin-theme.css" />
+    <script id="tailwind-config">
       tailwind.config = {
         theme: {
           extend: {
@@ -18,89 +21,132 @@
               background: "#FAF6F0",
               surface: "#F0E6DF",
               "on-surface": "#1E293B",
-            }
-          }
-        }
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        min-height: 100vh;
+        background: linear-gradient(
+          135deg,
+          #1e293b 0%,
+          rgba(30, 41, 59, 0.95) 50%,
+          #0f172a 100%
+        );
+        position: relative;
       }
-  </script>
-  <style>
-    body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #1E293B 0%, rgba(30, 41, 59, 0.95) 50%, #0f172a 100%);
-      position: relative;
-    }
-    
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: 
-        radial-gradient(circle at 20% 50%, rgba(200, 75, 22, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(200, 75, 22, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 50% 0%, rgba(200, 75, 22, 0.08) 0%, transparent 40%);
-      pointer-events: none;
-      z-index: 1;
-    }
-    
-    main {
-      position: relative;
-      z-index: 2;
-    }
-  </style>
-</head>
-<body class="font-sans antialiased text-slate-900 flex items-center justify-center px-4 py-10">
-  <main class="w-full max-w-md admin-panel p-8 backdrop-blur-sm">
-    <div class="mb-8 text-center">
-      <p class="text-xs uppercase tracking-[0.35em] text-slate-500">Creu Admin Portal</p>
-      <h1 class="mt-4 text-3xl font-semibold text-[#1E293B]">Admin Login</h1>
-      <p class="mt-2 text-sm text-slate-500">Use the hardcoded admin credentials to access the dashboard.</p>
-    </div>
 
-    <form id="loginForm" class="space-y-6">
-      <div>
-        <label class="block text-sm font-medium text-slate-700" for="username">Username</label>
-        <input id="username" name="username" type="text" autocomplete="username" required
-          class="mt-2 w-full rounded-2xl border border-slate-300 bg-[#FAF6F0] px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10" />
+      body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          radial-gradient(
+            circle at 20% 50%,
+            rgba(200, 75, 22, 0.12) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 80% 80%,
+            rgba(200, 75, 22, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 50% 0%,
+            rgba(200, 75, 22, 0.08) 0%,
+            transparent 40%
+          );
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      main {
+        position: relative;
+        z-index: 2;
+      }
+    </style>
+  </head>
+  <body
+    class="font-sans antialiased text-slate-900 flex items-center justify-center px-4 py-10"
+  >
+    <main class="w-full max-w-md admin-panel p-8 backdrop-blur-sm">
+      <div class="mb-8 text-center">
+        <p class="text-xs uppercase tracking-[0.35em] text-slate-500">
+          Creu Admin Portal
+        </p>
+        <h1 class="mt-4 text-3xl font-semibold text-[#1E293B]">Admin Login</h1>
+        <p class="mt-2 text-sm text-slate-500">
+          Use the hardcoded admin credentials to access the dashboard.
+        </p>
       </div>
-      <div>
-        <label class="block text-sm font-medium text-slate-700" for="password">Password</label>
-        <input id="password" name="password" type="password" autocomplete="current-password" required
-          class="mt-2 w-full rounded-2xl border border-slate-300 bg-[#FAF6F0] px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10" />
-      </div>
-      <div id="errorMessage" class="min-h-[1.5rem] text-sm text-rose-600"></div>
-      <button type="submit" class="admin-btn-primary w-full">Sign in</button>
-    </form>
-  </main>
 
-  <script>
-    const form = document.getElementById('loginForm');
-    const errorMessage = document.getElementById('errorMessage');
-    const targetUrl = 'admin_dashboard.html';
+      <form id="loginForm" class="space-y-6">
+        <div>
+          <label class="block text-sm font-medium text-slate-700" for="username"
+            >Username</label
+          >
+          <input
+            id="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            required
+            class="mt-2 w-full rounded-2xl border border-slate-300 bg-[#FAF6F0] px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-700" for="password"
+            >Password</label
+          >
+          <input
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+            class="mt-2 w-full rounded-2xl border border-slate-300 bg-[#FAF6F0] px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+          />
+        </div>
+        <div
+          id="errorMessage"
+          class="min-h-[1.5rem] text-sm text-rose-600"
+        ></div>
+        <button type="submit" class="admin-btn-primary w-full">Sign in</button>
+      </form>
+    </main>
 
-    function redirectToDashboard() {
-      window.location.href = targetUrl;
-    }
+    <script>
+      const form = document.getElementById("loginForm");
+      const errorMessage = document.getElementById("errorMessage");
+      const targetUrl = "admin_dashboard.html";
 
-    if (localStorage.getItem('creuAdminLoggedIn') === 'true') {
-      redirectToDashboard();
-    }
+      function redirectToDashboard() {
+        window.location.href = targetUrl;
+      }
 
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();
-      const username = document.getElementById('username').value.trim();
-      const password = document.getElementById('password').value.trim();
-
-      if (username === 'admin' && password === 'admin') {
-        localStorage.setItem('creuAdminLoggedIn', 'true');
+      if (localStorage.getItem("creuAdminLoggedIn") === "true") {
         redirectToDashboard();
-        return;
       }
 
-      errorMessage.textContent = 'Invalid username or password. Use admin / admin.';
-    });
-  </script>
-</body>
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (username === "admin" && password === "admin") {
+          localStorage.setItem("creuAdminLoggedIn", "true");
+          redirectToDashboard();
+          return;
+        }
+
+        errorMessage.textContent =
+          "Invalid username or password. Use admin / admin.";
+      });
+    </script>
+  </body>
 </html>

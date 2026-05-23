@@ -1,203 +1,499 @@
-<!DOCTYPE html>
+<!doctype html>
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Creu | The Bites That Hits Different</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Creu | The Bites That Hits Different</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="icon" type="image/png" href="assets/logo/crue-logo.png">
-  <link rel="apple-touch-icon" href="assets/logo/crue-logo.png">
-  <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="css/customer-theme.css">
-</head>
-<body class="font-body-md text-on-surface antialiased bg-[#FAF6F0]">
-<div id="site-header"></div>
-<main class="pb-[100px] lg:pb-0">
-<!-- Immersive Hero Section -->
-<section class="creu-hero relative min-h-screen h-screen w-full overflow-hidden flex items-center justify-center bg-[#1E293B]">
-<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('assets/pictures/hero-section-background.jpg');"></div>
-<div class="absolute inset-0 hero-gradient"></div>
-<div class="relative z-10 max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop w-full h-full flex items-center justify-center lg:justify-start">
-  <div class="hero-left w-full text-center lg:text-left">
-    <div class="hero-main-title">Creu</div>
-    <h2 class="font-headline-lg text-headline-lg text-white mb-6 max-w-xl mx-auto lg:mx-0">The Bites That <span class="hero-tagline-em">Hits Different</span></h2>
-    <div class="flex flex-wrap gap-4 items-center justify-center lg:justify-start">
-      <a href="screens/our_menu.html" class="hero-cta-btn">
-        <span>Explore Menu</span>
-        <span class="material-symbols-outlined text-lg">arrow_forward</span>
-      </a>
-    </div>
-  </div>
-</div>
-</section>
-<!-- Signature Selection Section -->
-<section class="py-xl px-margin-mobile md:px-margin-desktop bg-surface-container-lowest">
-<div class="max-w-[1280px] mx-auto">
-<div class="flex flex-col md:flex-row md:items-end justify-between mb-xl">
-<div class="max-w-xl">
-<h2 class="font-headline-lg text-headline-lg text-on-surface mb-sm">Signature Selection</h2>
-<p class="font-body-lg text-body-lg text-secondary">A curated collection of our most distinguished gourmet ingredients and prepared delicacies.</p>
-</div>
-<button class="mt-md md:mt-0 font-label-lg text-label-lg text-primary flex items-center gap-2 hover:gap-4 transition-all">
-                        VIEW ALL <span class="material-symbols-outlined">arrow_forward</span>
-</button>
-</div>
-<!-- Bento-style Asymmetric Grid -->
-<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter lg:gap-md">
-<!-- Feature Card -->
-<div class="md:col-span-8 group cursor-pointer overflow-hidden rounded-xl bg-surface-container-low shadow-[0px_20px_20px_0px_rgba(0,0,0,0.04)]" onclick="window.location.href='screens/our_menu.html'">
-<div class="relative aspect-[16/9] overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Chicken Cordon Bleu Meal" src="assets/pictures/chicken.png"/>
-<div class="absolute top-md right-md bg-primary px-4 py-2 rounded-full">
-<span class="font-label-sm text-label-sm text-on-primary">NEW ARRIVAL</span>
-</div>
-</div>
-<div class="p-md">
-<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Chicken Cordon Bleu Meal</h3>
-<div class="flex justify-between items-center">
-<p class="font-body-md text-body-md text-secondary">Served with your choice of premium signature rice.</p>
-<span class="font-body-lg text-body-lg font-bold text-primary">₱139.00</span>
-</div>
-</div>
-</div>
-<!-- Side Card 1 -->
-<div class="md:col-span-4 group cursor-pointer overflow-hidden rounded-xl bg-surface-container-low shadow-[0px_20px_20px_0px_rgba(0,0,0,0.04)]" onclick="window.location.href='screens/our_menu.html'">
-<div class="relative aspect-square overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Beef Cordon Bleu Shots" src="assets/pictures/beef poppers.jfif"/>
-</div>
-<div class="p-md">
-<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Beef Cordon Bleu Shots</h3>
-<div class="flex justify-between items-center">
-<p class="font-body-md text-body-md text-secondary">Bite-sized crispy beef rolls.</p>
-<span class="font-body-lg text-body-lg font-bold text-primary">₱99.00</span>
-</div>
-</div>
-</div>
-<!-- Side Card 2 -->
-<div class="md:col-span-4 group cursor-pointer overflow-hidden rounded-xl bg-surface-container-low shadow-[0px_20px_20px_0px_rgba(0,0,0,0.04)]" onclick="window.location.href='screens/our_menu.html'">
-<div class="relative aspect-square overflow-hidden">
-<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Fish Cordon Bleu Shots" src="assets/pictures/fish poppers.jfif"/>
-</div>
-<div class="p-md">
-<h3 class="font-headline-md text-headline-md text-on-surface mb-xs">Fish Cordon Bleu Shots</h3>
-<div class="flex justify-between items-center">
-<p class="font-body-md text-body-md text-secondary">Crispy fish poppers with cheese.</p>
-<span class="font-body-lg text-body-lg font-bold text-primary">₱79.00</span>
-</div>
-</div>
-</div>
-<!-- Featured Small Card -->
-<div class="md:col-span-8 group cursor-pointer overflow-hidden rounded-xl bg-surface-container-low shadow-[0px_20px_20px_0px_rgba(0,0,0,0.04)]" onclick="window.location.href='screens/our_menu.html'">
-<div class="flex flex-col md:flex-row h-full">
-<div class="md:w-1/2 overflow-hidden">
-<img class="w-full h-[300px] md:h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Fish Cordon Bleu Meal" src="assets/pictures/fish.png"/>
-</div>
-<div class="md:w-1/2 p-xl flex flex-col justify-center">
-<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-sm">Seafood Special</span>
-<h3 class="font-headline-lg text-headline-lg text-on-surface mb-md">Fish Cordon Bleu Meal</h3>
-<p class="font-body-md text-body-md text-secondary mb-lg">Delicate fish fillet stuffed with mozzarella and herbs. Served with rice.</p>
-<span class="font-body-lg text-body-lg font-bold text-primary">₱129.00</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Vision, Mission & Products -->
-<section class="vision-mission-section py-xl px-margin-mobile md:px-margin-desktop bg-[#1E293B] text-white relative overflow-hidden">
-<div class="absolute -left-24 top-1/4 w-72 h-72 bg-[#C84B16]/10 rounded-full blur-3xl pointer-events-none"></div>
-<div class="absolute -right-16 bottom-0 w-96 h-96 bg-[#C84B16]/8 rounded-full blur-3xl pointer-events-none"></div>
-<div class="max-w-[1280px] mx-auto relative z-10">
-<span class="font-label-lg text-label-lg text-[#C84B16] uppercase tracking-[0.2em] mb-md block text-center">Who We Are</span>
-<h2 class="font-headline-lg text-headline-lg text-center mb-xl text-white">Vision &amp; Mission</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter lg:gap-md mb-xl">
-<div class="vision-mission-card p-md md:p-lg">
-<div class="flex items-center gap-3 mb-sm">
-<span class="material-symbols-outlined text-[#C84B16] text-3xl" style="font-variation-settings:'FILL' 1">visibility</span>
-<h3 class="font-headline-md text-headline-md text-white">Vision</h3>
-</div>
-<p class="font-body-lg text-body-lg text-slate-300 leading-relaxed">To be the ultimate neighborhood destination for gourmet comfort food, making premium, hand-crafted Cordon Bleu flavors accessible and affordable for everyone.</p>
-</div>
-<div class="vision-mission-card p-md md:p-lg">
-<div class="flex items-center gap-3 mb-sm">
-<span class="material-symbols-outlined text-[#C84B16] text-3xl" style="font-variation-settings:'FILL' 1">flag</span>
-<h3 class="font-headline-md text-headline-md text-white">Mission</h3>
-</div>
-<p class="font-body-lg text-body-lg text-slate-300 leading-relaxed">To serve high-quality, delicious, and budget-friendly Cordon Bleu meals and bite-sized shots. We are committed to using fresh ingredients, providing fast service, and great value that satisfy our customers' cravings.</p>
-</div>
-</div>
-<div class="vision-mission-card p-md md:p-lg max-w-4xl mx-auto">
-<div class="flex items-center gap-3 mb-sm">
-<span class="material-symbols-outlined text-[#C84B16] text-3xl" style="font-variation-settings:'FILL' 1">restaurant</span>
-<h3 class="font-headline-md text-headline-md text-white">Our Products &amp; Services</h3>
-</div>
-<p class="font-body-lg text-body-lg text-slate-300 leading-relaxed">Our product offers a delicious and affordable twist on the classic cordon bleu by serving flavorful Fish, Beef, and Chicken Cordon Bleu meals paired with rice options such as Wild Rice Blend, Fried Rice, and Plain Rice. We also offer bite-sized Cordon Bleu Shots for customers looking for a quick and satisfying meal.</p>
-<div class="mt-md flex flex-wrap justify-center gap-3">
-<a href="screens/our_menu.html" class="inline-flex h-[52px] items-center justify-center px-xl bg-[#C84B16] text-white font-label-lg text-label-lg rounded-full hover:brightness-110 active:scale-95 transition-all shadow-lg">Explore the Menu</a>
-</div>
-</div>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-surface py-xl px-margin-mobile md:px-margin-desktop">
-<div class="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-xl">
-<div class="col-span-1 md:col-span-1">
-<div class="flex items-center gap-2 mb-md">
-<img alt="Creu Small Logo" class="h-6 w-auto" src="https://lh3.googleusercontent.com/aida/ADBb0ugOaVG-nMyi9CVVK5o_zlHE4M7HHPbzrQ1ACKLtUCEx0ZpaMxRJZKwQQVUZx-tKHLoO7TXFhM7gJTQbOJxJaonH_zMuA_3-u66O3hF1q24tSaowbffXdQSrVVcpFKhShiArOEp-wrjzcxvwBtb7ApIXB11uT3jXTv0Hh5J_NWSawXQKPu0rM17gUrMzrRXHbEwVUOOswWyCAHTDhZu4H2Hdc15GRP6RVE0LHlcJKUe-4v8h04KgQD_dJpOW"/>
-<h3 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">Creu</h3>
-</div>
-  <p class="font-body-md text-body-md text-secondary">Elevating the everyday through curated gourmet excellence and high-end design.</p>
-</div>
-<div>
-<h4 class="font-label-lg text-label-lg text-on-surface uppercase mb-md">Collections</h4>
-<ul class="space-y-sm">
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">Seasonal Lookbook</a></li>
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">Artisan Pantry</a></li>
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">Rare Spirits</a></li>
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">Gift Curations</a></li>
-</ul>
-</div>
-<div>
-<h4 class="font-label-lg text-label-lg text-on-surface uppercase mb-md">Company</h4>
-<ul class="space-y-sm">
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">About Creu</a></li>
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">Sustainability</a></li>
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">Careers</a></li>
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">Journal</a></li>
-</ul>
-</div>
-<div>
-<h4 class="font-label-lg text-label-lg text-on-surface uppercase mb-md">Support</h4>
-<ul class="space-y-sm">
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">Shipping &amp; Returns</a></li>
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">Contact Us</a></li>
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">FAQ</a></li>
-<li><a class="font-body-md text-body-md text-secondary hover:text-primary transition-colors" href="#">Concierge</a></li>
-</ul>
-</div>
-</div>
-<div class="max-w-[1280px] mx-auto mt-xl pt-lg border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-md">
-<span class="font-label-sm text-label-sm text-secondary">© Creu. All rights reserved.</span>
-<div class="flex items-center gap-4">
-<a class="text-secondary hover:text-primary transition-colors" href="https://www.tiktok.com/@creu.delights?_r=1&_t=ZS-96XawYm9cxs&fbclid=IwY2xjawR76adleHRuA2FlbQIxMABicmlkETFmdkZqUHYyR1JhTlpwTXFXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvhF-DrJRtMeWW-HvXK1TPBgigUgu4lx0wvMGG1030SlHd3JMzfSlAkWorSS_aem_venBhLWCOet_1GFpzjjUyw" target="_blank" rel="noreferrer noopener" aria-label="TikTok">
-<span class="material-symbols-outlined">music_note</span>
-</a>
-<a class="text-secondary hover:text-primary transition-colors" href="https://www.instagram.com/creu.delight?igsh=cGZtdGc3N2J6ZGNy&fbclid=IwY2xjawR76cNleHRuA2FlbQIxMABicmlkETFmdkZqUHYyR1JhTlpwTXFXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvREVYx60WX92MsifZpr2ArS_QBGCtFzpbgE2X7QH2wKuRELmEpgWC3tJHhi_aem_8Xt0KzUMZLg0aCmWueOtdQ" target="_blank" rel="noreferrer noopener" aria-label="Instagram">
-<span class="material-symbols-outlined">camera_alt</span>
-</a>
-<a class="text-secondary hover:text-primary transition-colors" href="https://web.facebook.com/profile.php?id=61590423742763&rdid=FDCpvLIqFvdaWOu0&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F18ke5a87s8%2F%3F_rdc%3D1%26_rdr#" target="_blank" rel="noreferrer noopener" aria-label="Facebook">
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/></svg>
-</a>
-</div>
-</div>
-</footer>
-<div id="site-bottom-nav"></div>
+    <link rel="icon" type="image/png" href="assets/logo/crue-logo.png" />
+    <link rel="apple-touch-icon" href="assets/logo/crue-logo.png" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/customer-theme.css" />
+  </head>
+  <body class="font-body-md text-on-surface antialiased bg-[#FAF6F0]">
+    <div id="site-header"></div>
+    <main class="pb-[100px] lg:pb-0">
+      <!-- Immersive Hero Section -->
+      <section
+        class="creu-hero relative min-h-screen h-screen w-full overflow-hidden flex items-center justify-center bg-[#1E293B]"
+      >
+        <div
+          class="absolute inset-0 bg-cover bg-center"
+          style="
+            background-image: url(&quot;assets/pictures/hero-section-background.jpg&quot;);
+          "
+        ></div>
+        <div class="absolute inset-0 hero-gradient"></div>
+        <div
+          class="relative z-10 max-w-[1280px] mx-auto px-margin-mobile md:px-margin-desktop w-full h-full flex items-center justify-center lg:justify-start"
+        >
+          <div class="hero-left w-full text-center lg:text-left">
+            <div class="hero-main-title">Creu</div>
+            <h2
+              class="font-headline-lg text-headline-lg text-white mb-6 max-w-xl mx-auto lg:mx-0"
+            >
+              The Bites That <span class="hero-tagline-em">Hits Different</span>
+            </h2>
+            <div
+              class="flex flex-wrap gap-4 items-center justify-center lg:justify-start"
+            >
+              <a href="screens/our_menu.html" class="hero-cta-btn">
+                <span>Explore Menu</span>
+                <span class="material-symbols-outlined text-lg"
+                  >arrow_forward</span
+                >
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Signature Selection Section -->
+      <section
+        class="py-xl px-margin-mobile md:px-margin-desktop bg-surface-container-lowest"
+      >
+        <div class="max-w-[1280px] mx-auto">
+          <div
+            class="flex flex-col md:flex-row md:items-end justify-between mb-xl"
+          >
+            <div class="max-w-xl">
+              <h2
+                class="font-headline-lg text-headline-lg text-on-surface mb-sm"
+              >
+                Signature Selection
+              </h2>
+              <p class="font-body-lg text-body-lg text-secondary">
+                A curated collection of our most distinguished gourmet
+                ingredients and prepared delicacies.
+              </p>
+            </div>
+            <button
+              class="mt-md md:mt-0 font-label-lg text-label-lg text-primary flex items-center gap-2 hover:gap-4 transition-all"
+            >
+              VIEW ALL
+              <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+          </div>
+          <!-- Bento-style Asymmetric Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter lg:gap-md">
+            <!-- Feature Card -->
+            <div
+              class="md:col-span-8 group cursor-pointer overflow-hidden rounded-xl bg-surface-container-low shadow-[0px_20px_20px_0px_rgba(0,0,0,0.04)]"
+              onclick="window.location.href = 'screens/our_menu.html'"
+            >
+              <div class="relative aspect-[16/9] overflow-hidden">
+                <img
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  alt="Chicken Cordon Bleu Meal"
+                  src="assets/pictures/chicken.png"
+                />
+                <div
+                  class="absolute top-md right-md bg-primary px-4 py-2 rounded-full"
+                >
+                  <span class="font-label-sm text-label-sm text-on-primary"
+                    >NEW ARRIVAL</span
+                  >
+                </div>
+              </div>
+              <div class="p-md">
+                <h3
+                  class="font-headline-md text-headline-md text-on-surface mb-xs"
+                >
+                  Chicken Cordon Bleu Meal
+                </h3>
+                <div class="flex justify-between items-center">
+                  <p class="font-body-md text-body-md text-secondary">
+                    Served with your choice of premium signature rice.
+                  </p>
+                  <span class="font-body-lg text-body-lg font-bold text-primary"
+                    >₱139.00</span
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Side Card 1 -->
+            <div
+              class="md:col-span-4 group cursor-pointer overflow-hidden rounded-xl bg-surface-container-low shadow-[0px_20px_20px_0px_rgba(0,0,0,0.04)]"
+              onclick="window.location.href = 'screens/our_menu.html'"
+            >
+              <div class="relative aspect-square overflow-hidden">
+                <img
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  alt="Beef Cordon Bleu Shots"
+                  src="assets/pictures/beef poppers.jfif"
+                />
+              </div>
+              <div class="p-md">
+                <h3
+                  class="font-headline-md text-headline-md text-on-surface mb-xs"
+                >
+                  Beef Cordon Bleu Shots
+                </h3>
+                <div class="flex justify-between items-center">
+                  <p class="font-body-md text-body-md text-secondary">
+                    Bite-sized crispy beef rolls.
+                  </p>
+                  <span class="font-body-lg text-body-lg font-bold text-primary"
+                    >₱99.00</span
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Side Card 2 -->
+            <div
+              class="md:col-span-4 group cursor-pointer overflow-hidden rounded-xl bg-surface-container-low shadow-[0px_20px_20px_0px_rgba(0,0,0,0.04)]"
+              onclick="window.location.href = 'screens/our_menu.html'"
+            >
+              <div class="relative aspect-square overflow-hidden">
+                <img
+                  class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  alt="Fish Cordon Bleu Shots"
+                  src="assets/pictures/fish poppers.jfif"
+                />
+              </div>
+              <div class="p-md">
+                <h3
+                  class="font-headline-md text-headline-md text-on-surface mb-xs"
+                >
+                  Fish Cordon Bleu Shots
+                </h3>
+                <div class="flex justify-between items-center">
+                  <p class="font-body-md text-body-md text-secondary">
+                    Crispy fish poppers with cheese.
+                  </p>
+                  <span class="font-body-lg text-body-lg font-bold text-primary"
+                    >₱79.00</span
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Featured Small Card -->
+            <div
+              class="md:col-span-8 group cursor-pointer overflow-hidden rounded-xl bg-surface-container-low shadow-[0px_20px_20px_0px_rgba(0,0,0,0.04)]"
+              onclick="window.location.href = 'screens/our_menu.html'"
+            >
+              <div class="flex flex-col md:flex-row h-full">
+                <div class="md:w-1/2 overflow-hidden">
+                  <img
+                    class="w-full h-[300px] md:h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    alt="Fish Cordon Bleu Meal"
+                    src="assets/pictures/fish.png"
+                  />
+                </div>
+                <div class="md:w-1/2 p-xl flex flex-col justify-center">
+                  <span
+                    class="font-label-sm text-label-sm text-primary uppercase tracking-widest mb-sm"
+                    >Seafood Special</span
+                  >
+                  <h3
+                    class="font-headline-lg text-headline-lg text-on-surface mb-md"
+                  >
+                    Fish Cordon Bleu Meal
+                  </h3>
+                  <p class="font-body-md text-body-md text-secondary mb-lg">
+                    Delicate fish fillet stuffed with mozzarella and herbs.
+                    Served with rice.
+                  </p>
+                  <span class="font-body-lg text-body-lg font-bold text-primary"
+                    >₱129.00</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Vision, Mission & Products -->
+      <section
+        class="vision-mission-section py-xl px-margin-mobile md:px-margin-desktop bg-[#1E293B] text-white relative overflow-hidden"
+      >
+        <div
+          class="absolute -left-24 top-1/4 w-72 h-72 bg-[#C84B16]/10 rounded-full blur-3xl pointer-events-none"
+        ></div>
+        <div
+          class="absolute -right-16 bottom-0 w-96 h-96 bg-[#C84B16]/8 rounded-full blur-3xl pointer-events-none"
+        ></div>
+        <div class="max-w-[1280px] mx-auto relative z-10">
+          <span
+            class="font-label-lg text-label-lg text-[#C84B16] uppercase tracking-[0.2em] mb-md block text-center"
+            >Who We Are</span
+          >
+          <h2
+            class="font-headline-lg text-headline-lg text-center mb-xl text-white"
+          >
+            Vision &amp; Mission
+          </h2>
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-gutter lg:gap-md mb-xl"
+          >
+            <div class="vision-mission-card p-md md:p-lg">
+              <div class="flex items-center gap-3 mb-sm">
+                <span
+                  class="material-symbols-outlined text-[#C84B16] text-3xl"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >visibility</span
+                >
+                <h3 class="font-headline-md text-headline-md text-white">
+                  Vision
+                </h3>
+              </div>
+              <p
+                class="font-body-lg text-body-lg text-slate-300 leading-relaxed"
+              >
+                To be the ultimate neighborhood destination for gourmet comfort
+                food, making premium, hand-crafted Cordon Bleu flavors
+                accessible and affordable for everyone.
+              </p>
+            </div>
+            <div class="vision-mission-card p-md md:p-lg">
+              <div class="flex items-center gap-3 mb-sm">
+                <span
+                  class="material-symbols-outlined text-[#C84B16] text-3xl"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >flag</span
+                >
+                <h3 class="font-headline-md text-headline-md text-white">
+                  Mission
+                </h3>
+              </div>
+              <p
+                class="font-body-lg text-body-lg text-slate-300 leading-relaxed"
+              >
+                To serve high-quality, delicious, and budget-friendly Cordon
+                Bleu meals and bite-sized shots. We are committed to using fresh
+                ingredients, providing fast service, and great value that
+                satisfy our customers' cravings.
+              </p>
+            </div>
+          </div>
+          <div class="vision-mission-card p-md md:p-lg max-w-4xl mx-auto">
+            <div class="flex items-center gap-3 mb-sm">
+              <span
+                class="material-symbols-outlined text-[#C84B16] text-3xl"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >restaurant</span
+              >
+              <h3 class="font-headline-md text-headline-md text-white">
+                Our Products &amp; Services
+              </h3>
+            </div>
+            <p class="font-body-lg text-body-lg text-slate-300 leading-relaxed">
+              Our product offers a delicious and affordable twist on the classic
+              cordon bleu by serving flavorful Fish, Beef, and Chicken Cordon
+              Bleu meals paired with rice options such as Wild Rice Blend, Fried
+              Rice, and Plain Rice. We also offer bite-sized Cordon Bleu Shots
+              for customers looking for a quick and satisfying meal.
+            </p>
+            <div class="mt-md flex flex-wrap justify-center gap-3">
+              <a
+                href="screens/our_menu.html"
+                class="inline-flex h-[52px] items-center justify-center px-xl bg-[#C84B16] text-white font-label-lg text-label-lg rounded-full hover:brightness-110 active:scale-95 transition-all shadow-lg"
+                >Explore the Menu</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-surface py-xl px-margin-mobile md:px-margin-desktop">
+      <div
+        class="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-xl"
+      >
+        <div class="col-span-1 md:col-span-1">
+          <div class="flex items-center gap-2 mb-md">
+            <img
+              alt="Creu Small Logo"
+              class="h-6 w-auto"
+              src="https://lh3.googleusercontent.com/aida/ADBb0ugOaVG-nMyi9CVVK5o_zlHE4M7HHPbzrQ1ACKLtUCEx0ZpaMxRJZKwQQVUZx-tKHLoO7TXFhM7gJTQbOJxJaonH_zMuA_3-u66O3hF1q24tSaowbffXdQSrVVcpFKhShiArOEp-wrjzcxvwBtb7ApIXB11uT3jXTv0Hh5J_NWSawXQKPu0rM17gUrMzrRXHbEwVUOOswWyCAHTDhZu4H2Hdc15GRP6RVE0LHlcJKUe-4v8h04KgQD_dJpOW"
+            />
+            <h3
+              class="font-headline-md text-headline-md font-bold tracking-tight text-primary"
+            >
+              Creu
+            </h3>
+          </div>
+          <p class="font-body-md text-body-md text-secondary">
+            Elevating the everyday through curated gourmet excellence and
+            high-end design.
+          </p>
+        </div>
+        <div>
+          <h4
+            class="font-label-lg text-label-lg text-on-surface uppercase mb-md"
+          >
+            Collections
+          </h4>
+          <ul class="space-y-sm">
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >Seasonal Lookbook</a
+              >
+            </li>
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >Artisan Pantry</a
+              >
+            </li>
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >Rare Spirits</a
+              >
+            </li>
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >Gift Curations</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4
+            class="font-label-lg text-label-lg text-on-surface uppercase mb-md"
+          >
+            Company
+          </h4>
+          <ul class="space-y-sm">
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >About Creu</a
+              >
+            </li>
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >Sustainability</a
+              >
+            </li>
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >Careers</a
+              >
+            </li>
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >Journal</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4
+            class="font-label-lg text-label-lg text-on-surface uppercase mb-md"
+          >
+            Support
+          </h4>
+          <ul class="space-y-sm">
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >Shipping &amp; Returns</a
+              >
+            </li>
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >Contact Us</a
+              >
+            </li>
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >FAQ</a
+              >
+            </li>
+            <li>
+              <a
+                class="font-body-md text-body-md text-secondary hover:text-primary transition-colors"
+                href="#"
+                >Concierge</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="max-w-[1280px] mx-auto mt-xl pt-lg border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-md"
+      >
+        <span class="font-label-sm text-label-sm text-secondary"
+          >© Creu. All rights reserved.</span
+        >
+        <div class="flex items-center gap-4">
+          <a
+            class="text-secondary hover:text-primary transition-colors"
+            href="https://www.tiktok.com/@creu.delights?_r=1&_t=ZS-96XawYm9cxs&fbclid=IwY2xjawR76adleHRuA2FlbQIxMABicmlkETFmdkZqUHYyR1JhTlpwTXFXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvhF-DrJRtMeWW-HvXK1TPBgigUgu4lx0wvMGG1030SlHd3JMzfSlAkWorSS_aem_venBhLWCOet_1GFpzjjUyw"
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label="TikTok"
+          >
+            <span class="material-symbols-outlined">music_note</span>
+          </a>
+          <a
+            class="text-secondary hover:text-primary transition-colors"
+            href="https://www.instagram.com/creu.delight?igsh=cGZtdGc3N2J6ZGNy&fbclid=IwY2xjawR76cNleHRuA2FlbQIxMABicmlkETFmdkZqUHYyR1JhTlpwTXFXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvREVYx60WX92MsifZpr2ArS_QBGCtFzpbgE2X7QH2wKuRELmEpgWC3tJHhi_aem_8Xt0KzUMZLg0aCmWueOtdQ"
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label="Instagram"
+          >
+            <span class="material-symbols-outlined">camera_alt</span>
+          </a>
+          <a
+            class="text-secondary hover:text-primary transition-colors"
+            href="https://web.facebook.com/profile.php?id=61590423742763&rdid=FDCpvLIqFvdaWOu0&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F18ke5a87s8%2F%3F_rdc%3D1%26_rdr#"
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label="Facebook"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path
+                d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+    <div id="site-bottom-nav"></div>
 
-  <script src="js/layout.js?v=1.0.3"></script>
-  <script src="js/index.js"></script>
-</body></html>
+    <script src="js/layout.js?v=1.0.3"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>
