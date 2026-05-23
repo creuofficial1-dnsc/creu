@@ -1,6 +1,129 @@
 /**
  * Creu Admin — single-page app (hash routing, no full reloads)
  */
+
+/* ─── Toast Notification System ─────────────────────────────── */
+(function () {
+  let _container;
+  function getContainer() {
+    if (!_container) {
+      _container = document.createElement('div');
+      _container.id = 'admin-toast-container';
+      _container.style.cssText = [
+        'position:fixed', 'top:20px', 'right:20px',
+        'z-index:9999', 'display:flex', 'flex-direction:column',
+        'gap:10px', 'pointer-events:none'
+      ].join(';');
+      document.body.appendChild(_container);
+    }
+    return _container;
+  }
+
+  window.showAdminToast = function (message, type) {
+    type = type || 'success';
+    const icons = { success: 'check_circle', error: 'error', info: 'info', warning: 'warning' };
+    const colors = {
+      success: { bg: '#1E293B', icon: '#4ade80', border: 'rgba(74,222,128,0.3)' },
+      error:   { bg: '#1E293B', icon: '#f87171', border: 'rgba(248,113,113,0.3)' },
+      info:    { bg: '#1E293B', icon: '#60a5fa', border: 'rgba(96,165,250,0.3)' },
+      warning: { bg: '#1E293B', icon: '#fbbf24', border: 'rgba(251,191,36,0.3)' },
+    };
+    const c = colors[type] || colors.success;
+    const toast = document.createElement('div');
+    toast.style.cssText = [
+      `background:${c.bg}`, `border:1px solid ${c.border}`,
+      'border-radius:14px', 'padding:14px 18px',
+      'display:flex', 'align-items:center', 'gap:12px',
+      'pointer-events:auto', 'min-width:280px', 'max-width:360px',
+      'box-shadow:0 20px 50px rgba(0,0,0,0.35)',
+      'transition:all 0.35s cubic-bezier(0.22,1,0.36,1)',
+      'transform:translateX(120px)', 'opacity:0',
+      'font-family:Plus Jakarta Sans,sans-serif'
+    ].join(';');
+    toast.innerHTML = `
+      <span class="material-symbols-outlined" style="color:${c.icon};font-size:22px;font-variation-settings:'FILL' 1;flex-shrink:0">${icons[type] || 'check_circle'}</span>
+      <span style="color:#f1f5f9;font-size:14px;font-weight:500;line-height:1.4;flex:1">${message}</span>
+      <button onclick="this.closest('div').remove()" style="color:#94a3b8;background:none;border:none;cursor:pointer;font-size:18px;line-height:1;padding:0;flex-shrink:0">&times;</button>`;
+    getContainer().appendChild(toast);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        toast.style.transform = 'translateX(0)';
+        toast.style.opacity = '1';
+      });
+    });
+    setTimeout(() => {
+      toast.style.transform = 'translateX(120px)';
+      toast.style.opacity = '0';
+      setTimeout(() => toast.remove(), 380);
+    }, 3500);
+  };
+})();
+
+/* ─── Price Edit Modal ───────────────────────────────────────── */
+function showPriceModal(item, idx, onSave) {
+  const existing = document.getElementById('price-edit-modal');
+  if (existing) existing.remove();
+
+  const isBev = item.category === 'beverage';
+  const fields = isBev
+    ? `<div class="pem-field">
+        <label class="pem-label">Regular Price (₱)</label>
+        <input id="pem-reg" type="number" class="pem-input" value="${item.priceRegular || 0}" step="0.01" min="0"/>
+       </div>
+       <div class="pem-field">
+        <label class="pem-label">Large Price (₱)</label>
+        <input id="pem-lg" type="number" class="pem-input" value="${item.priceLarge || 0}" step="0.01" min="0"/>
+       </div>`
+    : `<div class="pem-field">
+        <label class="pem-label">Price (₱)</label>
+        <input id="pem-price" type="number" class="pem-input" value="${item.price || 0}" step="0.01" min="0"/>
+       </div>`;
+
+  const overlay = document.createElement('div');
+  overlay.id = 'price-edit-modal';
+  overlay.style.cssText = 'position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;background:rgba(15,23,42,0.65);backdrop-filter:blur(4px);animation:pemFadeIn 0.2s ease';
+  overlay.innerHTML = `
+    <style>
+      @keyframes pemFadeIn { from{opacity:0;transform:scale(0.96)} to{opacity:1;transform:scale(1)} }
+      .pem-box { background:#fff; border-radius:20px; padding:28px; width:100%; max-width:380px; box-shadow:0 32px 80px rgba(0,0,0,0.25); font-family:'Plus Jakarta Sans',sans-serif; }
+      .pem-title { font-size:18px; font-weight:700; color:#1E293B; margin-bottom:4px; }
+      .pem-sub { font-size:13px; color:#64748b; margin-bottom:20px; }
+      .pem-field { margin-bottom:16px; }
+      .pem-label { display:block; font-size:12px; font-weight:600; color:#64748b; text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+      .pem-input { width:100%; padding:10px 14px; border:1.5px solid rgba(30,41,59,.15); border-radius:12px; font-size:15px; color:#1E293B; background:#faf6f0; outline:none; transition:border-color .2s; box-sizing:border-box; }
+      .pem-input:focus { border-color:#C84B16; box-shadow:0 0 0 3px rgba(200,75,22,.12); }
+      .pem-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:24px; }
+      .pem-cancel { border-radius:9999px; border:1px solid rgba(30,41,59,.2); padding:9px 20px; background:transparent; font-weight:600; color:#64748b; cursor:pointer; font-size:14px; }
+      .pem-save { border-radius:9999px; background:#C84B16; color:#fff; font-weight:700; padding:9px 22px; border:none; cursor:pointer; font-size:14px; transition:filter .2s; }
+      .pem-save:hover { filter:brightness(1.08); }
+    </style>
+    <div class="pem-box">
+      <p class="pem-title">Edit Price</p>
+      <p class="pem-sub">${item.name}</p>
+      ${fields}
+      <div class="pem-actions">
+        <button class="pem-cancel" id="pem-cancel">Cancel</button>
+        <button class="pem-save" id="pem-save">Save</button>
+      </div>
+    </div>`;
+
+  document.body.appendChild(overlay);
+  overlay.querySelector('.pem-input')?.focus();
+
+  overlay.querySelector('#pem-cancel').onclick = () => overlay.remove();
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+  overlay.querySelector('#pem-save').onclick = () => {
+    const vals = {};
+    if (isBev) {
+      vals.priceRegular = parseFloat(overlay.querySelector('#pem-reg').value) || 0;
+      vals.priceLarge = parseFloat(overlay.querySelector('#pem-lg').value) || 0;
+    } else {
+      vals.price = parseFloat(overlay.querySelector('#pem-price').value) || 0;
+    }
+    onSave(vals);
+    overlay.remove();
+  };
+}
 (function (global) {
   const ROUTES = [
     { id: 'dashboard', label: 'Dashboard', icon: 'dashboard', subtitle: 'Overview of sales, orders, and stock' },
@@ -277,60 +400,178 @@
     return '₱' + item.price;
   }
 
+  function stockBadge(stock) {
+    if (stock === 0) return '<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:700;background:#fee2e2;color:#b91c1c"><span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:\"FILL\" 1">cancel</span>Out</span>';
+    if (stock <= 5) return `<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:700;background:#fef9c3;color:#92400e"><span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:\"FILL\" 1">warning</span>${stock} left</span>`;
+    return `<span style="display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:700;background:#dcfce7;color:#15803d"><span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:\"FILL\" 1">check_circle</span>${stock}</span>`;
+  }
+
+  function categoryPill(cat) {
+    const map = { meal: ['#FFF3ED','#C84B16'], beverage: ['#EFF6FF','#2563EB'], snack: ['#F5F3FF','#7C3AED'], dessert: ['#FDF2F8','#BE185D'] };
+    const [bg, color] = map[cat] || ['#F1F5F9','#475569'];
+    return `<span style="display:inline-block;padding:3px 10px;border-radius:9999px;font-size:11px;font-weight:700;text-transform:capitalize;background:${bg};color:${color}">${cat}</span>`;
+  }
+
   function renderInventory() {
     const items = CreuStore.getAllInventory();
-    const rows = items.map((item, idx) => `
-      <tr data-idx="${idx}">
-        <td><input type="text" class="inv-name admin-input w-full px-2 py-1.5 text-sm" value="${esc(item.name)}"/></td>
-        <td class="text-sm capitalize">${esc(item.category)}</td>
-        <td class="text-sm">${priceDisplay(item)}</td>
-        <td><input type="number" min="0" class="inv-stock admin-input w-20 px-2 py-1.5 text-sm" value="${item.stock ?? 0}"/></td>
-        <td><label class="flex items-center gap-2 text-sm"><input type="checkbox" class="inv-enabled rounded" ${item.enabled !== false ? 'checked' : ''}/> On menu</label></td>
-        <td>${item.category === 'meal' || item.category === 'beverage'
-          ? `<button type="button" class="edit-price-btn text-[#C84B16] text-xs font-bold" data-idx="${idx}">Edit prices</button>`
-          : `<input type="number" class="inv-price admin-input w-24 px-2 py-1.5 text-sm" value="${item.price}"/>`}
+    const rows = items.map((item, idx) => {
+      const canEditPrice = item.category === 'meal' || item.category === 'beverage';
+      return `
+      <tr class="inv-row" data-idx="${idx}" style="transition:background .15s">
+        <td>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:36px;height:36px;border-radius:10px;background:rgba(200,75,22,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+              <span class="material-symbols-outlined" style="font-size:18px;color:#C84B16;font-variation-settings:'FILL' 1">restaurant</span>
+            </div>
+            <input type="text" class="inv-name" value="${esc(item.name)}" style="border:none;background:transparent;font-size:14px;font-weight:600;color:#1E293B;width:100%;outline:none;font-family:inherit"/>
+          </div>
         </td>
-      </tr>`).join('');
+        <td>${categoryPill(item.category)}</td>
+        <td style="font-size:13px;color:#475569;font-weight:500">${priceDisplay(item)}</td>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px">
+            <input type="number" min="0" class="inv-stock" value="${item.stock ?? 0}" style="width:64px;padding:6px 10px;border:1.5px solid rgba(30,41,59,.15);border-radius:10px;font-size:13px;font-weight:600;text-align:center;background:#faf6f0;color:#1E293B;outline:none;font-family:inherit"/>
+            ${stockBadge(item.stock ?? 0)}
+          </div>
+        </td>
+        <td>
+          <label class="inv-toggle-label" style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <div class="inv-toggle-wrap" style="position:relative;width:40px;height:22px">
+              <input type="checkbox" class="inv-enabled" ${item.enabled !== false ? 'checked' : ''} style="opacity:0;width:0;height:0;position:absolute"/>
+              <span class="inv-toggle-track" style="position:absolute;inset:0;border-radius:9999px;background:${item.enabled !== false ? '#C84B16' : '#CBD5E1'};transition:background .25s"></span>
+              <span class="inv-toggle-thumb" style="position:absolute;top:3px;left:${item.enabled !== false ? '21px' : '3px'};width:16px;height:16px;border-radius:9999px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.2);transition:left .25s"></span>
+            </div>
+            <span style="font-size:12px;font-weight:600;color:${item.enabled !== false ? '#C84B16' : '#94a3b8'};letter-spacing:.04em">${item.enabled !== false ? 'LIVE' : 'OFF'}</span>
+          </label>
+        </td>
+        <td>
+          <div style="display:flex;align-items:center;gap:8px">
+            ${canEditPrice
+              ? `<button type="button" class="edit-price-btn" data-idx="${idx}" style="display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:9999px;border:1.5px solid rgba(200,75,22,.35);color:#C84B16;font-size:12px;font-weight:700;background:rgba(200,75,22,.06);cursor:pointer;transition:all .2s;font-family:inherit">
+                  <span class="material-symbols-outlined" style="font-size:15px">sell</span>Edit Price
+                </button>`
+              : `<input type="number" class="inv-price" value="${item.price}" style="width:80px;padding:6px 10px;border:1.5px solid rgba(30,41,59,.15);border-radius:10px;font-size:13px;background:#faf6f0;color:#1E293B;outline:none;font-family:inherit"/>`}
+          </div>
+        </td>
+      </tr>`;
+    }).join('');
 
     return `
       <div class="admin-view space-y-6">
         ${pageHeader(ROUTES[2])}
-        <div class="flex justify-end">
-          <button type="button" id="save-inventory-btn" class="admin-btn-primary">Save Changes</button>
+
+        <!-- Summary bar -->
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <div style="flex:1;min-width:140px;background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:16px;padding:16px 20px;box-shadow:0 4px 16px rgba(30,41,59,.06)">
+            <p style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:600">Total Items</p>
+            <p style="font-size:26px;font-weight:800;color:#1E293B;margin-top:2px">${items.length}</p>
+          </div>
+          <div style="flex:1;min-width:140px;background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:16px;padding:16px 20px;box-shadow:0 4px 16px rgba(30,41,59,.06)">
+            <p style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:600">On Menu</p>
+            <p style="font-size:26px;font-weight:800;color:#C84B16;margin-top:2px">${items.filter(i => i.enabled !== false).length}</p>
+          </div>
+          <div style="flex:1;min-width:140px;background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:16px;padding:16px 20px;box-shadow:0 4px 16px rgba(30,41,59,.06)">
+            <p style="font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;font-weight:600">Low / Out</p>
+            <p style="font-size:26px;font-weight:800;color:#b91c1c;margin-top:2px">${items.filter(i => (i.stock ?? 0) <= 5).length}</p>
+          </div>
+          <div style="display:flex;align-items:center">
+            <button type="button" id="save-inventory-btn" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:9999px;background:#C84B16;color:#fff;font-weight:700;font-size:14px;border:none;cursor:pointer;box-shadow:0 8px 24px rgba(200,75,22,.3);transition:all .25s;font-family:inherit">
+              <span class="material-symbols-outlined" style="font-size:18px;font-variation-settings:'FILL' 1">save</span>
+              Save Changes
+            </button>
+          </div>
         </div>
-        <div class="admin-panel admin-table-wrap p-4 overflow-x-auto">
-          <table>
-            <thead><tr>
-              <th>Item</th><th>Type</th><th>Price</th><th>Stock</th><th>Menu</th><th>Actions</th>
-            </tr></thead>
-            <tbody id="inventory-table-body">${rows}</tbody>
-          </table>
+
+        <!-- Table -->
+        <div style="background:#fff;border:1px solid rgba(30,41,59,.08);border-radius:20px;box-shadow:0 8px 30px rgba(30,41,59,.06);overflow:hidden">
+          <div style="padding:18px 24px;border-bottom:1px solid rgba(30,41,59,.07);display:flex;align-items:center;gap:10px">
+            <span class="material-symbols-outlined" style="color:#C84B16;font-size:20px;font-variation-settings:'FILL' 1">inventory_2</span>
+            <span style="font-size:15px;font-weight:700;color:#1E293B">Menu Inventory</span>
+            <span style="font-size:12px;color:#94a3b8;margin-left:4px">${items.length} items</span>
+          </div>
+          <div style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse">
+              <thead>
+                <tr style="background:#faf6f0">
+                  <th style="padding:12px 20px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8;white-space:nowrap">Item Name</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Type</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Current Price</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Stock</th>
+                  <th style="padding:12px 16px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Visibility</th>
+                  <th style="padding:12px 20px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#94a3b8">Price Edit</th>
+                </tr>
+              </thead>
+              <tbody id="inventory-table-body">${rows}</tbody>
+            </table>
+          </div>
         </div>
-        <p class="text-sm text-slate-600">Meals include rice: Wild Rice Blend, Fried Rice, Plain Rice.</p>
+
+        <p style="font-size:12px;color:#94a3b8;display:flex;align-items:center;gap:6px">
+          <span class="material-symbols-outlined" style="font-size:15px">info</span>
+          Meals include rice options: Wild Rice Blend, Fried Rice, Plain Rice.
+        </p>
       </div>`;
   }
 
   function bindInventory() {
+    /* Toggle switch live feedback */
+    document.querySelectorAll('#inventory-table-body .inv-toggle-label').forEach((label) => {
+      const checkbox = label.querySelector('.inv-enabled');
+      const track = label.querySelector('.inv-toggle-track');
+      const thumb = label.querySelector('.inv-toggle-thumb');
+      const badge = label.querySelector('span:last-child');
+      checkbox.addEventListener('change', () => {
+        track.style.background = checkbox.checked ? '#C84B16' : '#CBD5E1';
+        thumb.style.left = checkbox.checked ? '21px' : '3px';
+        badge.style.color = checkbox.checked ? '#C84B16' : '#94a3b8';
+        badge.textContent = checkbox.checked ? 'LIVE' : 'OFF';
+      });
+    });
+
+    /* Stock input live badge update */
+    document.querySelectorAll('#inventory-table-body .inv-stock').forEach((input) => {
+      input.addEventListener('input', () => {
+        const wrap = input.closest('div');
+        const badgeEl = wrap.querySelector('span[style*="border-radius:9999px"]');
+        if (!badgeEl) return;
+        const v = parseInt(input.value, 10) || 0;
+        if (v === 0) {
+          badgeEl.style.background = '#fee2e2'; badgeEl.style.color = '#b91c1c';
+          badgeEl.innerHTML = '<span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:\'FILL\' 1">cancel</span>Out';
+        } else if (v <= 5) {
+          badgeEl.style.background = '#fef9c3'; badgeEl.style.color = '#92400e';
+          badgeEl.innerHTML = `<span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:\'FILL\' 1">warning</span>${v} left`;
+        } else {
+          badgeEl.style.background = '#dcfce7'; badgeEl.style.color = '#15803d';
+          badgeEl.innerHTML = `<span class="material-symbols-outlined" style="font-size:13px;font-variation-settings:\'FILL\' 1">check_circle</span>${v}`;
+        }
+      });
+      input.addEventListener('focus', () => { input.style.borderColor = '#C84B16'; input.style.boxShadow = '0 0 0 3px rgba(200,75,22,.12)'; });
+      input.addEventListener('blur',  () => { input.style.borderColor = 'rgba(30,41,59,.15)'; input.style.boxShadow = 'none'; });
+    });
+
+    /* Edit price buttons — open modal instead of prompt */
     document.querySelectorAll('.edit-price-btn').forEach((btn) => {
+      btn.addEventListener('mouseenter', () => { btn.style.background = 'rgba(200,75,22,.12)'; btn.style.borderColor = '#C84B16'; });
+      btn.addEventListener('mouseleave', () => { btn.style.background = 'rgba(200,75,22,.06)'; btn.style.borderColor = 'rgba(200,75,22,.35)'; });
       btn.onclick = () => {
         const all = CreuStore.getAllInventory();
         const item = all[+btn.dataset.idx];
         if (!item) return;
-        if (item.category === 'beverage') {
-          const reg = prompt('Regular price', item.priceRegular);
-          const lg = prompt('Large price', item.priceLarge);
-          if (reg != null) item.priceRegular = +reg;
-          if (lg != null) item.priceLarge = +lg;
-        } else {
-          const p = prompt('Price', item.price);
-          if (p != null) item.price = +p;
-        }
-        CreuStore.saveInventory(all);
-        render();
+        showPriceModal(item, +btn.dataset.idx, (vals) => {
+          Object.assign(item, vals);
+          CreuStore.saveInventory(all);
+          showAdminToast(`Price updated for <strong>${item.name}</strong>`, 'success');
+          render();
+        });
       };
     });
+
+    /* Save button */
     const saveBtn = document.getElementById('save-inventory-btn');
     if (saveBtn) {
+      saveBtn.addEventListener('mouseenter', () => { saveBtn.style.filter = 'brightness(1.08)'; saveBtn.style.transform = 'translateY(-1px)'; });
+      saveBtn.addEventListener('mouseleave', () => { saveBtn.style.filter = ''; saveBtn.style.transform = ''; });
       saveBtn.onclick = () => {
         const all = CreuStore.getAllInventory();
         document.querySelectorAll('#inventory-table-body tr').forEach((row, i) => {
@@ -343,7 +584,7 @@
         });
         CreuStore.saveInventory(all);
         CreuStore.addNotification({ type: 'inventory', title: 'Inventory updated', message: 'Menu and stock saved.', read: false });
-        alert('Inventory saved.');
+        showAdminToast('Inventory saved successfully!', 'success');
         render();
       };
     }

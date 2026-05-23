@@ -182,3 +182,26 @@ body.admin-app-body {
     display: flex !important;
   }
 }
+
+/* ── Inventory Table Row Styles ─────────────────────────────── */
+#inventory-table-body tr.inv-row {
+  border-bottom: 1px solid rgba(30, 41, 59, 0.06);
+}
+
+#inventory-table-body tr.inv-row:hover {
+  background: rgba(200, 75, 22, 0.025);
+}
+
+#inventory-table-body td {
+  padding: 14px 16px;
+  vertical-align: middle;
+}
+
+#inventory-table-body td:first-child {
+  padding-left: 20px;
+  min-width: 200px;
+}
+
+#inventory-table-body td:last-child {
+  padding-right: 20px;
+}
