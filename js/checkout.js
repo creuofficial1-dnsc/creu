@@ -17,12 +17,33 @@ function updateDeliveryUI() {
   }
 
   if (methodLabel) methodLabel.textContent = methodDisplay;
+
+  // Update prices dynamically
+  const cart = CreuStore.getCart();
+  const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+  const deliveryFee = (cart.length > 0 && method === 'delivery') ? 40 : 0;
+  const total = subtotal + deliveryFee;
+
+  const subtotalEl = document.getElementById('checkout-subtotal');
+  const deliveryFeeEl = document.getElementById('checkout-delivery-fee');
+  const totalEl = document.getElementById('checkout-total');
+
+  if (subtotalEl) subtotalEl.textContent = `₱${subtotal.toFixed(2)}`;
+  if (deliveryFeeEl) {
+    if (cart.length === 0) {
+      deliveryFeeEl.textContent = 'FREE';
+    } else {
+      deliveryFeeEl.textContent = deliveryFee === 0 ? 'FREE' : `₱${deliveryFee.toFixed(2)}`;
+    }
+  }
+  if (totalEl) totalEl.textContent = `₱${total.toFixed(2)}`;
 }
 
 function renderCheckout() {
   const container = document.getElementById('checkout-items');
   const subtotalEl = document.getElementById('checkout-subtotal');
   const totalEl = document.getElementById('checkout-total');
+  const deliveryFeeEl = document.getElementById('checkout-delivery-fee');
   if (!container) return;
 
   const cart = CreuStore.getCart();
@@ -44,14 +65,13 @@ function renderCheckout() {
         <a href="our_menu.html" class="text-[#C84B16] font-label-lg text-label-lg underline">Browse the Menu</a>
       </div>`;
     if (subtotalEl) subtotalEl.textContent = '₱0.00';
+    if (deliveryFeeEl) deliveryFeeEl.textContent = 'FREE';
     if (totalEl) totalEl.textContent = '₱0.00';
     return;
   }
 
-  let subtotal = 0;
   container.innerHTML = cart.map((item) => {
     const lineTotal = item.price * item.quantity;
-    subtotal += lineTotal;
     const sub = CreuStore.formatItemDetail(item) || (item.type === 'shots' ? 'Bite-sized crispy shots' : '');
     const img = item.image
       ? `<img alt="${item.name}" class="w-full h-full object-cover" src="${item.image}"/>`
@@ -71,9 +91,6 @@ function renderCheckout() {
         </div>
       </div>`;
   }).join('');
-
-  if (subtotalEl) subtotalEl.textContent = `₱${subtotal.toFixed(2)}`;
-  if (totalEl) totalEl.textContent = `₱${subtotal.toFixed(2)}`;
 }
 
 // Initialize EmailJS public key on script load
@@ -152,6 +169,8 @@ async function completeOrder() {
   }
 
   const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+  const deliveryFee = method === 'pickup' ? 0 : 40;
+  const total = subtotal + deliveryFee;
   const orderId = 'CREU-' + Date.now().toString().slice(-6);
   const orderDate = new Date().toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -209,15 +228,40 @@ async function completeOrder() {
         items_list: itemsListText,
         items_list_html: itemsListHtml,
         subtotal: `₱${subtotal.toFixed(2)}`,
-        total: `₱${subtotal.toFixed(2)}`,
+        delivery_fee: deliveryFee === 0 ? 'FREE' : `₱${deliveryFee.toFixed(2)}`,
+        total: `₱${total.toFixed(2)}`,
         delivery_method: method === 'pickup' ? 'Pick Up' : 'Delivery',
         payment_method: payment.toUpperCase(),
         reply_to: 'creuofficial1@gmail.com'
       };
 
-      await emailjs.send('service_xn47s3k', 'template_v2h7lj9', templateParams);
+      // Admin notification parameters (sent to Creu's own email)
+      const adminParams = {
+        to_name: 'Creu Team',
+        to_email: 'creuofficial1@gmail.com',
+        customer_name: name,
+        customer_email: email,
+        customer_phone: phone,
+        customer_address: address,
+        order_id: orderId,
+        order_date: orderDate,
+        items_list: itemsListText,
+        items_list_html: itemsListHtml,
+        subtotal: `₱${subtotal.toFixed(2)}`,
+        delivery_fee: deliveryFee === 0 ? 'FREE' : `₱${deliveryFee.toFixed(2)}`,
+        total: `₱${total.toFixed(2)}`,
+        delivery_method: method === 'pickup' ? 'Pick Up' : 'Delivery',
+        payment_method: payment.toUpperCase(),
+        reply_to: email  // Reply goes back to the customer
+      };
+
+      // Send both emails concurrently — neither blocks the other
+      await Promise.allSettled([
+        emailjs.send('service_xn47s3k', 'template_v2h7lj9', templateParams),
+        emailjs.send('service_xn47s3k', 'template_wb83y6p', adminParams)
+      ]);
     } catch (error) {
-      console.error('EmailJS receipt send failure:', error);
+      console.error('EmailJS send failure:', error);
       // We log but proceed with order placement so the checkout isn't completely blocked by an email failure
     }
   }
@@ -229,7 +273,8 @@ async function completeOrder() {
     date: orderDate,
     items: cart.map((i) => ({ ...i })),
     subtotal,
-    total: subtotal,
+    deliveryFee,
+    total,
     method,
     payment,
     customerName: name,
