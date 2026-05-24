@@ -1,426 +1,337 @@
 <!doctype html>
 
 <html class="scroll-smooth" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Creu | Cordon Bleu Specials</title>
-    <link rel="icon" type="image/png" href="../assets/logo/crue-logo.png" />
-    <link rel="apple-touch-icon" href="../assets/logo/crue-logo.png" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
 
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              tertiary: "#5b5c59",
-              "on-primary-fixed": "#3a0b00",
-              "on-surface-variant": "#5c4037",
-              "secondary-fixed": "#d5e3fd",
-              "on-background": "#111c2d",
-              "surface-tint": "#ad3300",
-              "outline-variant": "#e6beb2",
-              "on-tertiary-container": "#fdfcf8",
-              "inverse-primary": "#ffb59e",
-              "tertiary-fixed": "#e3e2df",
-              "surface-container-high": "#dee8ff",
-              "on-primary-container": "#fffbff",
-              outline: "#916f65",
-              surface: "#f9f9ff",
-              background: "#f9f9ff",
-              "surface-container": "#e7eeff",
-              "on-secondary": "#ffffff",
-              "on-tertiary-fixed-variant": "#464744",
-              "tertiary-fixed-dim": "#c7c7c3",
-              "on-error-container": "#93000a",
-              "on-tertiary": "#ffffff",
-              "on-primary": "#ffffff",
-              "secondary-container": "#d5e3fd",
-              "surface-dim": "#cfdaf2",
-              secondary: "#515f74",
-              "inverse-surface": "#263143",
-              "secondary-fixed-dim": "#b9c7e0",
-              "on-secondary-container": "#57657b",
-              error: "#ba1a1a",
-              "inverse-on-surface": "#ecf1ff",
-              "surface-bright": "#f9f9ff",
-              "surface-variant": "#d8e3fb",
-              "on-secondary-fixed": "#0d1c2f",
-              "on-primary-fixed-variant": "#842500",
-              "surface-container-lowest": "#ffffff",
-              "on-tertiary-fixed": "#1b1c1a",
-              "on-surface": "#111c2d",
-              "tertiary-container": "#747572",
-              "primary-fixed-dim": "#ffb59e",
-              "primary-fixed": "#ffdbd0",
-              "surface-container-low": "#f0f3ff",
-              "on-secondary-fixed-variant": "#3a485c",
-              "on-error": "#ffffff",
-              "error-container": "#ffdad6",
-              "primary-container": "#d34000",
-              primary: "#a93100",
-              "surface-container-highest": "#d8e3fb",
-            },
-            borderRadius: {
-              DEFAULT: "0.25rem",
-              lg: "0.5rem",
-              xl: "0.75rem",
-              full: "9999px",
-            },
-            spacing: {
-              sm: "16px",
-              md: "24px",
-              xs: "8px",
-              "margin-mobile": "20px",
-              "margin-desktop": "80px",
-              xl: "64px",
-              lg: "40px",
-              gutter: "16px",
-              base: "4px",
-            },
-            fontFamily: {
-              "headline-lg-mobile": ["Noto Serif"],
-              "headline-md": ["Noto Serif"],
-              "headline-lg": ["Noto Serif"],
-              "label-sm": ["Plus Jakarta Sans"],
-              "display-lg": ["Noto Serif"],
-              "body-md": ["Plus Jakarta Sans"],
-              "body-lg": ["Plus Jakarta Sans"],
-              "label-lg": ["Plus Jakarta Sans"],
-            },
-            fontSize: {
-              "headline-lg-mobile": [
-                "28px",
-                { lineHeight: "36px", fontWeight: "600" },
-              ],
-              "headline-md": [
-                "24px",
-                { lineHeight: "32px", fontWeight: "500" },
-              ],
-              "headline-lg": [
-                "32px",
-                { lineHeight: "40px", fontWeight: "600" },
-              ],
-              "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
-              "display-lg": [
-                "48px",
-                {
-                  lineHeight: "56px",
-                  letterSpacing: "-0.02em",
-                  fontWeight: "700",
-                },
-              ],
-              "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
-              "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
-              "label-lg": [
-                "14px",
-                {
-                  lineHeight: "20px",
-                  letterSpacing: "0.05em",
-                  fontWeight: "600",
-                },
-              ],
-            },
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Creu | Cordon Bleu Specials</title>
+  <link rel="icon" type="image/png" href="../assets/logo/crue-logo.png" />
+  <link rel="apple-touch-icon" href="../assets/logo/crue-logo.png" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            tertiary: "#5b5c59",
+            "on-primary-fixed": "#3a0b00",
+            "on-surface-variant": "#5c4037",
+            "secondary-fixed": "#d5e3fd",
+            "on-background": "#111c2d",
+            "surface-tint": "#ad3300",
+            "outline-variant": "#e6beb2",
+            "on-tertiary-container": "#fdfcf8",
+            "inverse-primary": "#ffb59e",
+            "tertiary-fixed": "#e3e2df",
+            "surface-container-high": "#dee8ff",
+            "on-primary-container": "#fffbff",
+            outline: "#916f65",
+            surface: "#f9f9ff",
+            background: "#f9f9ff",
+            "surface-container": "#e7eeff",
+            "on-secondary": "#ffffff",
+            "on-tertiary-fixed-variant": "#464744",
+            "tertiary-fixed-dim": "#c7c7c3",
+            "on-error-container": "#93000a",
+            "on-tertiary": "#ffffff",
+            "on-primary": "#ffffff",
+            "secondary-container": "#d5e3fd",
+            "surface-dim": "#cfdaf2",
+            secondary: "#515f74",
+            "inverse-surface": "#263143",
+            "secondary-fixed-dim": "#b9c7e0",
+            "on-secondary-container": "#57657b",
+            error: "#ba1a1a",
+            "inverse-on-surface": "#ecf1ff",
+            "surface-bright": "#f9f9ff",
+            "surface-variant": "#d8e3fb",
+            "on-secondary-fixed": "#0d1c2f",
+            "on-primary-fixed-variant": "#842500",
+            "surface-container-lowest": "#ffffff",
+            "on-tertiary-fixed": "#1b1c1a",
+            "on-surface": "#111c2d",
+            "tertiary-container": "#747572",
+            "primary-fixed-dim": "#ffb59e",
+            "primary-fixed": "#ffdbd0",
+            "surface-container-low": "#f0f3ff",
+            "on-secondary-fixed-variant": "#3a485c",
+            "on-error": "#ffffff",
+            "error-container": "#ffdad6",
+            "primary-container": "#d34000",
+            primary: "#a93100",
+            "surface-container-highest": "#d8e3fb",
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px",
+          },
+          spacing: {
+            sm: "16px",
+            md: "24px",
+            xs: "8px",
+            "margin-mobile": "20px",
+            "margin-desktop": "80px",
+            xl: "64px",
+            lg: "40px",
+            gutter: "16px",
+            base: "4px",
+          },
+          fontFamily: {
+            "headline-lg-mobile": ["Noto Serif"],
+            "headline-md": ["Noto Serif"],
+            "headline-lg": ["Noto Serif"],
+            "label-sm": ["Plus Jakarta Sans"],
+            "display-lg": ["Noto Serif"],
+            "body-md": ["Plus Jakarta Sans"],
+            "body-lg": ["Plus Jakarta Sans"],
+            "label-lg": ["Plus Jakarta Sans"],
+          },
+          fontSize: {
+            "headline-lg-mobile": [
+              "28px",
+              { lineHeight: "36px", fontWeight: "600" },
+            ],
+            "headline-md": [
+              "24px",
+              { lineHeight: "32px", fontWeight: "500" },
+            ],
+            "headline-lg": [
+              "32px",
+              { lineHeight: "40px", fontWeight: "600" },
+            ],
+            "label-sm": ["12px", { lineHeight: "16px", fontWeight: "500" }],
+            "display-lg": [
+              "48px",
+              {
+                lineHeight: "56px",
+                letterSpacing: "-0.02em",
+                fontWeight: "700",
+              },
+            ],
+            "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+            "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
+            "label-lg": [
+              "14px",
+              {
+                lineHeight: "20px",
+                letterSpacing: "0.05em",
+                fontWeight: "600",
+              },
+            ],
           },
         },
-      };
-    </script>
-    <link rel="stylesheet" href="../css/our_menu.css" />
-    <link rel="stylesheet" href="../css/customer-theme.css" />
-  </head>
-  <body
-    class="font-body-md text-on-surface selection:bg-[#F0E6DF] selection:text-[#C84B16] bg-[#FAF6F0]"
-  >
-    <div id="site-header"></div>
-    <main
-      class="pt-[100px] pb-[100px] lg:pb-xl px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto"
-    >
-      <!-- Hero Section & Title -->
-      <div class="mb-lg">
-        <span
-          class="font-label-lg text-label-lg text-[#C84B16] uppercase tracking-widest mb-xs block"
-          >Exquisite Selections</span
-        >
-        <h2 class="font-display-lg text-display-lg mb-sm text-slate-800">
-          Cordon Bleu Specials
-        </h2>
-        <p class="font-body-lg text-body-lg text-secondary max-w-2xl">
-          Discover our reimagined classics, crafted with artisan precision and
-          the finest seasonal ingredients. A symphony of textures and flavors in
-          every bite.
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="../css/our_menu.css" />
+  <link rel="stylesheet" href="../css/customer-theme.css" />
+</head>
+
+<body class="font-body-md text-on-surface selection:bg-[#F0E6DF] selection:text-[#C84B16] bg-[#FAF6F0]">
+  <div id="site-header"></div>
+  <main class="pt-[100px] pb-[100px] lg:pb-xl px-margin-mobile md:px-margin-desktop max-w-[1440px] mx-auto">
+    <!-- Hero Section & Title -->
+    <div class="mb-lg">
+      <span class="font-label-lg text-label-lg text-[#C84B16] uppercase tracking-widest mb-xs block">Exquisite
+        Selections</span>
+      <h2 class="font-display-lg text-display-lg mb-sm text-slate-800">
+        Cordon Bleu Specials
+      </h2>
+      <p class="font-body-lg text-body-lg text-secondary max-w-2xl">
+        Discover our reimagined classics, crafted with artisan precision and
+        the finest seasonal ingredients. A symphony of textures and flavors in
+        every bite.
+      </p>
+    </div>
+    <!-- Bento-Inspired Shop Grid -->
+    <section class="grid grid-cols-1 md:grid-cols-12 gap-gutter lg:gap-md">
+      <!-- Cordon Bleu Meals Section -->
+      <div class="col-span-12 mt-md mb-sm">
+        <h3 class="font-headline-lg text-headline-lg text-slate-800 border-b border-outline-variant/30 pb-2">
+          Cordon Bleu Meals
+        </h3>
+        <p class="font-body-md text-body-md text-secondary mt-1">
+          Stuffed gourmet mains, cooked to golden crispiness and served with
+          your choice of premium rice.
         </p>
       </div>
-      <!-- Bento-Inspired Shop Grid -->
-      <section class="grid grid-cols-1 md:grid-cols-12 gap-gutter lg:gap-md">
-        <!-- Cordon Bleu Meals Section -->
-        <div class="col-span-12 mt-md mb-sm">
-          <h3
-            class="font-headline-lg text-headline-lg text-slate-800 border-b border-outline-variant/30 pb-2"
-          >
-            Cordon Bleu Meals
-          </h3>
-          <p class="font-body-md text-body-md text-secondary mt-1">
-            Stuffed gourmet mains, cooked to golden crispiness and served with
-            your choice of premium rice.
-          </p>
-        </div>
 
-        <div
-          id="menu-meals-grid"
-          class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-gutter lg:gap-md"
-        ></div>
+      <div id="menu-meals-grid" class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-gutter lg:gap-md"></div>
 
-        <!-- Cordon Bleu Shots Section -->
-        <div class="col-span-12 mt-lg mb-sm">
-          <h3
-            class="font-headline-lg text-headline-lg text-slate-800 border-b border-outline-variant/30 pb-2"
-          >
-            Cordon Bleu Shots
-          </h3>
-          <p class="font-body-md text-body-md text-secondary mt-1">
-            Crispy, bite-sized poppers filled with cheese and savory goodness.
-            Perfect for snacking.
-          </p>
-        </div>
-
-        <div
-          id="menu-shots-grid"
-          class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-gutter lg:gap-md"
-        ></div>
-
-        <div class="col-span-12 mt-lg mb-sm" data-menu-section="beverages">
-          <h3
-            class="font-headline-lg text-headline-lg text-slate-800 border-b border-outline-variant/30 pb-2"
-          >
-            Beverages
-          </h3>
-          <p class="font-body-md text-body-md text-secondary mt-1">
-            Coke, Ice Tea, and Pineapple — regular or large.
-          </p>
-        </div>
-        <div
-          id="menu-beverages-grid"
-          class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-gutter lg:gap-md"
-          data-menu-section="beverages"
-        ></div>
-
-        <!-- Rice Options Showcase -->
-        <div class="col-span-12 mt-lg mb-sm">
-          <h3
-            class="font-headline-lg text-headline-lg text-slate-800 border-b border-outline-variant/30 pb-2"
-          >
-            Signature Rice Options
-          </h3>
-          <p class="font-body-md text-body-md text-secondary mt-1">
-            Included with every Cordon Bleu Meal. Select your favorite to
-            complete your plate.
-          </p>
-        </div>
-
-        <div
-          class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-gutter lg:gap-md mb-lg"
-        >
-          <!-- Wild Rice Blend -->
-          <div class="group creu-card bg-[#F0E6DF] overflow-hidden">
-            <div
-              class="h-[180px] overflow-hidden flex items-center justify-center bg-[#FAF6F0]"
-            >
-              <img
-                alt="Wild Rice Blend"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                src="../assets/pictures/black rice.jfif"
-              />
-            </div>
-            <div class="p-md">
-              <h4
-                class="font-headline-md text-headline-md text-slate-800 mb-xs"
-              >
-                Wild Rice Blend
-              </h4>
-              <p class="font-body-md text-body-md text-slate-600">
-                A nutritious, nutty, and fragrant blend of premium wild black
-                grains.
-              </p>
-            </div>
-          </div>
-
-          <!-- Fried Rice -->
-          <div class="group creu-card bg-[#F0E6DF] overflow-hidden">
-            <div
-              class="h-[180px] overflow-hidden flex items-center justify-center bg-[#FAF6F0]"
-            >
-              <img
-                alt="Fried Rice"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                src="../assets/pictures/fried rice.jfif"
-              />
-            </div>
-            <div class="p-md">
-              <h4
-                class="font-headline-md text-headline-md text-slate-800 mb-xs"
-              >
-                Fried Rice
-              </h4>
-              <p class="font-body-md text-body-md text-slate-600">
-                Savory, wok-tossed jasmine rice with golden garlic aromatics and
-                egg.
-              </p>
-            </div>
-          </div>
-
-          <!-- Plain Rice -->
-          <div class="group creu-card bg-[#F0E6DF] overflow-hidden">
-            <div
-              class="h-[180px] overflow-hidden flex items-center justify-center bg-[#FAF6F0]"
-            >
-              <img
-                alt="Plain Rice"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                src="../assets/pictures/white rice.jfif"
-              />
-            </div>
-            <div class="p-md">
-              <h4
-                class="font-headline-md text-headline-md text-slate-800 mb-xs"
-              >
-                Plain Rice
-              </h4>
-              <p class="font-body-md text-body-md text-slate-600">
-                Perfectly steamed fluffy jasmine white rice, clean and simple.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Newsletter / Footer CTA -->
-      <section
-        class="mt-xl bg-[#1E293B] text-white creu-card p-lg md:p-xl flex flex-col md:flex-row items-center gap-lg"
-      >
-        <div class="md:w-1/2">
-          <h3 class="font-headline-lg text-headline-lg mb-sm">
-            Join the Elite Taste
-          </h3>
-          <p class="font-body-lg text-body-lg opacity-80">
-            Subscribe to our newsletter for seasonal recipes, exclusive offers,
-            and early access to new specials.
-          </p>
-        </div>
-        <div class="md:w-1/2 w-full flex flex-col sm:flex-row gap-xs">
-          <input
-            class="flex-grow bg-white/10 border-none rounded-2xl px-md py-4 text-white placeholder:text-white/50 focus:ring-2 focus:ring-[#C84B16]"
-            placeholder="Your email address"
-            type="email"
-          />
-          <button
-            class="bg-[#C84B16] text-white px-lg py-4 rounded-full font-label-lg text-label-lg uppercase tracking-widest hover:opacity-90 transition-opacity shadow-lg"
-          >
-            Subscribe
-          </button>
-        </div>
-      </section>
-    </main>
-    <div id="site-bottom-nav"></div>
-    <!-- Success Toast (Hidden by default) -->
-    <div
-      class="fixed bottom-margin-mobile left-1/2 -translate-x-1/2 z-[100] translate-y-[200%] transition-transform duration-500"
-      id="toast"
-    >
-      <div
-        class="bg-[#C84B16] text-white px-6 py-4 rounded-full shadow-2xl flex items-center gap-3"
-      >
-        <span class="material-symbols-outlined">check_circle</span>
-        <span class="font-label-lg text-label-lg" id="toast-message"
-          >Item added to cart</span
-        >
+      <!-- Cordon Bleu Shots Section -->
+      <div class="col-span-12 mt-lg mb-sm">
+        <h3 class="font-headline-lg text-headline-lg text-slate-800 border-b border-outline-variant/30 pb-2">
+          Cordon Bleu Shots
+        </h3>
+        <p class="font-body-md text-body-md text-secondary mt-1">
+          Crispy, bite-sized poppers filled with cheese and savory goodness.
+          Perfect for snacking.
+        </p>
       </div>
+
+      <div id="menu-shots-grid" class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-gutter lg:gap-md"></div>
+
+      <div class="col-span-12 mt-lg mb-sm" data-menu-section="beverages">
+        <h3 class="font-headline-lg text-headline-lg text-slate-800 border-b border-outline-variant/30 pb-2">
+          Beverages
+        </h3>
+        <p class="font-body-md text-body-md text-secondary mt-1">
+          Coke, Ice Tea, and Pineapple — regular or large.
+        </p>
+      </div>
+      <div id="menu-beverages-grid" class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-gutter lg:gap-md"
+        data-menu-section="beverages"></div>
+
+      <!-- Rice Options Showcase -->
+      <div class="col-span-12 mt-lg mb-sm">
+        <h3 class="font-headline-lg text-headline-lg text-slate-800 border-b border-outline-variant/30 pb-2">
+          Signature Rice Options
+        </h3>
+        <p class="font-body-md text-body-md text-secondary mt-1">
+          Included with every Cordon Bleu Meal. Select your favorite to
+          complete your plate.
+        </p>
+      </div>
+
+      <div class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-gutter lg:gap-md mb-lg">
+        <!-- Wild Rice Blend -->
+        <div class="group creu-card bg-[#F0E6DF] overflow-hidden">
+          <div class="h-[180px] overflow-hidden flex items-center justify-center bg-[#FAF6F0]">
+            <img alt="Wild Rice Blend"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              src="../assets/pictures/black rice.jfif" />
+          </div>
+          <div class="p-md">
+            <h4 class="font-headline-md text-headline-md text-slate-800 mb-xs">
+              Wild Rice Blend
+            </h4>
+            <p class="font-body-md text-body-md text-slate-600">
+              A nutritious, nutty, and fragrant blend of premium wild black
+              grains.
+            </p>
+          </div>
+        </div>
+
+        <!-- Fried Rice -->
+        <div class="group creu-card bg-[#F0E6DF] overflow-hidden">
+          <div class="h-[180px] overflow-hidden flex items-center justify-center bg-[#FAF6F0]">
+            <img alt="Fried Rice"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              src="../assets/pictures/fried rice.jfif" />
+          </div>
+          <div class="p-md">
+            <h4 class="font-headline-md text-headline-md text-slate-800 mb-xs">
+              Fried Rice
+            </h4>
+            <p class="font-body-md text-body-md text-slate-600">
+              Savory, wok-tossed jasmine rice with golden garlic aromatics and
+              egg.
+            </p>
+          </div>
+        </div>
+
+        <!-- Plain Rice -->
+        <div class="group creu-card bg-[#F0E6DF] overflow-hidden">
+          <div class="h-[180px] overflow-hidden flex items-center justify-center bg-[#FAF6F0]">
+            <img alt="Plain Rice"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              src="../assets/pictures/white rice.jfif" />
+          </div>
+          <div class="p-md">
+            <h4 class="font-headline-md text-headline-md text-slate-800 mb-xs">
+              Plain Rice
+            </h4>
+            <p class="font-body-md text-body-md text-slate-600">
+              Perfectly steamed fluffy jasmine white rice, clean and simple.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Newsletter / Footer CTA -->
+    <section class="mt-xl bg-[#1E293B] text-white creu-card p-lg md:p-xl flex flex-col md:flex-row items-center gap-lg">
+      <div class="md:w-1/2">
+        <h3 class="font-headline-lg text-headline-lg mb-sm">
+          Join the Elite Taste
+        </h3>
+        <p class="font-body-lg text-body-lg opacity-80">
+          Subscribe to our newsletter for seasonal recipes, exclusive offers,
+          and early access to new specials.
+        </p>
+      </div>
+      <div class="md:w-1/2 w-full flex flex-col sm:flex-row gap-xs">
+        <input
+          class="flex-grow bg-white/10 border-none rounded-2xl px-md py-4 text-white placeholder:text-white/50 focus:ring-2 focus:ring-[#C84B16]"
+          placeholder="Your email address" type="email" />
+        <button
+          class="bg-[#C84B16] text-white px-lg py-4 rounded-full font-label-lg text-label-lg uppercase tracking-widest hover:opacity-90 transition-opacity shadow-lg">
+          Subscribe
+        </button>
+      </div>
+    </section>
+  </main>
+  <div id="site-bottom-nav"></div>
+  <!-- Success Toast (Hidden by default) -->
+  <div
+    class="fixed bottom-margin-mobile left-1/2 -translate-x-1/2 z-[100] translate-y-[200%] transition-transform duration-500"
+    id="toast">
+    <div class="bg-[#C84B16] text-white px-6 py-4 rounded-full shadow-2xl flex items-center gap-3">
+      <span class="material-symbols-outlined">check_circle</span>
+      <span class="font-label-lg text-label-lg" id="toast-message">Item added to cart</span>
     </div>
+  </div>
 
-    <!-- Simple Footer for Focused Experience -->
-    <footer
-      class="mt-xl py-lg px-margin-desktop border-t border-outline-variant/10 text-center"
-    >
-      <div
-        class="flex flex-col sm:flex-row justify-center items-center gap-lg mb-sm"
-      >
-        <a
-          class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest hover:text-primary transition-colors"
-          href="#"
-          >Privacy Policy</a
-        >
-        <a
-          class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest hover:text-primary transition-colors"
-          href="#"
-          >Refund Policy</a
-        >
-        <a
-          class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest hover:text-primary transition-colors"
-          href="#"
-          >Contact Support</a
-        >
-      </div>
-      <div class="flex justify-center items-center gap-6 mb-sm">
-        <a
-          class="text-on-surface-variant hover:text-primary transition-colors"
-          href="https://www.tiktok.com/@creu.delights?_r=1&_t=ZS-96XawYm9cxs&fbclid=IwY2xjawR76adleHRuA2FlbQIxMABicmlkETFmdkZqUHYyR1JhTlpwTXFXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvhF-DrJRtMeWW-HvXK1TPBgigUgu4lx0wvMGG1030SlHd3JMzfSlAkWorSS_aem_venBhLWCOet_1GFpzjjUyw"
-          target="_blank"
-          rel="noreferrer noopener"
-          aria-label="TikTok"
-        >
-          <span class="material-symbols-outlined">music_note</span>
-        </a>
-        <a
-          class="text-on-surface-variant hover:text-primary transition-colors"
-          href="https://www.instagram.com/creu.delight?igsh=cGZtdGc3N2J6ZGNy&fbclid=IwY2xjawR76cNleHRuA2FlbQIxMABicmlkETFmdkZqUHYyR1JhTlpwTXFXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvREVYx60WX92MsifZpr2ArS_QBGCtFzpbgE2X7QH2wKuRELmEpgWC3tJHhi_aem_8Xt0KzUMZLg0aCmWueOtdQ"
-          target="_blank"
-          rel="noreferrer noopener"
-          aria-label="Instagram"
-        >
-          <span class="material-symbols-outlined">camera_alt</span>
-        </a>
-        <a
-          class="text-on-surface-variant hover:text-primary transition-colors"
-          href="https://web.facebook.com/profile.php?id=61590423742763&rdid=FDCpvLIqFvdaWOu0&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F18ke5a87s8%2F%3F_rdc%3D1%26_rdr#"
-          target="_blank"
-          rel="noreferrer noopener"
-          aria-label="Facebook"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-            />
-          </svg>
-        </a>
-      </div>
-      <p class="font-body-md text-xs text-on-surface-variant/60">
-        © Creu. All rights reserved.
-      </p>
-    </footer>
+  <!-- Simple Footer for Focused Experience -->
+  <footer class="mt-xl pt-lg pb-[100px] lg:pb-lg px-margin-mobile md:px-margin-desktop border-t border-outline-variant/10 text-center">
+    <div class="flex flex-col sm:flex-row justify-center items-center gap-lg mb-sm">
+      <a class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest hover:text-primary transition-colors"
+        href="#">Privacy Policy</a>
+      <a class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest hover:text-primary transition-colors"
+        href="#">Refund Policy</a>
+      <a class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest hover:text-primary transition-colors"
+        href="#">Contact Support</a>
+    </div>
+    <div class="flex justify-center items-center gap-6 mb-sm">
+      <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center w-6 h-6"
+        href="https://www.tiktok.com/@creu.delights?_r=1&_t=ZS-96XawYm9cxs&fbclid=IwY2xjawR76adleHRuA2FlbQIxMABicmlkETFmdkZqUHYyR1JhTlpwTXFXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvhF-DrJRtMeWW-HvXK1TPBgigUgu4lx0wvMGG1030SlHd3JMzfSlAkWorSS_aem_venBhLWCOet_1GFpzjjUyw"
+        target="_blank" rel="noreferrer noopener" aria-label="TikTok">
+        <span class="w-6 h-6 bg-current block" style="mask: url('../assets/icons/tiktok.svg') no-repeat center / contain; -webkit-mask: url('../assets/icons/tiktok.svg') no-repeat center / contain;"></span>
+      </a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center w-6 h-6"
+        href="https://www.instagram.com/creu.delight?igsh=cGZtdGc3N2J6ZGNy&fbclid=IwY2xjawR76cNleHRuA2FlbQIxMABicmlkETFmdkZqUHYyR1JhTlpwTXFXc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHvREVYx60WX92MsifZpr2ArS_QBGCtFzpbgE2X7QH2wKuRELmEpgWC3tJHhi_aem_8Xt0KzUMZLg0aCmWueOtdQ"
+        target="_blank" rel="noreferrer noopener" aria-label="Instagram">
+        <span class="w-6 h-6 bg-current block" style="mask: url('../assets/icons/instagram.svg') no-repeat center / contain; -webkit-mask: url('../assets/icons/instagram.svg') no-repeat center / contain;"></span>
+      </a>
+      <a class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center w-[20px] h-[20px]"
+        href="https://web.facebook.com/profile.php?id=61590423742763&rdid=FDCpvLIqFvdaWOu0&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F18ke5a87s8%2F%3F_rdc%3D1%26_rdr#"
+        target="_blank" rel="noreferrer noopener" aria-label="Facebook">
+        <span class="w-[20px] h-[20px] bg-current block" style="mask: url('../assets/icons/facebook.svg') no-repeat center / contain; -webkit-mask: url('../assets/icons/facebook.svg') no-repeat center / contain;"></span>
+      </a>
+    </div>
+    <p class="font-body-md text-xs text-on-surface-variant/60">
+      © Creu. All rights reserved.
+    </p>
+  </footer>
 
-    <div id="site-bottom-nav"></div>
+  <div id="site-bottom-nav"></div>
 
-    <script src="../js/store.js"></script>
-    <script src="../js/layout.js?v=1.0.2"></script>
-    <script src="../js/our_menu.js"></script>
-  </body>
+  <script src="../js/store.js"></script>
+  <script src="../js/layout.js?v=1.0.2"></script>
+  <script src="../js/our_menu.js"></script>
+</body>
+
 </html>
