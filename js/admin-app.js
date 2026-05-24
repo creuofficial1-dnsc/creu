@@ -160,7 +160,12 @@ function showPriceModal(item, idx, onSave) {
       <div class="max-w-md mx-auto p-8 bg-white rounded-xl shadow-lg text-center">
         <h2 class="text-2xl font-bold mb-4">Admin Login</h2>
         <p class="text-sm text-slate-600 mb-4">Enter your admin password to access the dashboard.</p>
-        <input id="admin-pass" type="password" placeholder="Password" class="w-full px-3 py-2 border rounded mb-4" />
+        <div class="relative mb-4">
+          <input id="admin-pass" type="password" placeholder="Password" class="w-full pl-3 pr-10 py-2 border rounded focus:outline-none focus:ring-1 focus:ring-[#C84B16]" />
+          <button type="button" id="admin-pass-toggle" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors flex items-center justify-center focus:outline-none">
+            <span class="material-symbols-outlined select-none text-[20px]">visibility</span>
+          </button>
+        </div>
         <div class="flex gap-3 justify-center">
           <button id="admin-login-btn" class="px-4 py-2 bg-[#C84B16] text-white rounded">Login</button>
         </div>
@@ -176,6 +181,19 @@ function showPriceModal(item, idx, onSave) {
           render();
         } else {
           alert('Incorrect password');
+        }
+      };
+    }
+    const toggleBtn = document.getElementById('admin-pass-toggle');
+    if (toggleBtn) {
+      toggleBtn.onclick = (e) => {
+        e.preventDefault();
+        const input = document.getElementById('admin-pass');
+        const icon = toggleBtn.querySelector('.material-symbols-outlined');
+        if (input && icon) {
+          const isPassword = input.type === 'password';
+          input.type = isPassword ? 'text' : 'password';
+          icon.textContent = isPassword ? 'visibility_off' : 'visibility';
         }
       };
     }

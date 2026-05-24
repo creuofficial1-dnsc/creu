@@ -123,8 +123,13 @@
           </div>
           <div>
             <label class="font-label-sm text-label-sm text-secondary uppercase">Password</label>
-            <input id="login-password" type="password" required
-              class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2" />
+            <div class="relative mt-1">
+              <input id="login-password" type="password" required
+                class="w-full rounded-lg border border-slate-300 bg-[#FAF6F0] pl-3 pr-10 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" />
+              <button type="button" class="password-toggle-btn absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors flex items-center justify-center focus:outline-none">
+                <span class="material-symbols-outlined select-none text-[20px]">visibility</span>
+              </button>
+            </div>
           </div>
           <button type="submit"
             class="w-full py-3 rounded-full bg-primary text-white font-label-lg uppercase tracking-widest">
@@ -147,13 +152,23 @@
           </div>
           <div>
             <label class="font-label-sm text-label-sm text-secondary uppercase">Password</label>
-            <input id="signup-password" type="password" required minlength="4"
-              class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2" />
+            <div class="relative mt-1">
+              <input id="signup-password" type="password" required minlength="4"
+                class="w-full rounded-lg border border-slate-300 bg-[#FAF6F0] pl-3 pr-10 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" />
+              <button type="button" class="password-toggle-btn absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors flex items-center justify-center focus:outline-none">
+                <span class="material-symbols-outlined select-none text-[20px]">visibility</span>
+              </button>
+            </div>
           </div>
           <div>
             <label class="font-label-sm text-label-sm text-secondary uppercase">Confirm Password</label>
-            <input id="signup-confirm" type="password" required
-              class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2" />
+            <div class="relative mt-1">
+              <input id="signup-confirm" type="password" required
+                class="w-full rounded-lg border border-slate-300 bg-[#FAF6F0] pl-3 pr-10 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" />
+              <button type="button" class="password-toggle-btn absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors flex items-center justify-center focus:outline-none">
+                <span class="material-symbols-outlined select-none text-[20px]">visibility</span>
+              </button>
+            </div>
           </div>
           <button type="submit"
             class="w-full py-3 rounded-full bg-primary text-white font-label-lg uppercase tracking-widest">
@@ -208,13 +223,23 @@
           <form id="password-form" class="space-y-md">
             <div>
               <label class="font-label-sm text-label-sm text-secondary uppercase">Current Password</label>
-              <input id="current-password" type="password" required
-                class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2" />
+              <div class="relative mt-1">
+                <input id="current-password" type="password" required
+                  class="w-full rounded-lg border border-slate-300 bg-[#FAF6F0] pl-3 pr-10 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" />
+                <button type="button" class="password-toggle-btn absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors flex items-center justify-center focus:outline-none">
+                  <span class="material-symbols-outlined select-none text-[20px]">visibility</span>
+                </button>
+              </div>
             </div>
             <div>
               <label class="font-label-sm text-label-sm text-secondary uppercase">New Password</label>
-              <input id="new-password" type="password" required minlength="4"
-                class="mt-1 w-full rounded-lg border border-slate-300 bg-[#FAF6F0] px-3 py-2" />
+              <div class="relative mt-1">
+                <input id="new-password" type="password" required minlength="4"
+                  class="w-full rounded-lg border border-slate-300 bg-[#FAF6F0] pl-3 pr-10 py-2 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" />
+                <button type="button" class="password-toggle-btn absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors flex items-center justify-center focus:outline-none">
+                  <span class="material-symbols-outlined select-none text-[20px]">visibility</span>
+                </button>
+              </div>
             </div>
             <button type="submit" class="py-2 px-6 rounded-full border border-primary text-primary font-label-lg">
               Update Password

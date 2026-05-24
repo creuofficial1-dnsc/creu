@@ -173,7 +173,24 @@ document.getElementById('password-form')?.addEventListener('submit', (e) => {
   document.getElementById('password-form').reset();
 });
 
+function initPasswordToggles() {
+  document.querySelectorAll('.password-toggle-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const input = btn.previousElementSibling;
+      if (!input) return;
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (icon) {
+        icon.textContent = isPassword ? 'visibility_off' : 'visibility';
+      }
+    });
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   switchAuthTab('login');
   renderAccount();
+  initPasswordToggles();
 });

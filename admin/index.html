@@ -103,14 +103,19 @@
           <label class="block text-sm font-medium text-slate-700" for="password"
             >Password</label
           >
-          <input
-            id="password"
-            name="password"
-            type="password"
-            autocomplete="current-password"
-            required
-            class="mt-2 w-full rounded-2xl border border-slate-300 bg-[#FAF6F0] px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
-          />
+          <div class="relative mt-2">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              autocomplete="current-password"
+              required
+              class="w-full rounded-2xl border border-slate-300 bg-[#FAF6F0] pl-4 pr-12 py-3 text-sm text-slate-900 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/10"
+            />
+            <button type="button" id="password-toggle" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary transition-colors flex items-center justify-center focus:outline-none">
+              <span class="material-symbols-outlined select-none text-[20px]">visibility</span>
+            </button>
+          </div>
         </div>
         <div
           id="errorMessage"
@@ -146,6 +151,17 @@
 
         errorMessage.textContent =
           "Invalid username or password. Use admin / admin.";
+      });
+
+      // Password toggle logic
+      document.getElementById("password-toggle")?.addEventListener("click", function() {
+        const passwordInput = document.getElementById("password");
+        const icon = this.querySelector(".material-symbols-outlined");
+        if (passwordInput && icon) {
+          const isPassword = passwordInput.type === "password";
+          passwordInput.type = isPassword ? "text" : "password";
+          icon.textContent = isPassword ? "visibility_off" : "visibility";
+        }
       });
     </script>
   </body>
