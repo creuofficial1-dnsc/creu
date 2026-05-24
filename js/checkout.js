@@ -76,6 +76,11 @@ function renderCheckout() {
   if (totalEl) totalEl.textContent = `₱${subtotal.toFixed(2)}`;
 }
 
+// Initialize EmailJS public key on script load
+if (typeof emailjs !== 'undefined') {
+  emailjs.init("jhrXmcPpA4t_z-aOg");
+}
+
 async function completeOrder() {
   const cart = CreuStore.getCart();
   if (cart.length === 0) {
@@ -87,13 +92,51 @@ async function completeOrder() {
     return;
   }
 
+  const name = document.getElementById('checkout-name')?.value?.trim();
+  const email = document.getElementById('checkout-email')?.value?.trim();
+  const phone = document.getElementById('checkout-phone')?.value?.trim();
   const method = document.querySelector('input[name="delivery_method"]:checked')?.value || 'delivery';
   const payment = document.querySelector('input[name="payment_method"]:checked')?.value || 'gcash';
-  const name = document.getElementById('checkout-name')?.value?.trim() || 'Guest';
-  const phone = document.getElementById('checkout-phone')?.value?.trim() || '';
-  const user = CreuStore.getCurrentUser();
   const branch = document.getElementById('checkout-branch')?.value || 'Creu Central Branch';
   let address = document.getElementById('checkout-address')?.value?.trim() || '';
+
+  // Input Validation
+  if (!name) {
+    await window.CreuModal?.showAlert({
+      title: 'Name required',
+      message: 'Please enter your full name before completing your order.',
+      confirmText: 'OK'
+    });
+    return;
+  }
+
+  if (!email) {
+    await window.CreuModal?.showAlert({
+      title: 'Email required',
+      message: 'Please enter your email address to receive your order receipt.',
+      confirmText: 'OK'
+    });
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    await window.CreuModal?.showAlert({
+      title: 'Invalid Email',
+      message: 'Please enter a valid email address.',
+      confirmText: 'OK'
+    });
+    return;
+  }
+
+  if (!phone) {
+    await window.CreuModal?.showAlert({
+      title: 'Phone required',
+      message: 'Please enter your phone number so we can contact you regarding your order.',
+      confirmText: 'OK'
+    });
+    return;
+  }
 
   if (method === 'delivery' && !address) {
     await window.CreuModal?.showAlert({
@@ -109,11 +152,81 @@ async function completeOrder() {
   }
 
   const subtotal = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+  const orderId = 'CREU-' + Date.now().toString().slice(-6);
+  const orderDate = new Date().toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' });
 
+  // Visual feedback: Disable button and show processing spinner
+  const orderBtn = document.getElementById('complete-order-btn');
+  const originalBtnContent = orderBtn ? orderBtn.innerHTML : 'Complete Order';
+  if (orderBtn) {
+    orderBtn.disabled = true;
+    orderBtn.innerHTML = `
+      <span class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin inline-block mr-2"></span>
+      Processing Order...
+    `;
+  }
+
+  // Send email receipt via EmailJS
+  if (typeof emailjs !== 'undefined') {
+    try {
+      // Build a beautifully formatted plain text items list
+      const itemsListText = cart.map(item => {
+        const detail = CreuStore.formatItemDetail(item) || '';
+        const detailStr = detail ? ` (${detail})` : '';
+        return `• ${item.name}${detailStr} (x${item.quantity}) - ₱${(item.price * item.quantity).toFixed(2)}`;
+      }).join('\n');
+
+      // Build a premium HTML table format for rich templates
+      const itemsListHtml = cart.map(item => {
+        const detail = CreuStore.formatItemDetail(item) || '';
+        const detailStr = detail ? `<div style="font-size: 12px; color: #7f8c8d; margin-top: 2px;">${detail}</div>` : '';
+        return `
+          <tr>
+            <td class="item-name" style="padding: 12px; border-bottom: 1px solid #f1f2f6; text-align: left; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; color: #2c3e50;">
+              <span style="font-weight: 600; text-transform: uppercase;">${item.name}</span>
+              ${detailStr}
+            </td>
+            <td class="item-qty" style="padding: 12px 8px; border-bottom: 1px solid #f1f2f6; text-align: center; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; color: #2c3e50;">${item.quantity}</td>
+            <td class="item-price" style="padding: 12px; border-bottom: 1px solid #f1f2f6; text-align: right; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; font-weight: 700; color: #C84B16;">₱${(item.price * item.quantity).toFixed(2)}</td>
+          </tr>
+        `;
+      }).join('');
+
+      const templateParams = {
+        // Standard parameters
+        to_name: name,
+        to_email: email,
+        
+        // Custom customer parameters
+        customer_name: name,
+        customer_email: email,
+        customer_phone: phone,
+        customer_address: address,
+
+        // Order parameters
+        order_id: orderId,
+        order_date: orderDate,
+        items_list: itemsListText,
+        items_list_html: itemsListHtml,
+        subtotal: `₱${subtotal.toFixed(2)}`,
+        total: `₱${subtotal.toFixed(2)}`,
+        delivery_method: method === 'pickup' ? 'Pick Up' : 'Delivery',
+        payment_method: payment.toUpperCase(),
+        reply_to: 'creuofficial1@gmail.com'
+      };
+
+      await emailjs.send('service_xn47s3k', 'template_v2h7lj9', templateParams);
+    } catch (error) {
+      console.error('EmailJS receipt send failure:', error);
+      // We log but proceed with order placement so the checkout isn't completely blocked by an email failure
+    }
+  }
+
+  const user = CreuStore.getCurrentUser();
   const order = {
-    id: 'CREU-' + Date.now().toString().slice(-6),
+    id: orderId,
     createdAt: new Date().toISOString(),
-    date: new Date().toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' }),
+    date: orderDate,
     items: cart.map((i) => ({ ...i })),
     subtotal,
     total: subtotal,
@@ -123,7 +236,7 @@ async function completeOrder() {
     customerPhone: phone,
     customerAddress: address,
     userId: user?.id || null,
-    customerEmail: user?.email || document.getElementById('checkout-email')?.value?.trim() || null,
+    customerEmail: email,
     status: 'Confirmed',
   };
 
@@ -133,7 +246,14 @@ async function completeOrder() {
 
   CreuStore.addOrder(order);
   localStorage.removeItem('creu_cart');
+  clearCheckoutInfo();
   if (window.renderLayout) window.renderLayout();
+
+  // Reset button state
+  if (orderBtn) {
+    orderBtn.disabled = false;
+    orderBtn.innerHTML = originalBtnContent;
+  }
 
   const modal = document.getElementById('order-success-modal');
   const orderIdEl = document.getElementById('success-order-id');
@@ -144,9 +264,75 @@ async function completeOrder() {
   }
 }
 
+// ── Customer Information Persistence (localStorage) ──────────────────────
+const CHECKOUT_STORAGE_KEY = 'creu_checkout_info';
+
+function saveCheckoutInfo() {
+  const data = {
+    name: document.getElementById('checkout-name')?.value || '',
+    email: document.getElementById('checkout-email')?.value || '',
+    address: document.getElementById('checkout-address')?.value || '',
+    phone: document.getElementById('checkout-phone')?.value || '',
+    branch: document.getElementById('checkout-branch')?.value || '',
+    delivery_method: document.querySelector('input[name="delivery_method"]:checked')?.value || 'delivery',
+    payment_method: document.querySelector('input[name="payment_method"]:checked')?.value || 'gcash',
+  };
+  try { localStorage.setItem(CHECKOUT_STORAGE_KEY, JSON.stringify(data)); } catch (e) { /* quota full – ignore */ }
+}
+
+function restoreCheckoutInfo() {
+  try {
+    const raw = localStorage.getItem(CHECKOUT_STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+
+    // Only restore text fields if a logged-in user hasn't already filled them
+    const user = CreuStore.getCurrentUser();
+    const nameEl = document.getElementById('checkout-name');
+    const emailEl = document.getElementById('checkout-email');
+    if (nameEl && !nameEl.value && !user) nameEl.value = data.name || '';
+    if (emailEl && !emailEl.value && !user) emailEl.value = data.email || '';
+
+    const addrEl = document.getElementById('checkout-address');
+    const phoneEl = document.getElementById('checkout-phone');
+    const branchEl = document.getElementById('checkout-branch');
+    if (addrEl && !addrEl.value) addrEl.value = data.address || '';
+    if (phoneEl && !phoneEl.value) phoneEl.value = data.phone || '';
+    if (branchEl && data.branch) branchEl.value = data.branch;
+
+    // Restore radio selections
+    if (data.delivery_method) {
+      const radio = document.querySelector(`input[name="delivery_method"][value="${data.delivery_method}"]`);
+      if (radio) { radio.checked = true; updateDeliveryUI(); }
+    }
+    if (data.payment_method) {
+      const radio = document.querySelector(`input[name="payment_method"][value="${data.payment_method}"]`);
+      if (radio) radio.checked = true;
+    }
+  } catch (e) { /* corrupted data – ignore */ }
+}
+
+function clearCheckoutInfo() {
+  try { localStorage.removeItem(CHECKOUT_STORAGE_KEY); } catch (e) { /* ignore */ }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   renderCheckout();
+  restoreCheckoutInfo();
+
   document.querySelectorAll('input[name="delivery_method"]').forEach((input) => {
-    input.addEventListener('change', updateDeliveryUI);
+    input.addEventListener('change', () => { updateDeliveryUI(); saveCheckoutInfo(); });
+  });
+
+  // Auto-save on every input change
+  ['checkout-name', 'checkout-email', 'checkout-address', 'checkout-phone'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', saveCheckoutInfo);
+  });
+  const branchEl = document.getElementById('checkout-branch');
+  if (branchEl) branchEl.addEventListener('change', saveCheckoutInfo);
+
+  document.querySelectorAll('input[name="payment_method"]').forEach(input => {
+    input.addEventListener('change', saveCheckoutInfo);
   });
 });
