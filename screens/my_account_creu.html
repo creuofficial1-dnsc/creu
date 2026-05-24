@@ -408,14 +408,27 @@
 
     <!-- Footer -->
     <footer
-      class="bg-surface py-lg px-margin-mobile md:px-margin-desktop mt-xl"
+      class="bg-surface pt-lg pb-[100px] lg:pb-lg px-margin-mobile md:px-margin-desktop mt-xl"
     >
       <div
         class="max-w-[1280px] mx-auto flex flex-col md:flex-row justify-between items-center gap-md"
       >
-        <p class="font-body-md text-sm text-secondary">
-          © Creu. All rights reserved.
-        </p>
+        <div class="flex flex-col md:flex-row items-center gap-sm md:gap-lg">
+          <p class="font-body-md text-sm text-secondary">
+            © Creu. All rights reserved.
+          </p>
+          <span class="hidden md:inline text-secondary/20">|</span>
+          <div class="flex flex-col sm:flex-row gap-xs sm:gap-md text-xs text-secondary">
+            <a href="tel:+639912266483" class="flex items-center gap-1.5 hover:text-primary transition-colors">
+              <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">phone_in_talk</span>
+              +63 991 226 6483
+            </a>
+            <a href="mailto:creuofficial1@gmail.com" class="flex items-center gap-1.5 hover:text-primary transition-colors">
+              <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">mail</span>
+              creuofficial1@gmail.com
+            </a>
+          </div>
+        </div>
         <nav class="flex gap-4">
           <a
             href="our_menu.html"
