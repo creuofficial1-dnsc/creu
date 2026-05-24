@@ -15,7 +15,11 @@
     empty?.classList.add('hidden');
 
     tbody.innerHTML = orders.map((o) => {
-      const items = o.items.map((i) => `${i.name} ×${i.quantity}`).join('<br>');
+      const items = o.items.map((i) => {
+        const details = CreuStore.formatItemDetail(i);
+        const detailsStr = details ? ` (${details})` : '';
+        return `${i.name}${detailsStr} ×${i.quantity}`;
+      }).join('<br>');
       const opts = STATUSES.map((st) => `<option value="${st}" ${st === o.status ? 'selected' : ''}>${st}</option>`).join('');
       return `<tr class="border-t border-slate-300/20">
         <td class="py-4 font-body-md">#${o.id}</td>

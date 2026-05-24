@@ -12,7 +12,7 @@
     adminSession: 'creuAdminLoggedIn',
   };
 
-  const RICE_OPTIONS = ['Wild Rice Blend', 'Fried Rice', 'Plain Rice'];
+  const RICE_OPTIONS = ['Plain Rice', 'Yellow Rice', 'Wild Rice Blend'];
 
   const DEFAULT_INVENTORY = [
     { id: 'chicken-meal', name: 'Chicken Cordon Bleu Meal', category: 'meal', tag: 'poultry', price: 139, stock: 50, enabled: true, image: '../assets/pictures/chicken.png', hasRiceOption: true, description: 'Succulent chicken breast hand-rolled with premium ham and Gruyère, fried to golden crispiness. Served with rice.' },
@@ -263,7 +263,13 @@
 
   function formatItemDetail(item) {
     const parts = [];
-    if (item.rice) parts.push('Rice: ' + item.rice);
+    if (item.rice) {
+      let suffix = '';
+      if (item.rice === 'Yellow Rice') suffix = ' (+₱30.00)';
+      else if (item.rice === 'Wild Rice Blend') suffix = ' (+₱35.00)';
+      else if (item.rice === 'Plain Rice') suffix = ' (Free)';
+      parts.push('Rice: ' + item.rice + suffix);
+    }
     if (item.size) parts.push(item.size.charAt(0).toUpperCase() + item.size.slice(1));
     return parts.length ? parts.join(' · ') : '';
   }

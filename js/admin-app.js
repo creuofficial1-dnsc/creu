@@ -358,7 +358,8 @@ function showPriceModal(item, idx, onSave) {
     const rows = orders.length
       ? orders.map((o) => {
           const items = o.items.map((i) => {
-            const detailStr = i.rice || i.size ? ` <span style="font-size:11px;color:#64748b;font-weight:normal">(${[i.rice, i.size].filter(Boolean).join(', ')})</span>` : '';
+            const details = CreuStore.formatItemDetail(i);
+            const detailStr = details ? ` <span style="font-size:11px;color:#64748b;font-weight:normal">(${esc(details)})</span>` : '';
             return `<div style="font-size:13px;font-weight:600;color:#1E293B;margin-bottom:2px">${esc(i.name)} <span style="color:#C84B16;font-weight:700">×${i.quantity}</span>${detailStr}</div>`;
           }).join('');
 
@@ -571,7 +572,7 @@ function showPriceModal(item, idx, onSave) {
 
         <p style="font-size:12px;color:#94a3b8;display:flex;align-items:center;gap:6px">
           <span class="material-symbols-outlined" style="font-size:15px">info</span>
-          Meals include rice options: Wild Rice Blend, Fried Rice, Plain Rice.
+          Meals include rice options: Plain Rice, Yellow Rice, Wild Rice Blend.
         </p>
       </div>`;
   }

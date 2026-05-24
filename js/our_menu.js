@@ -115,8 +115,14 @@ function addMealToCart(productId, buttonElement) {
   const product = CreuStore.getProductById(productId);
   if (!product || product.stock <= 0) return;
   const card = buttonElement.closest('.menu-item');
-  const rice = card?.querySelector('.rice-selector')?.value || RICE_OPTIONS[2];
-  addLineItem(product, { rice, price: product.price });
+  const rice = card?.querySelector('.rice-selector')?.value || RICE_OPTIONS[0];
+  
+  let addonPrice = 0;
+  if (rice === 'Yellow Rice') addonPrice = 30;
+  else if (rice === 'Wild Rice Blend') addonPrice = 35;
+  const price = product.price + addonPrice;
+
+  addLineItem(product, { rice, price });
   showToast(`${product.name} (${rice}) added!`);
   flashButton(buttonElement);
 }
